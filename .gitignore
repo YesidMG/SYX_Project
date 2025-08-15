@@ -6,9 +6,7 @@ yarn-error.log*
 pnpm-debug.log*
 
 # Build outputs
-dist/
-build/
-.cache/
+dist.cache/
 .tmp/
 
 # Environment variables
@@ -40,5 +38,5 @@ Thumbs.db
 
 # React specific
 # (si tienes un frontend separado en /client)
-node_modules/
-build/
+node_modules
+build
