@@ -1,0 +1,22 @@
+.title-sec{
+    width: 100%;
+    text-align: center;
+    background-color: #F2F4F8;
+    padding: 12px 20px;
+    border-bottom: 1px solid #878D96;
+}
+
+.title-sub{
+    font-size: 1rem;
+    font-weight: 600;
+    color: #001D6C;
+    margin: 3px 0 0 0;
+    letter-spacing: 0.5px;
+}
+
+.title-main{
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #000;
+    margin: 5px 0 0 0;
+}

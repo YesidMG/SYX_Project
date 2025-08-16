@@ -1,0 +1,23 @@
+.sidebar-filter {
+  width: 180px;
+  height: 100%;
+  background-color: #DDE1E6;
+  padding: 20px 10px 20px 20px;
+  border-right: 1px solid #878D96;
+}
+
+.sidebar-filter h3 {
+  font-weight: bold;
+  margin-bottom: 25px;
+}
+
+.radio-label {
+  display: flex;
+  text-align: left;
+  margin-bottom: 13px;
+  cursor: pointer;
+}
+
+.radio-label input {
+  margin-right: 10px;
+}
