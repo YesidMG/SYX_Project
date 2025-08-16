@@ -2,21 +2,12 @@ import { useEffect, useState } from 'react';
 import './ReportsPage.css'
 
 export default function ReportsPage() {
-
-    const [data, setData] = useState([
-        { id: 1, entidad: "Alcaldia", quejas: 12 },
-        { id: 2, entidad: "Gobernación", quejas: 8 },
-        { id: 3, entidad: "EBSA", quejas: 21 },
-        { id: 4, entidad: "Departamento de policia", quejas: 5 },
-        { id: 5, entidad: "SENA", quejas: 17 },
-    ]);
+    const [data, setData] = useState([]);
 
     useEffect(() => {
-        // Aquí irá la petición al backend en el futuro
-        // Ejemplo:
-        // fetch('/api/reports')
-        //   .then(res => res.json())
-        //   .then(data => setData(data));
+        fetch('/api/reportes')
+            .then(res => res.json())
+            .then(data => setData(data));
     }, []);
 
     return (
@@ -35,7 +26,7 @@ export default function ReportsPage() {
                         {data.map(row => (
                             <tr key={row.id}>
                                 <td>{row.id}</td>
-                                <td>{row.entidad}</td>
+                                <td>{row.nombre}</td>
                                 <td>{row.quejas}</td>
                             </tr>
                         ))}

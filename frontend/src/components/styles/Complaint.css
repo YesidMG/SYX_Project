@@ -24,8 +24,8 @@
 .title .entity-icon {
     font-size: 15px;
     color: white;
-    background: #6a9fef;
-    border-radius: 50%;
+    background: none;
+    border-radius: 0;
     width: 25px;
     height: 25px;
     display: flex;

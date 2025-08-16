@@ -1,31 +1,26 @@
 import React, { useState, useEffect } from "react";
 import "./styles/EntityFilter.css";
 
-const EntityFilter = () => {
-
+const EntityFilter = ({ onChange }) => {
     const [entities, setEntities] = useState([]);
-
     const [selected, setSelected] = useState("Todas");
 
     useEffect(() => {
-        //const response = await fetch("/api/entities");
-        //const data = await response.json();
         const fetchEntities = async () => {
-            const data = [
-                "Todas",
-                "Alcaldia",
-                "Gobernacion",
-                "EBSA",
-                "Departamento de policia",
-                "SENA",
-            ];
-            setEntities(data);
+            try {
+                const response = await fetch("/api/entidades");
+                const data = await response.json();
+                setEntities(["Todas", ...data.map(e => e.nombre)]);
+            } catch (error) {
+                setEntities(["Todas"]);
+            }
         };
         fetchEntities();
     }, []);
 
     const handleChange = (value) => {
         setSelected(value);
+        if (onChange) onChange(value);
     };
 
     return (
@@ -44,7 +39,7 @@ const EntityFilter = () => {
                 </label>
             ))}
         </div>
-    )
-}
+    );
+};
 
 export default EntityFilter;
