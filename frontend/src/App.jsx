@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
 import HomePage from './pages/HomePage'
-import QuejasPage from './pages/QuejasPage'
+import ReportsPage from './pages/ReportsPage';
+import WritePage from './pages/WritePage';
 import Navbar from './components/Navbar'
 
 const Home = () => <div style={{padding: 16}}>Inicio</div>;
@@ -14,8 +15,8 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/reports" element={<QuejasPage />} />
-        <Route path="/write" element={<QuejasPage />} />
+        <Route path="/reports" element={<ReportsPage />} />
+        <Route path="/write" element={<WritePage />} />
       </Routes>
     </Router>
   )
