@@ -33,6 +33,12 @@
     justify-content: center;
 }
 
+.entity-name {
+    margin-left: 8px;
+    color: #888;
+    font-size: 13px;
+}
+
 .expand-button {
     background: none;
     border: none;

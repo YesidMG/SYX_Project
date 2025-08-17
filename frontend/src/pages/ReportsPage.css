@@ -40,6 +40,29 @@ header {
   background: #f2f4f8;
 }
 
+.message {
+  width: 50%;
+  height: 80px;
+  margin: 40px 20%;
+  padding: 24px 32px;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+}
+
+.message.error {
+  background: #fff3f3;
+  color: #b00020;
+  border: 1px solid #ffbdbd;
+}
+
+.message.loading {
+  background: #f3f7ff;
+  color: #1a4fa0;
+  border: 1px solid #b3d1ff;
+}
+
 .footer {
   margin-top: auto;
   width: 100%;

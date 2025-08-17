@@ -1,27 +1,47 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
+import { getEntities } from "../services/api";
 import "./styles/EntityFilter.css";
 
+const DEFAULT_OPTION = "Todas";
+
 const EntityFilter = ({ onChange }) => {
-    const [entities, setEntities] = useState([]);
-    const [selected, setSelected] = useState("Todas");
+    const [entities, setEntities] = useState([DEFAULT_OPTION]);
+    const [selected, setSelected] = useState(DEFAULT_OPTION);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
-        const fetchEntities = async () => {
-            try {
-                const response = await fetch("/api/entidades");
-                const data = await response.json();
-                setEntities(["Todas", ...data.map(e => e.nombre)]);
-            } catch (error) {
-                setEntities(["Todas"]);
-            }
-        };
-        fetchEntities();
+        const controller = new AbortController();
+        setLoading(true);
+        setError(null);
+
+        getEntities(controller.signal)
+            .then(data => {
+                setEntities([DEFAULT_OPTION, ...data.map(e => e.name)]);
+            })
+            .catch(err => {
+                if (err.name !== "AbortError") {
+                    setError(err.message);
+                    setEntities([DEFAULT_OPTION]);
+                }
+            })
+            .finally(() => setLoading(false));
+
+        return () => controller.abort();
     }, []);
 
     const handleChange = (value) => {
         setSelected(value);
         if (onChange) onChange(value);
     };
+
+    if (loading) {
+        return <div className="message loading"><h3>Cargando reportes...</h3></div>;
+    }
+
+    if (error) {
+        return <div className="message error"><h3>⚠️ {error}</h3></div>;
+    }
 
     return (
         <div className="sidebar-filter">

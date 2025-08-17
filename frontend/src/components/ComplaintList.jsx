@@ -1,24 +1,45 @@
 import { useState, useEffect } from "react";
+import { getComplaints } from "../services/api";
 import Complaint from './Complaint';
 import "./styles/ComplaintList.css";
 
-const ComplaintList = ({ entidad }) => {
-    const [quejas, setQuejas] = useState([]);
+const DEFAULT_OPTION = "Todas";
+
+const ComplaintList = ({ entity }) => {
+    const [complaints, setComplaints] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
-        let url = '/api/quejas';
-        if (entidad && entidad !== "Todas") {
-            url += `?entidad_nombre=${encodeURIComponent(entidad)}`;
-        }
-        fetch(url)
-            .then(res => res.json())
-            .then(data => setQuejas(data));
-    }, [entidad]);
+        const controller = new AbortController();
+        setLoading(true);
+        setError(null);
+
+        getComplaints(entity, controller.signal)
+            .then(data => setComplaints(data))
+            .catch(err => {
+                if (err.name !== "AbortError") {
+                    setError(err.message);
+                    setComplaints([]);
+                }
+            })
+            .finally(() => setLoading(false));
+
+        return () => controller.abort();
+    }, [entity]);
+
+    if (loading) {
+        return <div className="message loading"><h3>Cargando reportes...</h3></div>;
+    }
+
+    if (error) {
+        return <div className="message error"><h3>⚠️ {error}</h3></div>;
+    }
 
     return (
         <div className="list-container">
-            {quejas.length === 0 && <p>No hay quejas registradas.</p>}
-            {quejas.map((complaint) => (
+            {complaints.length === 0 && <p>No hay quejas registradas.</p>}
+            {complaints.map((complaint) => (
                 <Complaint key={complaint.id} complaint={complaint} />
             ))}
         </div>

@@ -1,8 +1,8 @@
-import React, {useState} from "react";
+import {useState} from "react";
 import "./styles/Complaint.css";
-import logo from "../assets/chat.png";
 
 const Complaint = ({ complaint }) => {
+    
     const [isOpen, setIsOpen] = useState(false);
 
     const toggleOpen = () => setIsOpen(!isOpen);
@@ -11,17 +11,17 @@ const Complaint = ({ complaint }) => {
         <div className="container">
             <div className="header" onClick={toggleOpen}>
                 <div className="title">
-                    <span className="entity-icon">
+                    <figure className="entity-icon">
                         <img
-                          src={`http://localhost:3000/${complaint.logo}`}
-                          alt="Logo"
+                          src={`entity_logos/${complaint.logo}`}
+                          alt="Logo de ${complaint.entidad_nombre}"
                           width="20"
                           height="20"
                         />
-                    </span>
+                    </figure>
                     <strong>{complaint.titulo}</strong>
-                    <span style={{marginLeft: 8, color: "#888", fontSize: 13}}>
-                        ({complaint.entidad_nombre})
+                    <span className="entity-name">
+                        ({complaint.entity_name})
                     </span>
                 </div>
                 <button className="expand-button">
@@ -30,7 +30,7 @@ const Complaint = ({ complaint }) => {
             </div>
             {isOpen && (
                 <div className={`description ${isOpen ? 'open' : ''}`}>
-                    <p>{complaint.descripcion}</p>
+                    <p>{complaint.description}</p>
                 </div>
             )}
         </div>

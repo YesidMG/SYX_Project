@@ -1,14 +1,37 @@
 import { useEffect, useState } from 'react';
+import { getReports } from '../services/api';
 import './ReportsPage.css'
 
 export default function ReportsPage() {
     const [data, setData] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
-        fetch('/api/reportes')
-            .then(res => res.json())
-            .then(data => setData(data));
+        const controller = new AbortController();
+        setLoading(true);
+        setError(null);
+
+        getReports(controller.signal)
+            .then(data => setData(data))
+            .catch(err => {
+                if (err.name !== "AbortError") {
+                    setError(err.message);
+                    setData([]);
+                }
+            })
+            .finally(() => setLoading(false));
+
+        return () => controller.abort();
     }, []);
+
+    if (loading) {
+        return <div className="message loading"><h3>Cargando reportes...</h3></div>;
+    }
+
+    if (error) {
+        return <div className="message error"><h3>⚠️ {error}</h3></div>;
+    }
 
     return (
         <div className="reports-page">
