@@ -2,6 +2,10 @@ const request = require('supertest');
 const app = require('../server'); // Import de la app Express
 const pool = require('../src/config/config');
 
+jest.mock("node-fetch", () => jest.fn());
+
+const fetch = require("node-fetch");
+
 describe("Reports API", () => {
   let testEntity;
 
@@ -12,6 +16,14 @@ describe("Reports API", () => {
       .send({ name: "Entidad de Reporte", logo: "logo.png" });
 
     testEntity = res.body;
+  });
+
+  beforeEach(() => {
+    fetch.mockImplementation(() =>
+      Promise.resolve({
+        json: () => Promise.resolve({ success: true })
+      })
+    );
   });
 
   afterAll(async () => {
@@ -48,11 +60,11 @@ describe("Reports API", () => {
   it("Después de insertar nuevas quejas, el conteo debe reflejarse correctamente", async () => {
     await request(app)
       .post("/api/complaints")
-      .send({ title: "Primera queja", description: "Texto 1", entity_id: testEntity.id });
+      .send({ title: "Primera queja", description: "Texto 1", entity_id: testEntity.id, captcha: "fake" });
 
     await request(app)
       .post("/api/complaints")
-      .send({ title: "Segunda queja", description: "Texto 2", entity_id: testEntity.id });
+      .send({ title: "Segunda queja", description: "Texto 2", entity_id: testEntity.id, captcha: "fake" });
 
     const res = await request(app).get("/api/reports");
     const entityReport = res.body.find((r) => r.id === testEntity.id);

@@ -48,6 +48,7 @@ export default function WritePage() {
       setEntity('');
       setTitle('');
       setDescription('');
+      recaptchaRef.current.reset();
     } catch (error) {
       alert(error.message);
     }

@@ -26,11 +26,11 @@ export async function getReports(signal) {
 }
 
 // Enviar una nueva queja
-export async function postComplaint({ entity_id, title, description }) {
+export async function postComplaint({ entity_id, title, description, captcha }) {
   const res = await fetch(`${API_URL}/complaints`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ entity_id, title, description }),
+    body: JSON.stringify({ entity_id, title, description, captcha}),
   });
   if (!res.ok) throw new Error('Error al enviar la queja');
   return res.json();

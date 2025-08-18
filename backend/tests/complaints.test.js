@@ -2,7 +2,19 @@ const request = require('supertest');
 const app = require('../server'); // Import de la app Express
 const pool = require('../src/config/config');
 
+jest.mock("node-fetch", () => jest.fn());
+
+const fetch = require("node-fetch");
+
 describe('Complaints API', () => {
+
+  beforeAll(() => {
+    fetch.mockImplementation(() =>
+      Promise.resolve({
+        json: () => Promise.resolve({ success: true })
+      })
+    );
+  });
 
   // Limpiar tabla antes de cada test
   beforeEach(async () => {
@@ -11,6 +23,7 @@ describe('Complaints API', () => {
 
   afterAll(async () => {
     await pool.end();
+    jest.restoreAllMocks();
   });
 
   describe("POST /api/complaints", () => {
@@ -23,6 +36,7 @@ describe('Complaints API', () => {
         title: "El servicio fue muy lento",
         description: "Esperé más de 30 minutos para ser atendido",
         entity_id: entityId,
+        captcha: "fake",
       };
 
       const res = await request(app).post("/api/complaints").send(newComplaint);
@@ -40,7 +54,7 @@ describe('Complaints API', () => {
 
       const res = await request(app)
         .post("/api/complaints")
-        .send({ entity_id: entityId, description: "No se especifica título" });
+        .send({ entity_id: entityId, description: "No se especifica título", captcha: "fake" });
 
       expect(res.statusCode).toBe(400);
       expect(res.body).toHaveProperty("error");
@@ -52,7 +66,7 @@ describe('Complaints API', () => {
 
       const res = await request(app)
         .post("/api/complaints")
-        .send({ title: "Falta el ID de entidad", entity_id: entityId });
+        .send({ title: "Falta el ID de entidad", entity_id: entityId, captcha: "fake" });
 
       expect(res.statusCode).toBe(400);
       expect(res.body).toHaveProperty("error");
@@ -61,16 +75,50 @@ describe('Complaints API', () => {
     it("Debe retornar 400 si falta 'entity_id'", async () => {
       const res = await request(app)
         .post("/api/complaints")
-        .send({ title: "Falta el ID de entidad", description: "No se especifica a qué entidad" });
+        .send({ title: "Falta el ID de entidad", description: "No se especifica a qué entidad", captcha: "fake" });
 
       expect(res.statusCode).toBe(400);
       expect(res.body).toHaveProperty("error");
     });
 
+    it("Debe retornar 400 si falta 'captcha'", async () => {
+      const entitiesRes = await request(app).get("/api/entities");
+      const entityId = entitiesRes.body[0].id;
+
+      const res = await request(app)
+        .post("/api/complaints")
+        .send({ title: "Sin captcha", description: "Debe fallar", entity_id: entityId });
+
+      expect(res.statusCode).toBe(400);
+      expect(res.body).toHaveProperty("error");
+    });
+
+    it("Debe retornar 400 si el captcha es inválido", async () => {
+      // Mock específico para este test
+      fetch.mockImplementation(() =>
+        Promise.resolve({
+          json: () => Promise.resolve({ success: false })
+        })
+      );
+
+      const entitiesRes = await request(app).get("/api/entities");
+      const entityId = entitiesRes.body[0].id;
+
+      const res = await request(app).post("/api/complaints").send({
+        title: "Intento con captcha inválido",
+        description: "No debería pasar",
+        entity_id: entityId,
+        captcha: "fake",
+      });
+
+      expect(res.statusCode).toBe(400);
+      expect(res.body).toHaveProperty("error", "Captcha inválido");
+    });
+
     it("Debe retornar 400 si el 'entity_id' no existe", async () => {
       const res = await request(app)
         .post("/api/complaints")
-        .send({ title: "Entidad inexistente", entity_id: 999999 });
+        .send({ title: "Entidad inexistente", entity_id: 999999, captcha: "fake" });
 
       expect(res.statusCode).toBe(400);
       expect(res.body).toHaveProperty("error");
@@ -86,13 +134,22 @@ describe('Complaints API', () => {
       const entitiesRes = await request(app).get("/api/entities");
       testEntity = entitiesRes.body[0];
 
+      fetch.mockImplementation(() =>
+        Promise.resolve({
+          json: () => Promise.resolve({ success: true }) // válido por defecto
+        })
+      );
+
       // Creamos una queja de prueba
       const newComplaint = {
         title: "El servicio fue muy lento",
         description: "Esperé más de 30 minutos para ser atendido",
         entity_id: testEntity.id,
+        captcha: "fake",
       };
       const complaintRes = await request(app).post("/api/complaints").send(newComplaint);
+      expect(complaintRes.statusCode).toBe(201);
+
       testComplaint = complaintRes.body;
     });
 

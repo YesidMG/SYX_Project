@@ -12,7 +12,7 @@ const Complaint = ({ complaint }) => {
                 <div className="title">
                     <figure className="entity-icon">
                         <img
-                          src={`http://localhost:3000/img/logo_entidades/${complaint.logo}`}
+                          src={`/entity_logos/${complaint.logo}`}
                           alt={`Logo de ${complaint.entity_name}`}
                           width="30"
                           height="30"

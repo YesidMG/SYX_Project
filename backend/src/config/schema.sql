@@ -12,9 +12,15 @@ CREATE TABLE complaints (
     creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+//Entidades fijas
 INSERT INTO entities (name, logo) VALUES 
-('SENA', 'sena.png'),
-('ICBF', 'icbf.png');
+('Empresa de Energía de Boyacá (EBSA)', 'ebsa.png'),
+('Dirección de Impuestos y Aduanas Nacionales (DIAN)', 'dian.png'),
+('Gobernación de Boyacá', 'gobo.png'),
+('Instituto Colombiano de Bienestar Familiar (ICBF)', 'icbf.png'),
+('SENA Regional Boyacá', 'sena.png');
+
+//Ejemplos de quejas
 INSERT INTO complaints (entity_id, title, description) VALUES
 (1, 'Demora en trámites', 'He experimentado demoras en los trámites administrativos del SENA.'),
 (2, 'Falta de información', 'No hay suficiente información sobre los cursos disponibles en la página web.'),
