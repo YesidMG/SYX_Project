@@ -18,6 +18,13 @@ app.use('/api/entities', entitiesRoutes);
 app.use('/api/complaints', complaintsRoutes);
 app.use('/api/reports', reportsRoutes);
 
-app.listen(PORT, () => {
-  console.log(`Servidor escuchando en http://localhost:${PORT}`);
-});
+//Export app for testing
+module.exports = app;
+
+// Solo levantamos el servidor si NO estamos en test
+if (require.main === module) {
+  const PORT = process.env.PORT || 3000;
+  app.listen(PORT, () => {
+    console.log(`Servidor escuchando en http://localhost:${PORT}`);
+  });
+}
