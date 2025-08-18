@@ -7,17 +7,17 @@ router.get('/', async (req, res) => {
   let result;
   if (entity_id && entity_id !== 'Todas') {
     result = await pool.query(
-      'SELECT c.*, e.name AS entity_name, e.logo FROM complaints c JOIN entities e ON c.entity_id = e.id WHERE e.id = $1',
+      'SELECT c.*, e.name AS entity_name, e.logo FROM complaints c JOIN entities e ON c.entity_id = e.id WHERE e.id = $1 ORDER BY c.creation_date DESC',
       [entity_id]
     );
   } else if (entity_name && entity_name !== 'Todas') {
     result = await pool.query(
-      'SELECT c.*, e.name AS entity_name, e.logo FROM complaints c JOIN entities e ON c.entity_id = e.id WHERE e.name = $1',
+      'SELECT c.*, e.name AS entity_name, e.logo FROM complaints c JOIN entities e ON c.entity_id = e.id WHERE e.name = $1 ORDER BY c.creation_date DESC',
       [entity_name]
     );
   } else {
     result = await pool.query(
-      'SELECT c.*, e.name AS entity_name, e.logo FROM complaints c JOIN entities e ON c.entity_id = e.id'
+      'SELECT c.*, e.name AS entity_name, e.logo FROM complaints c JOIN entities e ON c.entity_id = e.id ORDER BY c.creation_date DESC'
     );
   }
   res.setHeader('Content-Type', 'application/json; charset=utf-8');
