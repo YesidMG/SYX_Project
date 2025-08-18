@@ -34,8 +34,12 @@ html, body, #root {
 .content {
     grid-area: content;
     display: flex;
-    background: #F2F4F8; 
-    overflow-y: auto;  
+    flex-direction: column;
+    align-items: center;
+    background: #F2F4F8;
+    overflow-y: auto;
+    width: 100%;
+    min-height: 0;
 }
 
 .footer { 

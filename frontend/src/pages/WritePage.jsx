@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { getEntities, postComplaint } from '../services/api';
+import ReCAPTCHA from "react-google-recaptcha";
 import './WritePage.css'
 
 export default function WritePage() {
@@ -11,6 +12,7 @@ export default function WritePage() {
   const [description, setDescription] = useState('');
   const [entities, setEntities] = useState([]);
   const [loading, setLoading] = useState(true);
+  const recaptchaRef = useRef();
 
   useEffect(() => {
     const controller = new AbortController();
@@ -29,11 +31,17 @@ export default function WritePage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const token = recaptchaRef.current.getValue();
+    if (!token) {
+      alert("Por favor, verifica el captcha.");
+      return;
+    }
     try {
       await postComplaint({
         entity_id: parseInt(entity, 10),
         title,
         description,
+        captcha: token,
       });
 
       alert('¡Queja enviada exitosamente!');
@@ -83,6 +91,10 @@ export default function WritePage() {
             required
           />
         </div>
+        <ReCAPTCHA
+          ref={recaptchaRef}
+          sitekey="6LfEW6orAAAAAAUIw3B0k13R7CZatIljI2YYR1nO"
+        />
         <div className="buttons">
           <button className="accept" type="submit">Aceptar</button>
           <button className="cancel" type="button"
