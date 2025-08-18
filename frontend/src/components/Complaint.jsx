@@ -15,11 +15,11 @@ const Complaint = ({ complaint }) => {
                         <img
                           src={`entity_logos/${complaint.logo}`}
                           alt="Logo de ${complaint.entidad_nombre}"
-                          width="20"
-                          height="20"
+                          width="30"
+                          height="30"
                         />
                     </figure>
-                    <strong>{complaint.titulo}</strong>
+                    <strong>{complaint.title}</strong>
                     <span className="entity-name">
                         ({complaint.entity_name})
                     </span>

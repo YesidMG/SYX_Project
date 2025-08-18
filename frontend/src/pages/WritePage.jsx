@@ -1,31 +1,29 @@
+import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import { getEntities, postComplaint } from '../services/api';
 import './WritePage.css'
 
 export default function WritePage() {
 
-  // Listado provisional de entidades
-  const provisionalEntities = [
-    { id: 1, name: "SENA" },
-    { id: 2, name: "Gobernación de Boyacá" }
-  ];
-
+    const navigate = useNavigate();
   const [entity, setEntity] = useState('');
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [entities, setEntities] = useState(provisionalEntities);
+  const [entities, setEntities] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const controller = new AbortController();
+    
     getEntities(controller.signal)
       .then(data => setEntities(data))
       .catch(err => {
         if (err.name !== "AbortError") {
-          setEntities(provisionalEntities);
+          setEntities([]);
         }
       })
       .finally(() => setLoading(false));
+
     return () => controller.abort();
   }, []);
 
@@ -33,7 +31,7 @@ export default function WritePage() {
     e.preventDefault();
     try {
       await postComplaint({
-        entity_id: entity,
+        entity_id: parseInt(entity, 10),
         title,
         description,
       });
@@ -87,7 +85,9 @@ export default function WritePage() {
         </div>
         <div className="buttons">
           <button className="accept" type="submit">Aceptar</button>
-          <button className="cancel" type="button">Cancelar</button>
+          <button className="cancel" type="button"
+            onClick={() => navigate('/')}
+          >Cancelar</button>
         </div>
       </form>
     </div>

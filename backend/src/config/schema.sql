@@ -1,18 +1,22 @@
-CREATE TABLE entidades (
+CREATE TABLE entities (
     id SERIAL PRIMARY KEY,
-    nombre VARCHAR(100) NOT NULL,
+    name VARCHAR(100) NOT NULL,
     logo VARCHAR(255)
 );
 
-CREATE TABLE quejas (
+CREATE TABLE complaints (
     id SERIAL PRIMARY KEY,
-    entidad_id INTEGER REFERENCES entidades(id),
-    titulo VARCHAR(255) NOT NULL,
-    descripcion VARCHAR(1500) NOT NULL,
-    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    entity_id INTEGER REFERENCES entities(id),
+    title VARCHAR(255) NOT NULL,
+    description VARCHAR(1500) NOT NULL,
+    creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-INSERT INTO entidades (nombre, logo) VALUES ('SENA', 'img/logo_entidades/sena.png');
-INSERT INTO quejas (entidad_id, titulo, descripcion) VALUES
+INSERT INTO entities (name, logo) VALUES 
+('SENA', 'sena.png'),
+('ICBF', 'icbf.png');
+INSERT INTO complaints (entity_id, title, description) VALUES
 (1, 'Demora en trámites', 'He experimentado demoras en los trámites administrativos del SENA.'),
-(1, 'Falta de información', 'No hay suficiente información sobre los cursos disponibles en la página web.');
+(2, 'Falta de información', 'No hay suficiente información sobre los cursos disponibles en la página web.'),
+(1, 'Problemas con la plataforma', 'La plataforma del SENA no está funcionando correctamente, lo que dificulta el acceso a los cursos.'),
+(2, 'Atención al cliente deficiente', 'El servicio de atención al cliente del ICBF no responde adecuadamente a las consultas.');

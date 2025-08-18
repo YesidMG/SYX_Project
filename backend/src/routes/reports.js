@@ -6,13 +6,14 @@ router.get('/', async (req, res) => {
   const result = await pool.query(`
     SELECT 
       e.id, 
-      e.nombre, 
-      COUNT(q.id) AS quejas
-    FROM entidades e
-    LEFT JOIN quejas q ON q.entidad_id = e.id
-    GROUP BY e.id, e.nombre
+      e.name, 
+      COUNT(c.id) AS complaints
+    FROM entities e
+    LEFT JOIN complaints c ON c.entity_id = e.id
+    GROUP BY e.id, e.name
     ORDER BY e.id
   `);
+  res.setHeader('Content-Type', 'application/json; charset=utf-8');
   res.json(result.rows);
 });
 

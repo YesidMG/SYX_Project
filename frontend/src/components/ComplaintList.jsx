@@ -3,8 +3,6 @@ import { getComplaints } from "../services/api";
 import Complaint from './Complaint';
 import "./styles/ComplaintList.css";
 
-const DEFAULT_OPTION = "Todas";
-
 const ComplaintList = ({ entity }) => {
     const [complaints, setComplaints] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -39,7 +37,7 @@ const ComplaintList = ({ entity }) => {
     return (
         <div className="list-container">
             {complaints.length === 0 && <p>No hay quejas registradas.</p>}
-            {complaints.map((complaint) => (
+            {complaints.map(complaint => (
                 <Complaint key={complaint.id} complaint={complaint} />
             ))}
         </div>

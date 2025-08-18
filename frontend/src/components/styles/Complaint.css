@@ -4,33 +4,36 @@
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
     overflow: hidden;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
 }
 
 .header{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 20px;
+    padding: 3px 3px;
     cursor: pointer;
 }
 
 .title {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 10px;
 }
 
 .title .entity-icon {
     font-size: 15px;
     color: white;
     background: none;
-    border-radius: 0;
-    width: 25px;
-    height: 25px;
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.entity-icon img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
 }
 
 .entity-name {
@@ -46,6 +49,7 @@
     cursor: pointer;
     transform: rotate(90deg);
     transition: transform 0.3s ease;
+    margin-right: 15px;
 }
 
 .description {

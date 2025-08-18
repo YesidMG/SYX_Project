@@ -49,8 +49,8 @@ export default function ReportsPage() {
                         {data.map(row => (
                             <tr key={row.id}>
                                 <td>{row.id}</td>
-                                <td>{row.nombre}</td>
-                                <td>{row.quejas}</td>
+                                <td>{row.name}</td>
+                                <td>{row.complaints}</td>
                             </tr>
                         ))}
                     </tbody>
