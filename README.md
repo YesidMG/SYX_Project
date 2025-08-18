@@ -12,8 +12,9 @@
   - dotenv (manejo de variables de entorno)
 
 - **Base de datos:**  
-  - PostgreSQL
+  - PostgreSQL (con tablas entities, complaints, reports)
 
 - **Herramientas de desarrollo:**  
   - Vite (para desarrollo rápido de React)
   - npm/yarn (gestión de dependencias)
+  - Jest + Supertest (tests de integración de API)

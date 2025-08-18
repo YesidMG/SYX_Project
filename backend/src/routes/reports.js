@@ -7,7 +7,7 @@ router.get('/', async (req, res) => {
     SELECT 
       e.id, 
       e.name, 
-      COUNT(c.id) AS complaints
+      CAST(COUNT(c.id) AS INTEGER) AS complaints
     FROM entities e
     LEFT JOIN complaints c ON c.entity_id = e.id
     GROUP BY e.id, e.name

@@ -24,6 +24,27 @@ router.get('/', async (req, res) => {
   res.json(result.rows);
 });
 
+router.get("/:id", async (req, res) => {
+  const { id } = req.params;
+
+  // Validación de ID inválido (ej: "abc")
+  if (isNaN(id)) {
+    return res.status(400).json({ error: "ID inválido" });
+  }
+
+  try {
+    const result = await pool.query("SELECT * FROM complaints WHERE id = $1", [id]);
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: "Queja no encontrada" });
+    }
+
+    res.json(result.rows[0]);
+  } catch (err) {
+    res.status(500).json({ error: "Error interno del servidor" });
+  }
+});
+
 router.post('/', async (req, res) => {
   try {
     const { entity_id, title, description } = req.body;
