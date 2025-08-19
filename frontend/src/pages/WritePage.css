@@ -58,8 +58,22 @@ textarea:focus {
 }
 
 textarea {
+  font-family: inherit;
   min-height: 80px;
   max-height: 300px;
+}
+
+.chars_counter {
+  font-size: 0.9rem;
+  color: #666;
+  text-align: right;
+  margin-top: 4px;
+}
+
+.recaptcha {
+  margin-top: 0px;
+  display: flex;
+  justify-content: center;
 }
 
 .buttons {

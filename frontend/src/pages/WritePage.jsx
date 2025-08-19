@@ -6,7 +6,7 @@ import './WritePage.css'
 
 export default function WritePage() {
 
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const [entity, setEntity] = useState('');
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -16,7 +16,7 @@ export default function WritePage() {
 
   useEffect(() => {
     const controller = new AbortController();
-    
+
     getEntities(controller.signal)
       .then(data => setEntities(data))
       .catch(err => {
@@ -81,6 +81,8 @@ export default function WritePage() {
             type="text"
             value={title}
             onChange={e => setTitle(e.target.value)}
+            maxLength={100}
+            placeholder="Escribe un título"
             required
           />
         </div>
@@ -89,10 +91,13 @@ export default function WritePage() {
           <textarea
             value={description}
             onChange={e => setDescription(e.target.value)}
+            maxLength={1500}
+            placeholder="Escribe la descripción de la queja"
             required
           />
+          <p className="chars_counter">{description.length}/1500</p>
         </div>
-        <ReCAPTCHA
+        <ReCAPTCHA className="recaptcha"
           ref={recaptchaRef}
           sitekey="6LfEW6orAAAAAAUIw3B0k13R7CZatIljI2YYR1nO"
         />

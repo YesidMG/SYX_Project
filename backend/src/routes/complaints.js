@@ -49,7 +49,6 @@ router.get("/:id", async (req, res) => {
 router.post('/', async (req, res) => {
   try {
     const { entity_id, title, description, captcha } = req.body;
-    console.log("Token recibido en el back:", captcha);
     if (!entity_id || !title || !description || !captcha) {
       return res.status(400).json({ error: "Faltan campos requeridos" });
     }
@@ -58,7 +57,7 @@ router.post('/', async (req, res) => {
     if (process.env.NODE_ENV === "development") {
       console.log("Captcha bypass en desarrollo");
     } else {
-      const secret = process.env.RECAPTCHA_SECRET_KEY;
+      const secret = "6LfEW6orAAAAAOlTU0HBLaaV_M16s1gDp21oltja";
       const params = new URLSearchParams();
       params.append("secret", secret);
       params.append("response", captcha);

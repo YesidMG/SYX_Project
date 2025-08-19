@@ -1,13 +1,21 @@
 import { useEffect, useState } from 'react';
 import { getReports } from '../services/api';
+import ReCAPTCHA from "react-google-recaptcha";
 import './ReportsPage.css'
 
 export default function ReportsPage() {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [captchaToken, setCaptchaToken] = useState(null);
+
+    const handleCaptchaChange = (token) => {
+        setCaptchaToken(token);
+    };
 
     useEffect(() => {
+        if (!captchaToken) return;
+
         const controller = new AbortController();
         setLoading(true);
         setError(null);
@@ -23,7 +31,19 @@ export default function ReportsPage() {
             .finally(() => setLoading(false));
 
         return () => controller.abort();
-    }, []);
+    }, [captchaToken]);
+
+    if (!captchaToken) {
+        return (
+            <div className="captcha-container">
+                <h3>Por favor valida el captcha para ver los reportes:</h3>
+                <ReCAPTCHA
+                    sitekey="6LfEW6orAAAAAAUIw3B0k13R7CZatIljI2YYR1nO"
+                    onChange={handleCaptchaChange}
+                />
+            </div>
+        );
+    }
 
     if (loading) {
         return <div className="message loading"><h3>Cargando reportes...</h3></div>;
