@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
-    "build": "cd ../frontend && npm install && npm run build && cp -r dist ../backend",
+    "build": "cd frontend && npm install && npm run build && cp -r frontend/dist backend/",
     "test": "jest --verbose"
   },
   "repository": {
