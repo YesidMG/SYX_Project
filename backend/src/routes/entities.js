@@ -4,7 +4,7 @@ const {pool} = require('../config/config');
 
 router.get('/', async (req, res) => {
   try {
-    const result = await pool.query('SELECT * FROM entities');
+    const result = await pool.query('SELECT * FROM entities ORDER BY name ASC;');
     res.setHeader('Content-Type', 'application/json; charset=utf-8');
     res.json(result.rows);
   } catch (err) {
