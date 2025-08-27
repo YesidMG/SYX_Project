@@ -102,10 +102,10 @@ export default function WritePage() {
           sitekey="6LfEW6orAAAAAAUIw3B0k13R7CZatIljI2YYR1nO"
         />
         <div className="buttons">
-          <button className="accept" type="submit">Aceptar</button>
           <button className="cancel" type="button"
             onClick={() => navigate('/')}
-          >Cancelar</button>
+          >Volver al inicio</button>
+          <button className="accept" type="submit">Enviar</button>
         </div>
       </form>
     </div>
