@@ -1,5 +1,5 @@
 import {useState} from "react";
-import "./styles/Complaint.css";
+import "./Complaint.css";
 
 const Complaint = ({ complaint }) => {
     const [isOpen, setIsOpen] = useState(false);

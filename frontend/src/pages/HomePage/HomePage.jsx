@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import HomeTitle from '../components/HomeTitle'
-import EntityFilter from '../components/EntityFilter'
-import ComplaintList from '../components/ComplaintList'
+import HomeTitle from '../../components/HomeTitle/HomeTitle'
+import EntityFilter from '../../features/entities/EntityFilter'
+import ComplaintList from '../../features/complaints/ComplaintList'
 import './HomePage.css'
 
 export default function HomePage() {

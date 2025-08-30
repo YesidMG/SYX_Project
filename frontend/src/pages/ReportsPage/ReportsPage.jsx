@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getReports } from '../services/api';
+import { getReports } from '../../services/api';
 import ReCAPTCHA from "react-google-recaptcha";
 import './ReportsPage.css'
 

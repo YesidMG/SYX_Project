@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { getEntities } from "../services/api";
-import "./styles/EntityFilter.css";
+import { getEntities } from "../../services/api";
+import "./EntityFilter.css";
 
 const DEFAULT_OPTION = "Todas";
 

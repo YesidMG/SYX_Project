@@ -3,11 +3,11 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 
-const { PORT, FRONTEND_URL } = require('./src/config/config');
+const { PORT, FRONTEND_URL } = require('./config/db');
 
-const entitiesRoutes = require('./src/routes/entities');
-const complaintsRoutes = require('./src/routes/complaints');
-const reportsRoutes = require('./src/routes/reports');
+const entitiesRoutes = require('./routes/entities');
+const complaintsRoutes = require('./routes/complaints');
+const reportsRoutes = require('./routes/reports');
 
 const app = express();
 
