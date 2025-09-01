@@ -5,9 +5,9 @@ const path = require('path');
 
 const { PORT, FRONTEND_URL } = require('./config/db');
 
-const entitiesRoutes = require('./routes/entities');
-const complaintsRoutes = require('./routes/complaints');
-const reportsRoutes = require('./routes/reports');
+const entitiesRoutes = require('./infrastructure/routers/entities.router');
+const complaintsRoutes = require('./infrastructure/routers/complaints.router');
+const reportsRoutes = require('./infrastructure/routers/reports.router');
 
 const app = express();
 
