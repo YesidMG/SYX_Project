@@ -1,26 +1,46 @@
-name: Node.js CI
+name: CI Front + Back
 
 on:
   pull_request:
-    branches: [ "main" ]   # Corre en cada PR hacia main
+    branches: [ "main" ]
   push:
-    branches: [ "main" ]   # Corre en cada push directo a main
+    branches: [ "main" ]
 
 jobs:
-  build-and-test:
+  backend:
     runs-on: ubuntu-latest
-    
+    defaults:
+      run:
+        working-directory: back   # 👈 trabaja dentro de /back
     steps:
-      - name: Descargar código
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
       - name: Configurar Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 18
 
-      - name: Instalar dependencias
+      - name: Instalar dependencias (backend)
         run: npm install
 
-      - name: Ejecutar pruebas
+      - name: Ejecutar pruebas (backend)
+        run: npm test
+
+  frontend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: front   # 👈 trabaja dentro de /front
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Instalar dependencias (frontend)
+        run: npm install
+
+      - name: Ejecutar pruebas (frontend)
         run: npm test
