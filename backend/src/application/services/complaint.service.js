@@ -33,14 +33,9 @@ class ComplaintService {
         if (!data.entity_id || isNaN(data.entity_id)) {
             throw { status: 400, message: 'El ID de la entidad es obligatorio' };
         }
-        if (!data.captcha || data.captcha !== 'valid_captcha_token') {
-            throw { status: 400, message: 'Captcha inválido' };
-        }else{
-            //Falta proceso de validación real de captcha
-            console.log("Captcha validado correctamente");
-        }
+        
         return await complaintRepo.create({
-            entity_id: Number(data.entityId),
+            entity_id: Number(data.entity_id),
             title: data.title.trim(),
             description: data.description.trim(),
         });

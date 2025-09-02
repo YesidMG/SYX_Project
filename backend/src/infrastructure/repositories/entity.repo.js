@@ -1,5 +1,4 @@
-const { PrismaClient } = require('../../generated/prisma');
-
+const { PrismaClient } = require('../../generated/prisma/client');
 const prisma = new PrismaClient();
 
 module.exports = {
@@ -13,5 +12,18 @@ module.exports = {
 
   async create(data) {
     return await prisma.entity.create({ data });
+  },
+
+  async getEntitiesWithComplaintCount() {
+    return await prisma.entity.findMany({
+      select: {
+        id: true,
+        name: true,
+        complaints: {
+          select: { id: true }
+        }
+      },
+      orderBy: { id: 'asc' }
+    });
   }
 };

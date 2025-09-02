@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getReports } from '../../services/api';
+import { getEntityReport} from '../../services/api';
 import ReCAPTCHA from "react-google-recaptcha";
 import './ReportsPage.css'
 
@@ -20,7 +20,7 @@ export default function ReportsPage() {
         setLoading(true);
         setError(null);
 
-        getReports(controller.signal)
+        getEntityReport(controller.signal)
             .then(data => setData(data))
             .catch(err => {
                 if (err.name !== "AbortError") {

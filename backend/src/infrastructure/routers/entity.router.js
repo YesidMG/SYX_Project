@@ -5,6 +5,7 @@ const entityController = require('../controllers/entity.controller');
 router.get('/', entityController.getAll);
 router.get('/:id', entityController.getById);
 router.post('/', entityController.create);
+router.get('/report', entityController.getReport);
 
 // Middleware de manejo de errores
 router.use((err, req, res, next) => {

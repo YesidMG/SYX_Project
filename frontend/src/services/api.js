@@ -19,9 +19,9 @@ export async function getEntities(signal) {
 }
 
 // Obtener reportes de entidades
-export async function getReports(signal) {
-  const res = await fetch(`${API_URL}/reports`, { signal });
-  if (!res.ok) throw new Error('Error al obtener reportes');
+export async function getEntityReport(signal) {
+  const res = await fetch(`${API_URL}/entities/report`, { signal });
+  if (!res.ok) throw new Error('Error al obtener el reporte de entidades');
   return res.json();
 }
 

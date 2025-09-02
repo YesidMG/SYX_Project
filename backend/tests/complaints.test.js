@@ -1,6 +1,5 @@
 const request = require('supertest');
-const app = require('../server'); // Import de la app Express
-const pool = require('../src/config/config');
+const app = require('../src/app');
 
 jest.mock("node-fetch", () => jest.fn());
 
@@ -16,20 +15,10 @@ describe('Complaints API', () => {
     );
   });
 
-  // Limpiar tabla antes de cada test
-  beforeEach(async () => {
-    await pool.query("TRUNCATE complaints RESTART IDENTITY CASCADE");
-  });
-
-  afterAll(async () => {
-    await pool.end();
-    jest.restoreAllMocks();
-  });
-
-  describe("POST /api/complaints", () => {
+  describe("POST /complaints", () => {
     it("Debe crear una queja válida asociada a una entidad existente", async () => {
       // Tomamos una entidad existente
-      const entitiesRes = await request(app).get("/api/entities");
+      const entitiesRes = await request(app).get("/entities");
       const entityId = entitiesRes.body[0].id;
 
       const newComplaint = {
@@ -39,7 +28,7 @@ describe('Complaints API', () => {
         captcha: "fake",
       };
 
-      const res = await request(app).post("/api/complaints").send(newComplaint);
+      const res = await request(app).post("/complaints").send(newComplaint);
 
       expect(res.statusCode).toBe(201);
       expect(res.body).toHaveProperty("id");
@@ -49,11 +38,11 @@ describe('Complaints API', () => {
     });
 
     it("Debe retornar 400 si falta 'title'", async () => {
-      const entitiesRes = await request(app).get("/api/entities");
+      const entitiesRes = await request(app).get("/entities");
       const entityId = entitiesRes.body[0].id;
 
       const res = await request(app)
-        .post("/api/complaints")
+        .post("/complaints")
         .send({ entity_id: entityId, description: "No se especifica título", captcha: "fake" });
 
       expect(res.statusCode).toBe(400);
@@ -61,11 +50,11 @@ describe('Complaints API', () => {
     });
 
     it("Debe retornar 400 si falta 'description'", async () => {
-      const entitiesRes = await request(app).get("/api/entities");
+      const entitiesRes = await request(app).get("/entities");
       const entityId = entitiesRes.body[0].id;
 
       const res = await request(app)
-        .post("/api/complaints")
+        .post("/complaints")
         .send({ title: "Falta el ID de entidad", entity_id: entityId, captcha: "fake" });
 
       expect(res.statusCode).toBe(400);
@@ -74,7 +63,7 @@ describe('Complaints API', () => {
 
     it("Debe retornar 400 si falta 'entity_id'", async () => {
       const res = await request(app)
-        .post("/api/complaints")
+        .post("/complaints")
         .send({ title: "Falta el ID de entidad", description: "No se especifica a qué entidad", captcha: "fake" });
 
       expect(res.statusCode).toBe(400);
@@ -82,11 +71,11 @@ describe('Complaints API', () => {
     });
 
     it("Debe retornar 400 si falta 'captcha'", async () => {
-      const entitiesRes = await request(app).get("/api/entities");
+      const entitiesRes = await request(app).get("/entities");
       const entityId = entitiesRes.body[0].id;
 
       const res = await request(app)
-        .post("/api/complaints")
+        .post("/complaints")
         .send({ title: "Sin captcha", description: "Debe fallar", entity_id: entityId });
 
       expect(res.statusCode).toBe(400);
@@ -101,10 +90,10 @@ describe('Complaints API', () => {
         })
       );
 
-      const entitiesRes = await request(app).get("/api/entities");
+      const entitiesRes = await request(app).get("/entities");
       const entityId = entitiesRes.body[0].id;
 
-      const res = await request(app).post("/api/complaints").send({
+      const res = await request(app).post("/complaints").send({
         title: "Intento con captcha inválido",
         description: "No debería pasar",
         entity_id: entityId,
@@ -117,7 +106,7 @@ describe('Complaints API', () => {
 
     it("Debe retornar 400 si el 'entity_id' no existe", async () => {
       const res = await request(app)
-        .post("/api/complaints")
+        .post("/complaints")
         .send({ title: "Entidad inexistente", entity_id: 999999, captcha: "fake" });
 
       expect(res.statusCode).toBe(400);
@@ -125,13 +114,13 @@ describe('Complaints API', () => {
     });
   });
 
-  describe("GET /api/complaints", () => {
+  describe("GET /complaints", () => {
     let testEntity;
     let testComplaint;
 
     beforeEach(async () => {
       // Tomamos una entidad existente
-      const entitiesRes = await request(app).get("/api/entities");
+      const entitiesRes = await request(app).get("/entities");
       testEntity = entitiesRes.body[0];
 
       fetch.mockImplementation(() =>
@@ -147,20 +136,14 @@ describe('Complaints API', () => {
         entity_id: testEntity.id,
         captcha: "fake",
       };
-      const complaintRes = await request(app).post("/api/complaints").send(newComplaint);
+      const complaintRes = await request(app).post("/complaints").send(newComplaint);
       expect(complaintRes.statusCode).toBe(201);
 
       testComplaint = complaintRes.body;
     });
 
-    afterAll(async () => {
-      if (testComplaint?.id) {
-        await pool.query("DELETE FROM complaints WHERE id = $1", [testComplaint.id]);
-      }
-    });
-
     it("Debe retornar todas las quejas", async () => {
-      const res = await request(app).get("/api/complaints");
+      const res = await request(app).get("/complaints");
       expect(res.statusCode).toBe(200);
       expect(Array.isArray(res.body)).toBe(true);
       expect(res.body.length).toBeGreaterThan(0);
@@ -171,7 +154,7 @@ describe('Complaints API', () => {
     });
 
     it("Debe retornar una queja por ID válido", async () => {
-      const res = await request(app).get(`/api/complaints/${testComplaint.id}`);
+      const res = await request(app).get(`/complaints/${testComplaint.id}`);
       expect(res.statusCode).toBe(200);
       expect(res.body).toHaveProperty("id", testComplaint.id);
       expect(res.body).toHaveProperty("title", testComplaint.title);
@@ -180,13 +163,13 @@ describe('Complaints API', () => {
     });
 
     it("Debe retornar 404 si la queja no existe", async () => {
-      const res = await request(app).get("/api/complaints/999999");
+      const res = await request(app).get("/complaints/999999");
       expect(res.statusCode).toBe(404);
       expect(res.body).toHaveProperty("error");
     });
 
     it("Debe retornar 400 si el ID no es válido", async () => {
-      const res = await request(app).get("/api/complaints/abc");
+      const res = await request(app).get("/complaints/abc");
       expect(res.statusCode).toBe(400);
       expect(res.body).toHaveProperty("error");
     });

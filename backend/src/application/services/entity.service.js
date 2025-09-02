@@ -18,6 +18,15 @@ class EntityService {
     }
     return await entityRepo.create({ name: data.name.trim(), logo: data.logo });
   }
+
+  async getEntitiesWithComplaintCount() {
+    const entities = await entityRepo.getEntitiesWithComplaintCount();
+    return entities.map(e => ({
+      id: e.id,
+      name: e.name,
+      complaints: e.complaints.length
+    }));
+  }
 }
 
 module.exports = new EntityService();

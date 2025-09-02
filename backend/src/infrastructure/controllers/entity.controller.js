@@ -26,3 +26,12 @@ exports.create = async (req, res, next) => {
     next(err);
   }
 };
+
+exports.getReport = async (req, res, next) => {
+  try {
+    const report = await entityService.getEntitiesWithComplaintCount();
+    res.json(report);
+  } catch (err) {
+    next(err);
+  }
+};
