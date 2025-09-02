@@ -11,40 +11,40 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: "Tarea quejas boyaca/back"
+        working-directory: backend
     steps:
-      - name: Descargar código
+      - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Configurar Node.js
+      - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 18
 
-      - name: Instalar dependencias (backend)
+      - name: Install dependencies (backend)
         run: npm install
 
-      - name: Ejecutar pruebas (backend)
-        run: npm test
+      # Descomenta esto si luego agregas pruebas en backend
+      # - name: Run tests (backend)
+      #   run: npm test
 
   frontend:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: "Tarea quejas boyaca/front"
+        working-directory: frontend
     steps:
-      - name: Descargar código
+      - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Configurar Node.js
+      - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 18
 
-      - name: Instalar dependencias (frontend)
+      - name: Install dependencies (frontend)
         run: npm install
 
-      - name: Ejecutar pruebas (frontend)
+      # Descomenta esto si luego agregas pruebas en frontend
+      - name: Run tests (frontend)
         run: npm test
-        
-#se arreglo
