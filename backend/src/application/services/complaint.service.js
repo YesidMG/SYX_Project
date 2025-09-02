@@ -1,8 +1,14 @@
+const { PrismaClient } = require('../../generated/prisma/client');
+const prisma = new PrismaClient();
 const complaintRepo = require('../../infrastructure/repositories/complaint.repo');
 
 class ComplaintService {
     async getAllComplaints() {
-        return await complaintRepo.findAll();
+        return await prisma.complaint.findMany({
+            include: {
+                entity: true // Esto incluye los datos de la entidad
+            }
+        });
     }
 
     async getComplaintById(id) {

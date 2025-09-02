@@ -1,6 +1,6 @@
 const entityService = require('../../application/services/entity.service');
 
-exports.getAll = async (req, res) => {
+exports.getAll = async (req, res, next) => {
   try {
     const entities = await entityService.getAllEntities();
     res.json(entities);
@@ -9,7 +9,7 @@ exports.getAll = async (req, res) => {
   }
 };
 
-exports.getById = async (req, res) => {
+exports.getById = async (req, res, next) => {
   try {
     const entity = await entityService.getEntityById(Number(req.params.id));
     res.json(entity);
@@ -18,7 +18,7 @@ exports.getById = async (req, res) => {
   }
 };
 
-exports.create = async (req, res) => {
+exports.create = async (req, res, next) => {
   try {
     const entity = await entityService.createEntity(req.body);
     res.status(201).json(entity);

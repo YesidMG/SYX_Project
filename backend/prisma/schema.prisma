@@ -19,6 +19,8 @@ model Entity {
   name String
   logo String?
   complaints Complaint[]
+
+  @@map("entities")
 }
 
 model Complaint {
