@@ -1,9 +1,9 @@
-name: CI Front + Back
+name: CI
 
 on:
-  pull_request:
-    branches: [ "main" ]
   push:
+    branches: [ "main" ]
+  pull_request:
     branches: [ "main" ]
 
 jobs:
@@ -11,9 +11,10 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: back   # trabaja dentro de /back
+        working-directory: "Tarea quejas boyaca/back"
     steps:
-      - uses: actions/checkout@v3
+      - name: Descargar código
+        uses: actions/checkout@v3
 
       - name: Configurar Node.js
         uses: actions/setup-node@v3
@@ -30,9 +31,10 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: front   # trabaja dentro de /front
+        working-directory: "Tarea quejas boyaca/front"
     steps:
-      - uses: actions/checkout@v3
+      - name: Descargar código
+        uses: actions/checkout@v3
 
       - name: Configurar Node.js
         uses: actions/setup-node@v3
