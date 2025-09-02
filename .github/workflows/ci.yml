@@ -45,6 +45,6 @@ jobs:
       - name: Install dependencies (frontend)
         run: npm install
 
-      # Descomenta esto si luego agregas pruebas en frontend
-      - name: Run tests (frontend)
-        run: npm test
+      # Descomentar esto para pruebas en frontend
+    #  - name: Run tests (frontend)
+     #   run: npm test
