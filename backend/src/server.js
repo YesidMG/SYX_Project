@@ -1,35 +1,19 @@
-require('dotenv').config();
-const express = require('express');
-const cors = require('cors');
-const path = require('path');
+const app = require('./app');
+const { PrismaClient } = require('./generated/prisma');
 
-const { PORT, FRONTEND_URL } = require('./config/db');
+const prisma = new PrismaClient();
+const PORT = process.env.PORT || 3000;
 
-const entitiesRoutes = require('./infrastructure/routers/entities.router');
-const complaintsRoutes = require('./infrastructure/routers/complaints.router');
-const reportsRoutes = require('./infrastructure/routers/reports.router');
-
-const app = express();
-
-// Middlewares
-app.use(express.json());
-// CORS configuration
-app.use(cors({origin: FRONTEND_URL}));
-
-// API Routes
-app.use('/api/entities', entitiesRoutes);
-app.use('/api/complaints', complaintsRoutes);
-app.use('/api/reports', reportsRoutes);
-
-// Servir static files
-app.use(express.static(path.join(__dirname, '../frontend/dist')));
-
-//Export app for testing
-module.exports = app;
-
-// Solo levantamos el servidor si NO estamos en test
-if (require.main === module) {
-  app.listen(PORT, () => {
-    console.log(`Servidor escuchando en http://localhost:${PORT}`);
-  });
+async function main() {
+  try {
+    await prisma.$connect();
+    app.listen(PORT, () => {
+      console.log(`Servidor escuchando en http://localhost:${PORT}`);
+    });
+  } catch (error) {
+    console.error('Error conectando a la base de datos:', error);
+    process.exit(1);
+  }
 }
+
+main();

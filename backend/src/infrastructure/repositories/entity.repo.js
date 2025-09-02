@@ -1,9 +1,10 @@
-const { PrismaClient } = require('@prisma/client');
+const { PrismaClient } = require('../../generated/prisma');
+
 const prisma = new PrismaClient();
 
 module.exports = {
   async findAll() {
-    return await prisma.entity.findMany();
+    return await prisma.entity.findMany({ orderBy: { name: 'asc' } });
   },
 
   async findById(id) {
