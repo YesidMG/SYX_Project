@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState, useRef } from 'react';
-import { getEntities, postComplaint } from '../services/api';
+import { getEntities, postComplaint } from '../../services/api';
 import ReCAPTCHA from "react-google-recaptcha";
 import './WritePage.css'
 

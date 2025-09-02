@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { getComplaints } from "../services/api";
+import { getComplaints } from "../../services/api";
 import Complaint from './Complaint';
-import "./styles/ComplaintList.css";
+import "./ComplaintList.css";
 
 const ComplaintList = ({ entity }) => {
     const [complaints, setComplaints] = useState([]);

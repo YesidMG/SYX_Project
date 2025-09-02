@@ -1,6 +1,6 @@
 import { Link, NavLink } from 'react-router-dom'
-import "./styles/Navbar.css";
-import logo from "../assets/chat.png"
+import "./Navbar.css";
+import logo from "../../assets/chat.png"
 
 export default function Navbar() {
 
