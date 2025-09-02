@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: back   # 👈 trabaja dentro de /back
+        working-directory: back   # trabaja dentro de /back
     steps:
       - uses: actions/checkout@v3
 
@@ -30,7 +30,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: front   # 👈 trabaja dentro de /front
+        working-directory: front   # trabaja dentro de /front
     steps:
       - uses: actions/checkout@v3
 
