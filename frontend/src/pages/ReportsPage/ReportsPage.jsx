@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
-import { getEntityReport} from '../../services/api';
+import React, { useState, useCallback, useEffect, useRef } from 'react';
 import ReCAPTCHA from "react-google-recaptcha";
+import { getEntityReport } from '../../services/api';
 import './ReportsPage.css'
 
 export default function ReportsPage() {
@@ -8,39 +8,98 @@ export default function ReportsPage() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [captchaToken, setCaptchaToken] = useState(null);
+    const [needsVerification, setNeedsVerification] = useState(false);
+    const recaptchaRef = useRef(null);
 
-    const handleCaptchaChange = (token) => {
+    // Cleanup function for reCAPTCHA
+    useEffect(() => {
+        return () => {
+            if (recaptchaRef.current) {
+                recaptchaRef.current.reset();
+            }
+        };
+    }, []);
+
+    const handleCaptchaExpire = useCallback(() => {
+        console.log('Captcha expirado, por favor verifica nuevamente');
+        setCaptchaToken(null);
+        setNeedsVerification(true);
+        // Reset the captcha when it expires
+        if (recaptchaRef.current) {
+            recaptchaRef.current.reset();
+        }
+    }, []);
+
+    const handleCaptchaChange = useCallback((token) => {
+        if (!token) {
+            setNeedsVerification(true);
+            return;
+        }
         setCaptchaToken(token);
-    };
+        setNeedsVerification(false);
+        setError(null);
+    }, []);
+
+    const loadReport = useCallback(async (token, signal) => {
+        try {
+            setLoading(true);
+            setError(null);
+            const newData = await getEntityReport(token, signal);
+            setData(newData);
+        } catch (err) {
+            if (err.name !== "AbortError") {
+                setError(err.message);
+                setData([]);
+                if (err.message.includes('Captcha')) {
+                    setNeedsVerification(true);
+                    setCaptchaToken(null);
+                    if (recaptchaRef.current) {
+                        recaptchaRef.current.reset();
+                    }
+                }
+            }
+        } finally {
+            setLoading(false);
+        }
+    }, []);
 
     useEffect(() => {
         if (!captchaToken) return;
 
         const controller = new AbortController();
-        setLoading(true);
-        setError(null);
+        
+        // Define and immediately invoke async function
+        const fetchData = async () => {
+            await loadReport(captchaToken, controller.signal);
+        };
+        
+        fetchData().catch(console.error);
 
-        getEntityReport(controller.signal)
-            .then(data => setData(data))
-            .catch(err => {
-                if (err.name !== "AbortError") {
-                    setError(err.message);
-                    setData([]);
-                }
-            })
-            .finally(() => setLoading(false));
+        // Cleanup function
+        return () => {
+            controller.abort();
+        };
+    }, [captchaToken, loadReport]);
 
-        return () => controller.abort();
-    }, [captchaToken]);
-
-    if (!captchaToken) {
+    if (!captchaToken || needsVerification) {
         return (
             <div className="captcha-container">
-                <h3>Por favor valida el captcha para ver los reportes:</h3>
+                <h3>
+                    {needsVerification 
+                        ? 'Por favor verifica nuevamente el captcha:' 
+                        : 'Por favor valida el captcha para ver los reportes:'}
+                </h3>
                 <ReCAPTCHA
+                    ref={recaptchaRef}
                     sitekey="6LfEW6orAAAAAAUIw3B0k13R7CZatIljI2YYR1nO"
                     onChange={handleCaptchaChange}
+                    onExpired={handleCaptchaExpire}
+                    onErrored={() => {
+                        setError('Error al cargar el captcha');
+                        setNeedsVerification(true);
+                    }}
                 />
+                {error && <div className="error-message">⚠️ {error}</div>}
             </div>
         );
     }
