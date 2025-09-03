@@ -43,13 +43,16 @@ exports.create = async (req, res, next) => {
   try {
     const complaint = await complaintService.createComplaint(req.body);
 
-    // Obtener nombre de la entidad
+    // Obtener la entidad relacionada
     let entityName = 'Desconocida';
-    if (complaint.entity_name) entityName = complaint.entity_name;
-    if (complaint.entity && complaint.entity.name) entityName = complaint.entity.name;
+    if (complaint.entity_id) {
+      const entity = await require('../../application/services/entity.service').getEntityById(complaint.entity_id);
+      if (entity && entity.name) entityName = entity.name;
+    }
 
     // Obtener IP
-    const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+    let ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+    if (ip === '::1' || ip === '::ffff:127.0.0.1') ip = '127.0.0.1';
 
     // Enviar notificación (correo)
     await notificationService.notifyComplaint({
