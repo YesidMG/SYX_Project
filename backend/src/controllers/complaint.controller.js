@@ -47,7 +47,7 @@ exports.create = async (req, res, next) => {
     // Obtener la entidad relacionada
     let entityName = 'Desconocida';
     if (complaint.entity_id) {
-      const entity = await require('../../application/services/entity.service').getEntityById(complaint.entity_id);
+      const entity = await require('../services/entity.service').getEntityById(complaint.entity_id);
       if (entity && entity.name) entityName = entity.name;
     }
 
