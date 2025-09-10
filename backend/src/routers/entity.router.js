@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const entityController = require('../controllers/entity.controller');
-const {captchaMiddleware} = require('./captcha.middleware');
+const {captchaMiddleware} = require('../middlewares/captcha.middleware');
 
 router.get('/', entityController.getAll);
 router.get('/:id', entityController.getById);

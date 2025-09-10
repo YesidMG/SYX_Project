@@ -5,8 +5,8 @@ const path = require('path');
 const PORT = process.env.PORT || 3000;
 const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:5173';
 
-const entitiesRouter = require('./infrastructure/routers/entity.router');
-const complaintsRouter = require('./infrastructure/routers/complaint.router');
+const entitiesRouter = require('./routers/entity.router');
+const complaintsRouter = require('./routers/complaint.router');
 
 const app = express();
 
@@ -15,7 +15,7 @@ app.use(express.json());
 // CORS Configuration
 app.use(cors({ origin: FRONTEND_URL }));
 
-// Routes
+// Routers
 app.use('/entities', entitiesRouter);
 app.use('/complaints', complaintsRouter);
 

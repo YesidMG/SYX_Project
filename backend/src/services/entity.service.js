@@ -1,4 +1,4 @@
-const entityRepo = require('../../infrastructure/repositories/entity.repo');
+const entityRepo = require('../repositories/entity.repo');
 
 class EntityService {
   async getAllEntities() {

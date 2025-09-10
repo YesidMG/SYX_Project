@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const complaintController = require('../controllers/complaint.controller');
-const {captchaMiddleware} = require('./captcha.middleware');
+const {captchaMiddleware} = require('../middlewares/captcha.middleware');
 
 router.get('/', complaintController.getAll);
 router.get('/:id', complaintController.getById);

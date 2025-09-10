@@ -1,6 +1,6 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
-const complaintRepo = require('../../infrastructure/repositories/complaint.repo');
+const complaintRepo = require('../repositories/complaint.repo');
 
 class ComplaintService {
     async getAllComplaints() {
