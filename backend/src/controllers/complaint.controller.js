@@ -1,13 +1,7 @@
-<<<<<<< HEAD:backend/src/infrastructure/controllers/complaint.controller.js
-const complaintService = require('../../application/services/complaint.service');
-const NodemailerNotifier = require('../../infrastructure/notifiers/nodemailer.notifier');
-const NotificationService = require('../../application/services/notification.service');
-=======
 const complaintService = require('../services/complaint.service');
 const NodemailerNotifier = require('../notifiers/nodemailer.notifier');
 const NotificationService = require('../services/notification.service');
 
->>>>>>> backend-layered-architecture:backend/src/controllers/complaint.controller.js
 const notifier = new NodemailerNotifier();
 const notificationService = new NotificationService(notifier);
 
@@ -53,11 +47,7 @@ exports.create = async (req, res, next) => {
     // Obtener la entidad relacionada
     let entityName = 'Desconocida';
     if (complaint.entity_id) {
-<<<<<<< HEAD:backend/src/infrastructure/controllers/complaint.controller.js
-      const entity = await require('../../application/services/entity.service').getEntityById(complaint.entity_id);
-=======
       const entity = await require('../services/entity.service').getEntityById(complaint.entity_id);
->>>>>>> backend-layered-architecture:backend/src/controllers/complaint.controller.js
       if (entity && entity.name) entityName = entity.name;
     }
 
