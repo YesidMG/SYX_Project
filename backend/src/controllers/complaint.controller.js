@@ -5,6 +5,10 @@ const NotificationService = require('../services/notification.service');
 const notifier = new NodemailerNotifier();
 const notificationService = new NotificationService(notifier);
 
+// Constantes para IPs locales
+const LOCAL_IPV6 = '::1';
+const LOCAL_IPV4 = '::ffff:127.0.0.1';
+
 exports.getAll = async (req, res, next) => {
   try {
     const complaints = await complaintService.getAllComplaints();
@@ -53,7 +57,7 @@ exports.create = async (req, res, next) => {
 
     // Obtener IP
     let ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
-    if (ip === '::1' || ip === '::ffff:127.0.0.1') ip = '127.0.0.1';
+    if (ip === LOCAL_IPV6 || ip === LOCAL_IPV4) ip = '127.0.0.1';
 
     // Enviar notificación (correo)
     await notificationService.notifyComplaint({
