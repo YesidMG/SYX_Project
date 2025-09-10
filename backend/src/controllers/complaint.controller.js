@@ -1,4 +1,4 @@
-const complaintService = require('../../application/services/complaint.service');
+const complaintService = require('../services/complaint.service');
 
 exports.getAll = async (req, res, next) => {
   try {

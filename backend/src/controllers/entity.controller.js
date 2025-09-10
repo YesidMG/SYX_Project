@@ -1,4 +1,4 @@
-const entityService = require('../../application/services/entity.service');
+const entityService = require('../services/entity.service');
 
 exports.getAll = async (req, res, next) => {
   try {
