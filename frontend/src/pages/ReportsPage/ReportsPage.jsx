@@ -135,7 +135,6 @@ export default function ReportsPage() {
                     </tbody>
                 </table>
             </div>
-            <footer className='footer'><h3>Footer</h3><h3>Footer</h3></footer>
         </div>
     )
 }

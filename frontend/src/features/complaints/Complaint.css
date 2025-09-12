@@ -1,10 +1,11 @@
 .container {
+    width: 100%;
+    box-sizing: border-box;
     background: #fff;
     border: 1px solid #878D96;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
     overflow: hidden;
-    margin-bottom: 8px;
 }
 
 .header{

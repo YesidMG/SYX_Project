@@ -15,6 +15,8 @@ export default function Navbar() {
                     </span>
                     <span className='brand__text'>SISTEMA DE QUEJAS SYX</span>
                 </Link>
+                {/*CENTRO: Espacio*/}
+                <div className="spacer"></div>
                 {/*DERECHA: Enlaces*/}
                 <nav className="menu">
                     <NavLink to="/" className={({ isActive }) => isActive ? "menu__link is-active" : "menu__link"}>
