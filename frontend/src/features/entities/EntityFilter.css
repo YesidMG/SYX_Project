@@ -1,10 +1,8 @@
 .sidebar-filter {
-  min-width: 200px;
-  max-width: 240px;
   height: 100%;
-  background-color: #DDE1E6;
-  padding: 20px;
-  border-right: 1px solid #878D96;
+  padding: 30px;
+  border-right: 1px solid #878d96;
+  box-sizing: border-box;
 }
 
 .sidebar-filter h3 {
@@ -16,8 +14,8 @@
   display: flex;
   text-align: left;
   margin-bottom: 13px;
-  font-weight: 450;
-  font-size: 17px;
+  font-weight: 500;
+  font-size: 15px;
   cursor: pointer;
 }
 

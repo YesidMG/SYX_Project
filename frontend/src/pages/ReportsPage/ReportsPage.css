@@ -1,10 +1,21 @@
 .reports-page {
-  min-height: 100vh;
+  margin-top: 60px;
+  min-height: calc(100vh - 60px);
+  padding: 20px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
   background: #f5f6fa;
+}
+
+.captcha-container {
+  margin-top: 60px;
+  min-height: calc(100vh - 60px);
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
 }
 
 header {
@@ -22,10 +33,11 @@ header {
   width: 100%;
   border-collapse: collapse;
   background: white;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
-.reports-table th, .reports-table td {
+.reports-table th,
+.reports-table td {
   padding: 12px 16px;
   border: 1px solid #e0e0e0;
   text-align: left;
@@ -48,7 +60,7 @@ header {
   border-radius: 8px;
   font-size: 1.2rem;
   text-align: center;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
 }
 
 .message.error {
@@ -61,15 +73,4 @@ header {
   background: #f3f7ff;
   color: #1a4fa0;
   border: 1px solid #b3d1ff;
-}
-
-.footer {
-  margin-top: auto;
-  width: 100%;
-  background: #697077;
-  color: white;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  height: 60px;
 }

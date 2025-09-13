@@ -2,7 +2,7 @@ import "./HomeTitle.css";
 
 export default function HomeTitle() {
     return (
-        <div className="title-sec">
+        <div className="title-container">
             <p className="title-sub">
                 SISTEMA DE REDACCIÓN DE QUEJAS PARA
             </p>

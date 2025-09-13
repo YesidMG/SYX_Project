@@ -1,41 +1,39 @@
 .write-page {
-    min-height: 60vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background: #fff;
-}
-
-header {
-    margin-bottom: 24px;
+  margin-top: 60px;
+  min-height: calc(100vh - 60px);
+  display: flex;
+  padding: 20px;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  background: #fff;
 }
 
 .form-section {
-    width: 100%;
-    max-width: 700px;
-    display: flex;
-    flex-direction: column;
-    gap: 27px;
-    background: #f2f4f8;
-    padding: 32px 40px;
-    border-radius: 5px;
-    box-shadow: 0 5px 12px rgba(0,0,0,0.2);
+  width: 100%;
+  max-width: 700px;
+  display: flex;
+  flex-direction: column;
+  gap: 27px;
+  background: #f2f4f8;
+  padding: 32px 40px;
+  border-radius: 5px;
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.2);
 }
 
 .entity-form,
 .title-form,
 .description-form {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 label {
-    font-size: 1.1rem;
-    font-weight: 600;
-    margin-bottom: 4px;
-    color: #333;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: #333;
 }
 
 input[type="text"],
@@ -125,7 +123,7 @@ button.cancel:hover {
   align-items: center;
 }
 
-.form-section > div,
-.form-section > button {
+.form-section>div,
+.form-section>button {
   width: 100%;
 }

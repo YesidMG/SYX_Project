@@ -1,7 +1,6 @@
 .list-container {
     width: 100%;
-    max-width: 1500px; /* Puedes ajustar este valor */
-    margin: 15px auto 0 auto;
+    box-sizing: border-box;
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -35,8 +34,5 @@
     .list-container {
         max-width: 98vw;
         padding: 10px;
-    }
-    .container {
-        max-width: 98vw;
     }
 }

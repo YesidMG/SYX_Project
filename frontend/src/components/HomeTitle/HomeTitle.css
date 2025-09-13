@@ -1,7 +1,6 @@
-.title-sec{
-    width: 100%;
+.title-container{
+    width: auto;
     text-align: center;
-    background-color: #F2F4F8;
     padding: 12px 20px;
     border-bottom: 1px solid #878D96;
 }

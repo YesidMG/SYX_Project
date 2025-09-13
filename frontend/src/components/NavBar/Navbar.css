@@ -1,60 +1,96 @@
 .nav {
-    position: sticky; top: 0; z-index: 40 ;
-    background: #ffffff;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 40;
+    background-color: #F2F4F8;
     border-bottom: 2px solid #878D96;
+    margin: 0;
 }
 
 .nav__inner {
     height: 60px;
-    max-width: 1200px; margin: 0 auto;
+    max-width: 100%;
+    margin: 0 auto;
     padding: 0 40px;
-    display: flex; align-items: center; justify-content: space-between;
+    display: flex;
+    align-items: center;
     gap: 12px;
 }
 
 .brand {
-    display: inline-flex; align-items: center; gap: 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
     text-decoration: none;
 }
 
 .brand__icon {
-    width: 30px; height: 30px;
+    width: 30px;
+    height: 30px;
     border-radius: 999px;
     background: #e8f0ff;
-    display: grid; place-items: center;
+    display: grid;
+    place-items: center;
 }
 
 .brand__text {
-    font-weight: 700; letter-spacing: 1.3px;
+    font-weight: 700;
+    letter-spacing: 1.3px;
     color: #000;
     font-size: 20px;
 }
 
-.menu{
-    display: flex; align-items: center; gap: 35px;
+.spacer {
+    flex: 1;
+}
+
+.menu {
+    display: flex;
+    align-items: center;
+    gap: 35px;
 }
 
 .menu__link {
-    font-size: 15px; color: #000;
+    font-size: 15px;
+    color: #000;
     text-decoration: none;
     letter-spacing: 1px;
     cursor: pointer;
 }
-.menu__link:hover { color: #374151}
-.menu__link.is-active { font-weight: 600;}
+
+.menu__link:hover {
+    color: #374151
+}
+
+.menu__link.is-active {
+    font-weight: 600;
+}
 
 .write__link {
-    display: inline-flex; align-items: center; gap: 8px;
-    background: #0F62FE; color: #fff; 
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #0F62FE;
+    color: #fff;
     border: 2px solid #0F62FE;
-    padding: 6px 10px; 
+    padding: 6px 10px;
     font-size: 15px;
     text-decoration: none;
     letter-spacing: 1px;
     cursor: pointer;
 }
-.write__link:hover {background: #fff; color: #0F62FE;}
-.write__link.is-active {background: #F2F4F8; color: #0F62FE;}
+
+.write__link:hover {
+    background: #fff;
+    color: #0F62FE;
+}
+
+.write__link.is-active {
+    background: #F2F4F8;
+    color: #0F62FE;
+}
 
 .write__icon {
     display: flex;
