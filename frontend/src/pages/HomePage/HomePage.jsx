@@ -5,15 +5,15 @@ import ComplaintList from '../../features/complaints/ComplaintList'
 import './HomePage.css'
 
 export default function HomePage() {
-    const [filter, setFilter] = useState("Todas");
+    const [selectedEntityId, setSelectedEntityId] = useState("");
     return (
         <div className='home-page'>
             <div className='filter-bar'>
-                <EntityFilter onChange={setFilter} />
+                <EntityFilter onChange={setSelectedEntityId} />
             </div>
             <div className="main-content">
                 <HomeTitle className='home-title'/>
-                <ComplaintList className='complaints-container' entity={filter} />
+                <ComplaintList className='complaints-container' entityId={selectedEntityId} />
             </div>
         </div>
     );

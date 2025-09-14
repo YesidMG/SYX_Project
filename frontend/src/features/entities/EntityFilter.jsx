@@ -2,11 +2,11 @@ import { useState, useEffect } from "react";
 import { getEntities } from "../../services/api";
 import "./EntityFilter.css";
 
-const DEFAULT_OPTION = "Todas";
+const DEFAULT_OPTION = { id: "", name: "Todas" };
 
 const EntityFilter = ({ onChange }) => {
     const [entities, setEntities] = useState([DEFAULT_OPTION]);
-    const [selected, setSelected] = useState(DEFAULT_OPTION);
+    const [selected, setSelected] = useState(DEFAULT_OPTION.id);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -17,7 +17,7 @@ const EntityFilter = ({ onChange }) => {
 
         getEntities(controller.signal)
             .then(data => {
-                setEntities([DEFAULT_OPTION, ...data.map(e => e.name)]);
+                setEntities([DEFAULT_OPTION, ...data]);
             })
             .catch(err => {
                 if (err.name !== "AbortError") {
@@ -30,13 +30,14 @@ const EntityFilter = ({ onChange }) => {
         return () => controller.abort();
     }, []);
 
-    const handleChange = (value) => {
+    const handleChange = (e) => {
+        const value = e.target.value;
         setSelected(value);
         if (onChange) onChange(value);
     };
 
     if (loading) {
-        return <div className="message loading"><h3>Cargando reportes...</h3></div>;
+        return <div className="message loading"><h3>Cargando entidades...</h3></div>;
     }
 
     if (error) {
@@ -46,18 +47,17 @@ const EntityFilter = ({ onChange }) => {
     return (
         <div className="sidebar-filter">
             <h3>ENTIDADES</h3>
-            {entities.map((entity) => (
-                <label key={entity} className="radio-label">
-                    <input
-                        type="radio"
-                        name="entity"
-                        value={entity}
-                        checked={selected === entity}
-                        onChange={() => handleChange(entity)}
-                    />
-                    {entity}
-                </label>
-            ))}
+            <select
+                value={selected}
+                onChange={handleChange}
+                style={{ width: "100%", padding: "10px", fontSize: "15px" }}
+            >
+                {entities.map((entity) => (
+                    <option key={entity.id ?? entity.name} value={entity.id ?? ""}>
+                        {entity.name}
+                    </option>
+                ))}
+            </select>
         </div>
     );
 };
