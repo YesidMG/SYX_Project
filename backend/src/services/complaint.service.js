@@ -4,10 +4,7 @@ const complaintRepo = require('../repositories/complaint.repo');
 
 class ComplaintService {
     async getAllComplaints() {
-        return await prisma.complaint.findMany({
-            include: { entity: true },
-            orderBy: { creation_date: 'desc' }
-        });
+        return await complaintRepo.findAll();
     }
 
     async getComplaintById(id) {
@@ -18,11 +15,11 @@ class ComplaintService {
     }
 
     async getComplaintsByEntity(entityId) {
-        return await prisma.complaint.findMany({
-            where: { entity_id: entityId },
-            include: { entity: true },
-            orderBy: { creation_date: 'desc' } 
-        });
+        if (isNaN(entityId)) {
+            throw { status: 400, message: 'ID de entidad inválido' };
+        }
+
+        return await complaintRepo.findByEntityId(entityId);
     }
 
     async createComplaint(data) {
@@ -35,7 +32,7 @@ class ComplaintService {
         if (!data.entity_id || isNaN(data.entity_id)) {
             throw { status: 400, message: 'El ID de la entidad es obligatorio' };
         }
-        
+
         return await complaintRepo.create({
             entity_id: Number(data.entity_id),
             title: data.title.trim(),
