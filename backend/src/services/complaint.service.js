@@ -5,9 +5,7 @@ const complaintRepo = require('../repositories/complaint.repo');
 class ComplaintService {
     async getAllComplaints() {
         return await prisma.complaint.findMany({
-            include: {
-                entity: true 
-            },
+            include: { entity: true },
             orderBy: { creation_date: 'desc' }
         });
     }

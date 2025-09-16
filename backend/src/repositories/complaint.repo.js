@@ -4,8 +4,9 @@ const prisma = new PrismaClient();
 
 module.exports = {
     async findAll() {
-        return await prisma.complaint.findMany({ 
-            orderBy: { creation_date: 'desc' } 
+        return await prisma.complaint.findMany({
+            orderBy: { creation_date: 'desc' },
+            include: { entity: true }
         });
     },
 
@@ -16,9 +17,10 @@ module.exports = {
     },
 
     async findByEntityId(entityId) {
-        return await prisma.complaint.findMany( {
+        return await prisma.complaint.findMany({
             where: { entity_id: Number(entityId) },
-            orderBy: { creation_date: 'desc' }
+            orderBy: { creation_date: 'desc' },
+            include: { entity: true }
         });
     },
 
