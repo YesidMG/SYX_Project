@@ -9,11 +9,11 @@ export default function HomePage() {
     return (
         <div className='home-page'>
             <div className='filter-bar'>
-                <EntityFilter onChange={setSelectedEntityId} />
+                <EntityFilter onChange={setFilter} />
             </div>
             <div className="main-content">
                 <HomeTitle className='home-title'/>
-                <ComplaintList className='complaints-container' entityId={selectedEntityId} />
+                <ComplaintList className='complaints-container' entityId={filter} />
             </div>
         </div>
     );
