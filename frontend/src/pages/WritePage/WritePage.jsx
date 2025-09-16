@@ -8,7 +8,6 @@ export default function WritePage() {
 
   const navigate = useNavigate();
   const [entity, setEntity] = useState('');
-  const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [entities, setEntities] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -39,14 +38,12 @@ export default function WritePage() {
     try {
       await postComplaint({
         entity_id: parseInt(entity, 10),
-        title,
         description,
         captcha: token,
       });
 
       alert('¡Queja enviada exitosamente!');
       setEntity('');
-      setTitle('');
       setDescription('');
       recaptchaRef.current.reset();
     } catch (error) {
