@@ -20,11 +20,12 @@ exports.getAll = async (req, res, next) => {
     }
     const formatted = complaints.map(c => ({
       id: c.id,
-      title: c.title,
       description: c.description,
       entity_name: c.entity?.name || 'Desconocida',
       logo: c.entity?.logo || '',
-      creation_date: c.creation_date
+      creation_date: c.creation_date,
+      state: c.state,
+      comments: c.comments || []
     }));
     res.json(formatted);
   } catch (err) {
@@ -42,12 +43,12 @@ exports.getById = async (req, res, next) => {
 };
 
 exports.getByEntity = async (req, res, next) => {
-    try {
-        const complaints = await complaintService.getComplaintsByEntity(Number(req.params.entityId));
-        res.json(complaints);
-    } catch (err) {
-        next(err);
-    }
+  try {
+    const complaints = await complaintService.getComplaintsByEntity(Number(req.params.entityId));
+    res.json(complaints);
+  } catch (err) {
+    next(err);
+  }
 }
 
 exports.create = async (req, res, next) => {

@@ -25,10 +25,28 @@ model Entity {
 model Complaint {
   id      Int    @id @default(autoincrement())
   entity_id Int
-  title   String
   description String
   creation_date DateTime @default(now())
+  state ComplaintState @default(OPEN)
   entity  Entity @relation(fields: [entity_id], references: [id])
+  comments Comment[]
 
   @@map("complaints")
+}
+
+model Comment {
+  id          Int      @id @default(autoincrement())
+  complaint_id Int
+  content     String
+  creation_date DateTime @default(now())
+  complaint   Complaint @relation(fields: [complaint_id], references: [id])
+
+  @@map("comments")
+}
+
+enum ComplaintState {
+  OPEN
+  UNDER_REVIEW
+  CLOSED
+  DELETED
 }
