@@ -3,7 +3,7 @@ import { getComplaints } from "../../services/api";
 import Complaint from './Complaint';
 import "./ComplaintList.css";
 
-const ComplaintList = ({ entity }) => {
+const ComplaintList = ({ entityId }) => {
     const [complaints, setComplaints] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -13,7 +13,7 @@ const ComplaintList = ({ entity }) => {
         setLoading(true);
         setError(null);
 
-        getComplaints(entity, controller.signal)
+        getComplaints(entityId, controller.signal)
             .then(data => setComplaints(data))
             .catch(err => {
                 if (err.name !== "AbortError") {
@@ -24,10 +24,10 @@ const ComplaintList = ({ entity }) => {
             .finally(() => setLoading(false));
 
         return () => controller.abort();
-    }, [entity]);
+    }, [entityId]);
 
     if (loading) {
-        return <div className="message loading"><h3>Cargando reportes...</h3></div>;
+        return <div className="message loading"><h3>Cargando quejas...</h3></div>;
     }
 
     if (error) {

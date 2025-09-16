@@ -37,6 +37,7 @@ exports.getAll = async (req, res, next) => {
       }));
     }
     res.json(complaints);
+
   } catch (err) {
     next(err);
   }

@@ -18,8 +18,11 @@ class ComplaintService {
     }
 
     async getComplaintsByEntity(entityId) {
-        if (isNaN(entityId)) throw { status: 400, message: 'ID de entidad inválido' };
-        return await complaintRepo.findByEntityId(entityId);
+        return await prisma.complaint.findMany({
+            where: { entity_id: entityId },
+            include: { entity: true },
+            orderBy: { creation_date: 'desc' } 
+        });
     }
 
     async createComplaint(data) {
