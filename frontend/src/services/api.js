@@ -1,10 +1,10 @@
 const API_URL = import.meta.env.VITE_API_URL;
 
 // Obtener todas las quejas
-export async function getComplaints(entityName, signal) {
+export async function getComplaints(entityId, signal) {
   let url = `${API_URL}/complaints`;
-  if (entityName && entityName !== "Todas") {
-    url += `?entity_name=${encodeURIComponent(entityName)}`;
+  if (entityId) {
+    url += `?entity_id=${encodeURIComponent(entityId)}`;
   }
   const res = await fetch(url, { signal });
   if (!res.ok) throw new Error('Error al obtener quejas');

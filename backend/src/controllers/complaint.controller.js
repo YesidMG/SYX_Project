@@ -11,13 +11,19 @@ const LOCAL_IPV4 = '::ffff:127.0.0.1';
 
 exports.getAll = async (req, res, next) => {
   try {
-    const complaints = await complaintService.getAllComplaints();
+    const entityId = req.query.entity_id;
+    let complaints;
+    if (entityId) {
+      complaints = await complaintService.getComplaintsByEntity(Number(entityId));
+    } else {
+      complaints = await complaintService.getAllComplaints();
+    }
     const formatted = complaints.map(c => ({
       id: c.id,
       title: c.title,
       description: c.description,
-      entity_name: c.entity.name,
-      logo: c.entity.logo,
+      entity_name: c.entity?.name || 'Desconocida',
+      logo: c.entity?.logo || '',
       creation_date: c.creation_date
     }));
     res.json(formatted);
