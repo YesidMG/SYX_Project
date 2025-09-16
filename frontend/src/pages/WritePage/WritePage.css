@@ -22,7 +22,6 @@
 }
 
 .entity-form,
-.title-form,
 .description-form {
   display: flex;
   flex-direction: column;

@@ -75,17 +75,6 @@ export default function WritePage() {
             </select>
           )}
         </div>
-        <div className="title-form">
-          <label>Título de la queja</label>
-          <input
-            type="text"
-            value={title}
-            onChange={e => setTitle(e.target.value)}
-            maxLength={100}
-            placeholder="Escribe un título"
-            required
-          />
-        </div>
         <div className="description-form">
           <label>Descripción y detalles</label>
           <textarea

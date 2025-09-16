@@ -45,3 +45,41 @@ export async function postComplaint({ entity_id, title, description, captcha }) 
   if (!res.ok) throw new Error('Error al enviar la queja');
   return res.json();
 }
+
+// Obtener todos los comentarios de una queja
+export async function getCommentsByComplaint(complaintId, signal) {
+  const res = await fetch(`${API_URL}/comments/complaint/${complaintId}`, { signal });
+  if (!res.ok) throw new Error('Error al obtener comentarios');
+  return res.json();
+}
+
+// Crear un nuevo comentario
+export async function createComment(data) {
+  const res = await fetch(`${API_URL}/comments`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  });
+  if (!res.ok) throw new Error('Error al crear el comentario');
+  return res.json();
+}
+
+// Actualizar un comentario
+export async function updateComment(id, data) {
+  const res = await fetch(`${API_URL}/comments/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  });
+  if (!res.ok) throw new Error('Error al actualizar el comentario');
+  return res.json();
+}
+
+// Eliminar un comentario
+export async function deleteComment(id) {
+  const res = await fetch(`${API_URL}/comments/${id}`, {
+    method: 'DELETE',
+  });
+  if (!res.ok) throw new Error('Error al eliminar el comentario');
+  return res.status === 204 ? null : res.json();
+}

@@ -23,9 +23,6 @@ class ComplaintService {
     }
 
     async createComplaint(data) {
-        if (!data.title || typeof data.title !== 'string' || data.title.trim() === '') {
-            throw { status: 400, message: 'El título es obligatorio y debe ser texto' };
-        }
         if (!data.description || typeof data.description !== 'string' || data.description.trim() === '') {
             throw { status: 400, message: 'La descripción es obligatoria y debe ser texto' };
         }
@@ -35,7 +32,6 @@ class ComplaintService {
 
         return await complaintRepo.create({
             entity_id: Number(data.entity_id),
-            title: data.title.trim(),
             description: data.description.trim(),
         });
     }

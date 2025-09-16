@@ -48,7 +48,7 @@ const Complaint = ({ complaint }) => {
                 </div>
             </div>
             {/* Componente de comentarios */}
-            <CommentSection />
+            <CommentSection complaintId={complaint.id}/>
         </div>
     );
 };
