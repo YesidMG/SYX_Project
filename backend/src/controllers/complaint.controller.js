@@ -14,9 +14,27 @@ exports.getAll = async (req, res, next) => {
     const entityId = req.query.entity_id;
     let complaints;
     if (entityId) {
+      // Filtra por entidad
       complaints = await complaintService.getComplaintsByEntity(Number(entityId));
+      complaints = complaints.map(c => ({
+        id: c.id,
+        title: c.title,
+        description: c.description,
+        entity_name: c.entity?.name || 'Desconocida',
+        logo: c.entity?.logo || '',
+        creation_date: c.creation_date
+      }));
     } else {
+      // Todas las quejas
       complaints = await complaintService.getAllComplaints();
+      complaints = complaints.map(c => ({
+        id: c.id,
+        title: c.title,
+        description: c.description,
+        entity_name: c.entity.name,
+        logo: c.entity.logo,
+        creation_date: c.creation_date
+      }));
     }
     const formatted = complaints.map(c => ({
       id: c.id,

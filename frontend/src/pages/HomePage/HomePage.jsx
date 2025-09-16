@@ -5,7 +5,7 @@ import ComplaintList from '../../features/complaints/ComplaintList'
 import './HomePage.css'
 
 export default function HomePage() {
-    const [selectedEntityId, setSelectedEntityId] = useState("");
+    const [filter, setFilter] = useState("");
     return (
         <div className='home-page'>
             <div className='filter-bar'>
