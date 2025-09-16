@@ -184,8 +184,8 @@
     background: #fff;
     color: #0F62FE;
     border: 1.5px solid #0F62FE;
-    border-radius: 0 0 32px 32px; /* igual de redondeado que el de comentar */
-    min-width: 110px; /* un poco más ancho */
+    border-radius: 0 0 32px 32px; 
+    min-width: 110px; 
     padding: 6px 22px;
 }
 
