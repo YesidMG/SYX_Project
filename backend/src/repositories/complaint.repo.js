@@ -12,7 +12,8 @@ module.exports = {
 
     async findById(id) {
         return await prisma.complaint.findUnique({ 
-            where: {id: Number(id)}
+            where: {id: Number(id)},
+            include: { entity: true }
         });
     },
 

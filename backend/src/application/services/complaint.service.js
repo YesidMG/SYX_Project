@@ -1,6 +1,6 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
-const complaintRepo = require('../../infrastructure/repositories/complaint.repo');
+const complaintRepo = require('../repositories/complaint.repo');
 
 const HTTP_STATUS = {
     BAD_REQUEST: 400,
@@ -22,11 +22,7 @@ const EMPTY_STRING = '';
 
 class ComplaintService {
     async getAllComplaints() {
-        return await prisma.complaint.findMany({
-            include: {
-                entity: true // Esto incluye los datos de la entidad
-            }
-        });
+        return await complaintRepo.findAll();
     }
 
     async getComplaintById(id) {
