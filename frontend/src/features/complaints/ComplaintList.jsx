@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
-import { getComplaints } from "../../services/api";
-import Complaint from './Complaint';
-import "./ComplaintList.css";
+import PropTypes from 'prop-types'
+import { useState, useEffect } from 'react'
+import { getComplaints } from '../../services/api'
+import Complaint from './Complaint'
+import './ComplaintList.css'
 
 const PAGE_SIZE = 10;
 
@@ -47,6 +48,7 @@ const ComplaintList = ({ entityId }) => {
         return <div className="message error"><h3>⚠️ {error}</h3></div>;
     }
 
+  if (error) {
     return (
         <div className="list-container">
             {complaints.length === 0 && <p>No hay quejas registradas.</p>}

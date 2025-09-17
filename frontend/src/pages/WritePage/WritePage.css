@@ -35,7 +35,7 @@ label {
   color: #333;
 }
 
-input[type="text"],
+input[type='text'],
 select,
 textarea {
   padding: 10px 12px;
@@ -47,7 +47,7 @@ textarea {
   transition: border-color 0.2s;
 }
 
-input[type="text"]:focus,
+input[type='text']:focus,
 select:focus,
 textarea:focus {
   border-color: #1a4fa0;
@@ -80,7 +80,7 @@ textarea {
 }
 
 button.accept {
-  background: #0F62FE;
+  background: #0f62fe;
   color: #fff;
   border: none;
   border-radius: 6px;
@@ -97,14 +97,16 @@ button.accept:hover {
 
 button.cancel {
   background: #fff;
-  color: #0F62FE;
-  border: 1.5px solid #0F62FE;
+  color: #0f62fe;
+  border: 1.5px solid #0f62fe;
   border-radius: 6px;
   padding: 12px 0;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.2s, color 0.2s;
+  transition:
+    background 0.2s,
+    color 0.2s;
 }
 
 button.cancel:hover {
@@ -122,7 +124,7 @@ button.cancel:hover {
   align-items: center;
 }
 
-.form-section>div,
-.form-section>button {
+.form-section > div,
+.form-section > button {
   width: 100%;
 }

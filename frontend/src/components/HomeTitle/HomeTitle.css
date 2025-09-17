@@ -1,21 +1,21 @@
-.title-container{
-    width: auto;
-    text-align: center;
-    padding: 12px 20px;
-    border-bottom: 1px solid #878D96;
+.title-container {
+  width: auto;
+  text-align: center;
+  padding: 12px 20px;
+  border-bottom: 1px solid #878d96;
 }
 
-.title-sub{
-    font-size: 1rem;
-    font-weight: 600;
-    color: #001D6C;
-    margin: 3px 0 0 0;
-    letter-spacing: 0.5px;
+.title-sub {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #001d6c;
+  margin: 3px 0 0 0;
+  letter-spacing: 0.5px;
 }
 
-.title-main{
-    font-size: 1.8rem;
-    font-weight: 600;
-    color: #000;
-    margin: 5px 0 0 0;
+.title-main {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #000;
+  margin: 5px 0 0 0;
 }

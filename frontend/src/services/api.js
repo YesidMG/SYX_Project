@@ -1,4 +1,4 @@
-const API_URL = import.meta.env.VITE_API_URL;
+const API_URL = import.meta.env.VITE_API_URL
 
 // Obtener todas las quejas
 export async function getComplaints(entityId, page = 1, limit = 10, signal) {
@@ -6,16 +6,16 @@ export async function getComplaints(entityId, page = 1, limit = 10, signal) {
   if (entityId) {
     url += `&entity_id=${encodeURIComponent(entityId)}`;
   }
-  const res = await fetch(url, { signal });
-  if (!res.ok) throw new Error('Error al obtener quejas');
-  return res.json();
+  const res = await fetch(url, { signal })
+  if (!res.ok) throw new Error('Error al obtener quejas')
+  return res.json()
 }
 
 // Obtener todas las entidades
 export async function getEntities(signal) {
-  const res = await fetch(`${API_URL}/entities`, { signal });
-  if (!res.ok) throw new Error('Error al obtener entidades');
-  return res.json();
+  const res = await fetch(`${API_URL}/entities`, { signal })
+  if (!res.ok) throw new Error('Error al obtener entidades')
+  return res.json()
 }
 
 // Obtener reportes de entidades
@@ -24,15 +24,15 @@ export async function getEntityReport(captcha, signal) {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ captcha }),
-    signal
-  });
+    signal,
+  })
 
   if (!res.ok) {
-    const errorData = await res.json();
-    throw new Error(errorData.error || 'Error al obtener el reporte de entidades');
+    const errorData = await res.json()
+    throw new Error(errorData.error || 'Error al obtener el reporte de entidades')
   }
 
-  return res.json();
+  return res.json()
 }
 
 // Enviar una nueva queja
@@ -41,16 +41,16 @@ export async function postComplaint({ entity_id, description, captcha }) {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ entity_id, description, captcha }),
-  });
-  if (!res.ok) throw new Error('Error al enviar la queja');
-  return res.json();
+  })
+  if (!res.ok) throw new Error('Error al enviar la queja')
+  return res.json()
 }
 
 // Obtener todos los comentarios de una queja
 export async function getCommentsByComplaint(complaintId, signal) {
-  const res = await fetch(`${API_URL}/comments/complaint/${complaintId}`, { signal });
-  if (!res.ok) throw new Error('Error al obtener comentarios');
-  return res.json();
+  const res = await fetch(`${API_URL}/comments/complaint/${complaintId}`, { signal })
+  if (!res.ok) throw new Error('Error al obtener comentarios')
+  return res.json()
 }
 
 // Crear un nuevo comentario
@@ -59,9 +59,9 @@ export async function createComment(data) {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data),
-  });
-  if (!res.ok) throw new Error('Error al crear el comentario');
-  return res.json();
+  })
+  if (!res.ok) throw new Error('Error al crear el comentario')
+  return res.json()
 }
 
 // Actualizar un comentario
@@ -70,16 +70,16 @@ export async function updateComment(id, data) {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data),
-  });
-  if (!res.ok) throw new Error('Error al actualizar el comentario');
-  return res.json();
+  })
+  if (!res.ok) throw new Error('Error al actualizar el comentario')
+  return res.json()
 }
 
 // Eliminar un comentario
 export async function deleteComment(id) {
   const res = await fetch(`${API_URL}/comments/${id}`, {
     method: 'DELETE',
-  });
-  if (!res.ok) throw new Error('Error al eliminar el comentario');
-  return res.status === 204 ? null : res.json();
+  })
+  if (!res.ok) throw new Error('Error al eliminar el comentario')
+  return res.status === 204 ? null : res.json()
 }
