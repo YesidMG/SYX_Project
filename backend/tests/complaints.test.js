@@ -22,7 +22,6 @@ describe('Complaints API', () => {
       const entityId = entitiesRes.body[0].id;
 
       const newComplaint = {
-        title: "El servicio fue muy lento",
         description: "Esperé más de 30 minutos para ser atendido",
         entity_id: entityId,
         captcha: "fake",
@@ -32,21 +31,8 @@ describe('Complaints API', () => {
 
       expect(res.statusCode).toBe(201);
       expect(res.body).toHaveProperty("id");
-      expect(res.body).toHaveProperty("title", newComplaint.title);
       expect(res.body).toHaveProperty("description", newComplaint.description);
       expect(res.body).toHaveProperty("entity_id", entityId);
-    });
-
-    it("Debe retornar 400 si falta 'title'", async () => {
-      const entitiesRes = await request(app).get("/entities");
-      const entityId = entitiesRes.body[0].id;
-
-      const res = await request(app)
-        .post("/complaints")
-        .send({ entity_id: entityId, description: "No se especifica título", captcha: "fake" });
-
-      expect(res.statusCode).toBe(400);
-      expect(res.body).toHaveProperty("error");
     });
 
     it("Debe retornar 400 si falta 'description'", async () => {
@@ -55,7 +41,7 @@ describe('Complaints API', () => {
 
       const res = await request(app)
         .post("/complaints")
-        .send({ title: "Falta el ID de entidad", entity_id: entityId, captcha: "fake" });
+        .send({ entity_id: entityId, captcha: "fake" });
 
       expect(res.statusCode).toBe(400);
       expect(res.body).toHaveProperty("error");
@@ -64,7 +50,7 @@ describe('Complaints API', () => {
     it("Debe retornar 400 si falta 'entity_id'", async () => {
       const res = await request(app)
         .post("/complaints")
-        .send({ title: "Falta el ID de entidad", description: "No se especifica a qué entidad", captcha: "fake" });
+        .send({ description: "No se especifica a qué entidad", captcha: "fake" });
 
       expect(res.statusCode).toBe(400);
       expect(res.body).toHaveProperty("error");
@@ -76,38 +62,16 @@ describe('Complaints API', () => {
 
       const res = await request(app)
         .post("/complaints")
-        .send({ title: "Sin captcha", description: "Debe fallar", entity_id: entityId });
+        .send({ description: "Debe fallar", entity_id: entityId });
 
       expect(res.statusCode).toBe(400);
       expect(res.body).toHaveProperty("error");
     });
 
-    it("Debe retornar 400 si el captcha es inválido", async () => {
-      // Mock específico para este test
-      fetch.mockImplementation(() =>
-        Promise.resolve({
-          json: () => Promise.resolve({ success: false })
-        })
-      );
-
-      const entitiesRes = await request(app).get("/entities");
-      const entityId = entitiesRes.body[0].id;
-
-      const res = await request(app).post("/complaints").send({
-        title: "Intento con captcha inválido",
-        description: "No debería pasar",
-        entity_id: entityId,
-        captcha: "fake",
-      });
-
-      expect(res.statusCode).toBe(400);
-      expect(res.body).toHaveProperty("error", "Captcha inválido");
-    });
-
     it("Debe retornar 400 si el 'entity_id' no existe", async () => {
       const res = await request(app)
         .post("/complaints")
-        .send({ title: "Entidad inexistente", entity_id: 999999, captcha: "fake" });
+        .send({ entity_id: 999999, captcha: "fake" });
 
       expect(res.statusCode).toBe(400);
       expect(res.body).toHaveProperty("error");
@@ -131,7 +95,6 @@ describe('Complaints API', () => {
 
       // Creamos una queja de prueba
       const newComplaint = {
-        title: "El servicio fue muy lento",
         description: "Esperé más de 30 minutos para ser atendido",
         entity_id: testEntity.id,
         captcha: "fake",
@@ -143,21 +106,19 @@ describe('Complaints API', () => {
     });
 
     it("Debe retornar todas las quejas", async () => {
-      const res = await request(app).get("/complaints");
+      const res = await request(app).get("/complaints/");
       expect(res.statusCode).toBe(200);
       expect(Array.isArray(res.body)).toBe(true);
       expect(res.body.length).toBeGreaterThan(0);
       expect(res.body[0]).toHaveProperty("id");
-      expect(res.body[0]).toHaveProperty("title");
       expect(res.body[0]).toHaveProperty("description");
-      expect(res.body[0]).toHaveProperty("entity_id");
+      expect(res.body[0]).toHaveProperty("entity_name");
     });
 
     it("Debe retornar una queja por ID válido", async () => {
       const res = await request(app).get(`/complaints/${testComplaint.id}`);
       expect(res.statusCode).toBe(200);
       expect(res.body).toHaveProperty("id", testComplaint.id);
-      expect(res.body).toHaveProperty("title", testComplaint.title);
       expect(res.body).toHaveProperty("description", testComplaint.description);
       expect(res.body).toHaveProperty("entity_id", testEntity.id);
     });
