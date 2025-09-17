@@ -70,5 +70,27 @@ module.exports = {
                 }
             }
         });
+    },
+
+    async findPaginated({ page = 1, limit = 10, entityId }) {
+        const skip = (page - 1) * limit;
+        const where = entityId ? { entity_id: Number(entityId) } : {};
+    
+        const [total, complaints] = await Promise.all([
+            prisma.complaint.count({ where }),
+            prisma.complaint.findMany({
+                where,
+                include: {
+                    entity: true,
+                    comments: {
+                        orderBy: { creation_date: 'desc' }
+                    }
+                },
+                orderBy: { creation_date: 'desc' },
+                skip,
+                take: limit
+            })
+        ]);
+        return { total, complaints };
     }
 }
