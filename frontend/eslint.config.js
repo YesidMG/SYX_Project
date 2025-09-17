@@ -10,33 +10,29 @@ export default defineConfig([
   globalIgnores(['dist']),
   {
     files: ['**/*.{js,jsx}'],
-    extends: [
-      js.configs.recommended,
-      react.configs.recommended,
-      reactHooks.configs['recommended-latest'],
-      reactRefresh.configs.vite,
-      'plugin:prettier/recommended',
-    ],
+    plugins: {
+      react,
+      'react-hooks': reactHooks,
+      'react-refresh': reactRefresh,
+      prettier,
+    },
     languageOptions: {
-      ecmaVersion: 'latest',
+      ecmaVersion: 2020,
       globals: globals.browser,
       parserOptions: {
+        ecmaVersion: 'latest',
         ecmaFeatures: { jsx: true },
         sourceType: 'module',
       },
     },
-    plugins: {
-      prettier
-    },
     rules: {
       'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
-      'prettier/prettier': 'error',
       'react/react-in-jsx-scope': 'off',
+      'prettier/prettier': 'error',
+      ...js.configs.recommended.rules,
+      ...react.configs.recommended.rules,
+      ...reactHooks.configs.recommended.rules,
+      ...reactRefresh.configs.recommended.rules,
     },
-    settings: {
-      react: {
-        version: 'detect'
-      }
-    }
   },
 ])
