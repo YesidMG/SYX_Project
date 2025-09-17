@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
 import { getComplaints } from '../../services/api'
 import Complaint from './Complaint'
 import './ComplaintList.css'
@@ -83,6 +84,10 @@ const ComplaintList = ({ entityId }) => {
       )}
     </div>
   )
+}
+
+ComplaintList.propTypes = {
+  entityId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 }
 
 export default ComplaintList
