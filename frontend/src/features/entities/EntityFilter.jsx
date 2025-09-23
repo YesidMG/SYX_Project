@@ -17,10 +17,10 @@ const EntityFilter = ({ onChange }) => {
     setError(null)
 
     getEntities(controller.signal)
-      .then((data) => {
+      .then(data => {
         setEntities([DEFAULT_OPTION, ...data])
       })
-      .catch((err) => {
+      .catch(err => {
         if (err.name !== 'AbortError') {
           setError(err.message)
           setEntities([DEFAULT_OPTION])
@@ -31,7 +31,7 @@ const EntityFilter = ({ onChange }) => {
     return () => controller.abort()
   }, [])
 
-  const handleChange = (e) => {
+  const handleChange = e => {
     const value = e.target.value
     setSelected(value)
     if (onChange) onChange(value)
@@ -61,7 +61,7 @@ const EntityFilter = ({ onChange }) => {
         onChange={handleChange}
         style={{ width: '100%', padding: '10px', fontSize: '15px' }}
       >
-        {entities.map((entity) => (
+        {entities.map(entity => (
           <option key={entity.id ?? entity.name} value={entity.id ?? ''}>
             {entity.name}
           </option>

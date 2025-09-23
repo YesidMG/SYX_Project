@@ -16,8 +16,8 @@ export default function WritePage() {
     const controller = new AbortController()
 
     getEntities(controller.signal)
-      .then((data) => setEntities(data))
-      .catch((err) => {
+      .then(data => setEntities(data))
+      .catch(err => {
         if (err.name !== 'AbortError') {
           setEntities([])
         }
@@ -27,7 +27,7 @@ export default function WritePage() {
     return () => controller.abort()
   }, [])
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault()
     const token = recaptchaRef.current.getValue()
     if (!token) {
@@ -61,9 +61,9 @@ export default function WritePage() {
           {loading ? (
             <span>Cargando entidades...</span>
           ) : (
-            <select value={entity} onChange={(e) => setEntity(e.target.value)} required>
+            <select value={entity} onChange={e => setEntity(e.target.value)} required>
               <option value="">Seleccione una entidad</option>
-              {entities.map((ent) => (
+              {entities.map(ent => (
                 <option key={ent.id} value={ent.id}>
                   {ent.name}
                 </option>
@@ -75,7 +75,7 @@ export default function WritePage() {
           <label>Descripción y detalles</label>
           <textarea
             value={description}
-            onChange={(e) => setDescription(e.target.value)}
+            onChange={e => setDescription(e.target.value)}
             maxLength={1500}
             placeholder="Escribe la descripción de la queja"
             required

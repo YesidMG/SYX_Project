@@ -15,8 +15,8 @@ const ComplaintList = ({ entityId }) => {
     setError(null)
 
     getComplaints(entityId, controller.signal)
-      .then((data) => setComplaints(data))
-      .catch((err) => {
+      .then(data => setComplaints(data))
+      .catch(err => {
         if (err.name !== 'AbortError') {
           setError(err.message)
           setComplaints([])
@@ -46,7 +46,7 @@ const ComplaintList = ({ entityId }) => {
   return (
     <div className="list-container">
       {complaints.length === 0 && <p>No hay quejas registradas.</p>}
-      {complaints.map((complaint) => (
+      {complaints.map(complaint => (
         <Complaint key={complaint.id} complaint={complaint} />
       ))}
     </div>
