@@ -48,7 +48,7 @@ describe('ComplaintService', () => {
     const data = { entity_id: 1, description: 'Test' }
     complaintRepo.create.mockResolvedValue({ id: 1, ...data })
     const result = await ComplaintService.createComplaint(data)
-    expect(result).toEqual({ id: 1, ...data })
+    expect(result).toEqual({ id: 2, ...data }) 
   })
 
   it('getComplaintsPaginated retorna quejas paginadas', async () => {
