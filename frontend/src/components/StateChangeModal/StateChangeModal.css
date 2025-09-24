@@ -1,0 +1,107 @@
+/* Fondo oscuro detrás del modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: white;
+  padding: 24px;
+  border-radius: 12px;
+  width: 400px;
+  position: relative;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.modal h2 {
+  margin: 0 0 16px 0;
+  font-size: 20px;
+  color: #333;
+}
+
+.modal p {
+  margin: 0 0 20px 0;
+  color: #666;
+  font-size: 14px;
+}
+
+.modal select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+  margin-bottom: 20px;
+  background: #fff;
+}
+
+.modal select:focus {
+  outline: none;
+  border-color: #0f62fe;
+  box-shadow: 0 0 0 2px rgba(15, 98, 254, 0.1);
+}
+
+.close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  border: none;
+  background: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #666;
+  padding: 4px;
+  line-height: 1;
+}
+
+.close:hover {
+  color: #333;
+}
+
+.actions {
+  margin-top: 24px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.actions button {
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.actions button:first-child {
+  background: #fff;
+  border: 1px solid #ddd;
+  color: #666;
+}
+
+.actions button:first-child:hover {
+  background: #f5f5f5;
+  border-color: #ccc;
+}
+
+.confirm {
+  background: #0f62fe;
+  color: white;
+  border: none;
+  font-weight: 500;
+}
+
+.confirm:hover:not(:disabled) {
+  background: #0353e9;
+}
+
+.confirm:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
