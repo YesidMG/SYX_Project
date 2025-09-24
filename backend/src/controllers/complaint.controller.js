@@ -11,12 +11,12 @@ const LOCAL_IPV4 = '::ffff:127.0.0.1'
 
 exports.getAll = async (req, res, next) => {
   try {
-    const { page = 1, limit = 10, entity_id } = req.query;
+    const { page = 1, limit = 10, entity_id } = req.query
     const paginated = await complaintService.getComplaintsPaginated({
       page: Number(page),
       limit: Number(limit),
       entityId: entity_id,
-    });
+    })
     const formatted = paginated.complaints.map(c => ({
       id: c.id,
       description: c.description,
@@ -24,14 +24,14 @@ exports.getAll = async (req, res, next) => {
       logo: c.entity?.logo || '',
       creation_date: c.creation_date,
       state: c.state,
-      comments: c.comments || []
-    }));
+      comments: c.comments || [],
+    }))
     res.json({
       total: paginated.total,
       page: Number(page),
       limit: Number(limit),
-      complaints: formatted
-    });
+      complaints: formatted,
+    })
   } catch (err) {
     next(err)
   }

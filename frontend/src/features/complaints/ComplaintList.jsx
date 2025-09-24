@@ -23,11 +23,11 @@ const ComplaintList = ({ entityId }) => {
     setError(null)
 
     getComplaints(entityId, page, PAGE_SIZE, controller.signal)
-      .then((data) => {
+      .then(data => {
         setComplaints(data.complaints)
         setTotal(data.total)
       })
-      .catch((err) => {
+      .catch(err => {
         if (err.name !== 'AbortError') {
           setError(err.message)
           setComplaints([])
