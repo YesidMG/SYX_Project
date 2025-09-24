@@ -10,6 +10,9 @@ SYX Project es una aplicación web que permite a los ciudadanos redactar y consu
 - Visualización de quejas existentes.
 - Reportes de cantidad de quejas por entidad.
 - Validación con Google reCAPTCHA.
+- Realizar comentarios a una queja
+- Eliminar quejas(administrador)
+- Ves estado de las quejas 
 - API RESTful documentada y testeada.
 
 ## Tecnologías
@@ -55,7 +58,7 @@ NODE_ENV=development
 Crea un archivo `.env` en `frontend/.env`:
 
 ```
-VITE_API_URL=http://localhost:3000/api
+VITE_API_URL=http://localhost:3000
 ```
 
 ### 3. Instalar dependencias
@@ -114,11 +117,22 @@ SYX_Project/
 │
 ├── backend/
 │   ├── src/
+│   │   ├── application/
 │   │   ├── config/
-│   │   └── routes/
+│   │   ├── controllers/
+│   │   ├── middlewares/
+│   │   ├── notifiers/
+│   │   ├── repositories/
+│   │   ├── routes/
+│   │   ├── services/
+│   │   └── utils/  
 │   ├── public/
+│   ├── dist/
 │   ├── tests/
+│   ├── prettierrc.json
+│   ├── package-lock.json
 │   ├── package.json
+│   ├── app.js 
 │   └── server.js
 │
 ├── frontend/
@@ -128,7 +142,10 @@ SYX_Project/
 │   │   ├── services/
 │   │   └── assets/
 │   ├── public/
+│   ├── dist/
 │   ├── package.json
+│   ├── prettierrc.json
+│   ├── eslint.config.js
 │   └── vite.config.js
 │
 ├── README.md
@@ -143,6 +160,18 @@ Para ejecutar los tests del backend:
 cd backend
 npm test
 ```
+##Versionado y Changelog
+
+Este proyecto usa [Conventional Commits](https://www.conventionalcommits.org/es/v1.0.0/) y [standard-version](https://github.com/conventional-changelog/standard-version) para el versionado automático y la generación del changelog.
+
+### Proceso de release
+
+1. Asegurarse de que todos los commits sigan el formato de Conventional Commits
+
+2. Ejecuta el comando de release:
+   ```bash
+   npm run release
+
 
 ## Sistema desplegado
 https://syx-project.onrender.com
