@@ -5,7 +5,7 @@
   "scripts": {
     "postinstall": "prisma generate",
     "start": "node src/server.js",
-    "start:ci" : "node src/server.js",
+    "start:ci": "node src/server.js",
     "dev": "nodemon src/server.js",
     "seed": "node prisma/seed.js",
     "build": "cd ../frontend && npm install && npm run build && cp -r dist ../backend/dist",
@@ -14,7 +14,7 @@
     "lint:fix": "eslint . --ext .js --fix",
     "format": "prettier --check .",
     "format:fix": "prettier --write .",
-    "release" : "standard-version"
+    "release": "standard-version"
   },
   "repository": {
     "type": "git",
@@ -48,6 +48,7 @@
     "jest": "^30.0.5",
     "prettier": "^3.6.2",
     "prisma": "^6.15.0",
+    "standard-version": "^9.5.0",
     "supertest": "^7.1.4"
   }
 }
