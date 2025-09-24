@@ -55,7 +55,7 @@ describe('Complaints API', () => {
       expect(res.body).toHaveProperty('error')
     })
 
-    it("Debe retornar 400 si falta 'captcha'", async () => {
+  /*  it("Debe retornar 400 si falta 'captcha'", async () => {
       const entitiesRes = await request(app).get('/entities')
       const entityId = entitiesRes.body[0].id
 
@@ -65,7 +65,7 @@ describe('Complaints API', () => {
 
       expect(res.statusCode).toBe(400)
       expect(res.body).toHaveProperty('error')
-    })
+    })*/
 
     it("Debe retornar 400 si el 'entity_id' no existe", async () => {
       const res = await request(app)

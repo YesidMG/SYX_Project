@@ -1,7 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { useEffect, useState, useRef } from 'react'
 import { getEntities, postComplaint } from '../../services/api'
-import ReCAPTCHA from 'react-google-recaptcha'
 import './WritePage.css'
 
 export default function WritePage() {
@@ -29,22 +28,15 @@ export default function WritePage() {
 
   const handleSubmit = async e => {
     e.preventDefault()
-    const token = recaptchaRef.current.getValue()
-    if (!token) {
-      alert('Por favor, verifica el captcha.')
-      return
-    }
     try {
       await postComplaint({
         entity_id: parseInt(entity, 10),
-        description,
-        captcha: token,
+        description
       })
 
       alert('¡Queja enviada exitosamente!')
       setEntity('')
       setDescription('')
-      recaptchaRef.current.reset()
     } catch (error) {
       alert(error.message)
     }
@@ -82,11 +74,6 @@ export default function WritePage() {
           />
           <p className="chars_counter">{description.length}/1500</p>
         </div>
-        <ReCAPTCHA
-          className="recaptcha"
-          ref={recaptchaRef}
-          sitekey="6LfEW6orAAAAAAUIw3B0k13R7CZatIljI2YYR1nO"
-        />
         <div className="buttons">
           <button className="cancel" type="button" onClick={() => navigate('/')}>
             Volver al inicio
