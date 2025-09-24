@@ -81,7 +81,7 @@ exports.create = async (req, res, next) => {
   }
 }
 
-exports.changeState = async (req, res, next) => {
+exports.updateState = async (req, res, next) => {
   try {
     const complaintId = Number(req.params.id)
     const newState = req.body.state

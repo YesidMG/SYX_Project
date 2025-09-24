@@ -71,4 +71,20 @@ module.exports = {
       },
     })
   },
+  async updateState(id, newState) {
+    return await prisma.complaint.update({
+      where: { id: Number(id) },
+      data: {
+        state: newState,
+      },
+      include: {
+        entity: true,
+        comments: {
+          orderBy: {
+            creation_date: 'desc',
+          },
+        },
+      }
+    })
+  },
 }

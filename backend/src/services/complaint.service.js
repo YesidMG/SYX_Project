@@ -45,7 +45,7 @@ class ComplaintService {
       throw { status: 400, message: 'ID de queja inválido' }
     }
 
-    const validStates = ['open', 'under_review', 'closed', 'deleted']
+    const validStates = ['OPEN', 'UNDER_REVIEW', 'CLOSED', 'DELETED']
     if (!validStates.includes(newState)) {
       throw { status: 400, message: 'Estado inválido' }
     }
