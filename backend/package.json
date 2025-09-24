@@ -14,7 +14,6 @@
     "lint:fix": "eslint . --ext .js --fix",
     "format": "prettier --check .",
     "format:fix": "prettier --write .",
-    "release": "standard-version"
   },
   "repository": {
     "type": "git",
@@ -48,7 +47,6 @@
     "jest": "^30.0.5",
     "prettier": "^3.6.2",
     "prisma": "^6.15.0",
-    "standard-version": "^9.5.0",
     "supertest": "^7.1.4"
   }
 }
