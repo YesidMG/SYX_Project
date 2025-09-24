@@ -11,14 +11,13 @@ const LOCAL_IPV4 = '::ffff:127.0.0.1'
 
 exports.getAll = async (req, res, next) => {
   try {
-    const entityId = req.query.entity_id
-    let complaints
-    if (entityId) {
-      complaints = await complaintService.getComplaintsByEntity(Number(entityId))
-    } else {
-      complaints = await complaintService.getAllComplaints()
-    }
-    const formatted = complaints.map(c => ({
+    const { page = 1, limit = 10, entity_id } = req.query
+    const paginated = await complaintService.getComplaintsPaginated({
+      page: Number(page),
+      limit: Number(limit),
+      entityId: entity_id,
+    })
+    const formatted = paginated.complaints.map(c => ({
       id: c.id,
       description: c.description,
       entity_name: c.entity?.name || 'Desconocida',
@@ -27,7 +26,12 @@ exports.getAll = async (req, res, next) => {
       state: c.state,
       comments: c.comments || [],
     }))
-    res.json(formatted)
+    res.json({
+      total: paginated.total,
+      page: Number(page),
+      limit: Number(limit),
+      complaints: formatted,
+    })
   } catch (err) {
     next(err)
   }

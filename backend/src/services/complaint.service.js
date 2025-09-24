@@ -39,6 +39,10 @@ class ComplaintService {
       description: data.description.trim(),
     })
   }
+
+  async getComplaintsPaginated({ page, limit, entityId }) {
+    return await complaintRepo.findPaginated({ page, limit, entityId })
+  }
 }
 
 module.exports = new ComplaintService()
