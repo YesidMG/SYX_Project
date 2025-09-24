@@ -1,74 +1,76 @@
 .container {
-    width: 100%;
-    box-sizing: border-box;
-    background: #fff;
-    border: 1px solid #878D96;
-    border-radius: 16px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-    overflow: hidden;
-    margin-bottom: 0;
+  width: 100%;
+  box-sizing: border-box;
+  background: #fff;
+  border: 1px solid #878d96;
+  border-radius: 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  margin-bottom: 0;
 }
 
-.header{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 3px 3px;
-    cursor: pointer;
-    border-radius: 0;
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 3px 3px;
+  cursor: pointer;
+  border-radius: 0;
 }
 
 .title {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .title .entity-icon {
-    font-size: 15px;
-    color: white;
-    background: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  font-size: 15px;
+  color: white;
+  background: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .entity-icon img {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
 }
 
 .entity-name {
-    margin-left: 8px;
-    color: #888;
-    font-size: 13px;
+  margin-left: 8px;
+  color: #888;
+  font-size: 13px;
 }
 
 .entity-date {
-    margin-left: 12px;
-    color: #b0b0b0;
-    font-size: 14px;
-    font-weight: 400;
+  margin-left: 12px;
+  color: #b0b0b0;
+  font-size: 14px;
+  font-weight: 400;
 }
 
 .expand-button {
-    background: none;
-    border: none;
-    font-size: 20px;
-    cursor: pointer;
-    margin-right: 15px;
-    transition: transform 0.3s ease;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  margin-right: 15px;
+  transition: transform 0.3s ease;
 }
 
 .description {
-    max-height: 0;
-    overflow: hidden;
-    padding: 0 20px;
-    transition: max-height 0.4s ease-out, padding 0.4s ease-out;
-    border-top: 1px solid #e9ecef;
-    font-size: 14px;
-    color: #000;
+  max-height: 0;
+  overflow: hidden;
+  padding: 0 20px;
+  transition:
+    max-height 0.4s ease-out,
+    padding 0.4s ease-out;
+  border-top: 1px solid #e9ecef;
+  font-size: 14px;
+  color: #000;
 }
 
 .description p {
@@ -79,115 +81,114 @@
 .description.open {
   max-height: 500px;
   padding: 15px 20px 20px 20px;
-  transition: max-height 0.4s ease-in, padding 0.4s ease-in;
+  transition:
+    max-height 0.4s ease-in,
+    padding 0.4s ease-in;
 }
 
 .complaint-wrapper {
-    width: 100%;
-    margin-bottom: 38px;
-    position: relative;
+  width: 100%;
+  margin-bottom: 38px;
+  position: relative;
 }
 
 .complaint-actions {
-    display: flex;
-    gap: 10px;
-    margin-top: -8px;
-    margin-bottom: 0;
-    padding-left: 10px;
-    padding-top: 8px;
-    background: none;
-    border: none;
-    border-radius: 0;
+  display: flex;
+  gap: 10px;
+  margin-top: -8px;
+  margin-bottom: 0;
+  padding-left: 10px;
+  padding-top: 8px;
+  background: none;
+  border: none;
+  border-radius: 0;
 }
 .complaint-actions button {
-    background: #0F62FE;
-    color: #fff;
-    border: none;
-    border-radius: 0 0 32px 32px;
-    padding: 6px 18px;
-    font-size: 1rem;
-    font-weight: 500;
-    cursor: pointer;
-    margin-right: 5px;
-    transition: background 0.2s;
+  background: #0f62fe;
+  color: #fff;
+  border: none;
+  border-radius: 0 0 32px 32px;
+  padding: 6px 18px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  margin-right: 5px;
+  transition: background 0.2s;
 }
 
 .complaint-actions button.close-comments {
-    background: #374151;
+  background: #374151;
 }
 
 .complaint-actions button.cancel {
-    background: #fff;
-    color: #0F62FE;
-    border: 1.5px solid #0F62FE;
+  background: #fff;
+  color: #0f62fe;
+  border: 1.5px solid #0f62fe;
 }
 
 .complaint-actions button.cancel:hover {
-    background: #f2f4f8;
-    color: #14418a;
-    border-color: #14418a;
+  background: #f2f4f8;
+  color: #14418a;
+  border-color: #14418a;
 }
 
 .comment-form {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    margin-top: 10px;
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 10px;
+  width: 100%;
 }
 
 .comment-form textarea {
-    width: 100%;
-    padding: 8px;
-    border-radius: 5px;
-    border: 1px solid #cfd8dc;
-    font-size: 1rem;
-    resize: none;
+  width: 100%;
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #cfd8dc;
+  font-size: 1rem;
+  resize: none;
 }
 
 .comment-form-buttons {
-    display: flex;
-    gap: 10px;
+  display: flex;
+  gap: 10px;
 }
 
 .comments-list {
-    background: #f2f4f8;
-    border-radius: 0 0 16px 16px;
-    padding: 10px;
-    margin-top: 0;
-    max-height: 150px;
-    overflow-y: auto;
-    border: 1px solid #e0e0e0;
-    border-top: none;
+  background: #f2f4f8;
+  border-radius: 0 0 16px 16px;
+  padding: 10px;
+  margin-top: 0;
+  max-height: 150px;
+  overflow-y: auto;
+  border: 1px solid #e0e0e0;
+  border-top: none;
 }
 
 .comment-item {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 8px;
-    padding-bottom: 6px;
-    border-bottom: 1px solid #e0e0e0;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 8px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid #e0e0e0;
 }
 
 .comment-date {
-    font-size: 0.9rem;
-    color: #888;
-    margin-bottom: 2px;
+  font-size: 0.9rem;
+  color: #888;
+  margin-bottom: 2px;
 }
 
 .comment-text {
-    font-size: 1rem;
-    color: #222;
+  font-size: 1rem;
+  color: #222;
 }
 
 .comment-form-buttons button.cancel {
-    background: #fff;
-    color: #0F62FE;
-    border: 1.5px solid #0F62FE;
-    border-radius: 0 0 32px 32px; 
-    min-width: 110px; 
-    padding: 6px 22px;
+  background: #fff;
+  color: #0f62fe;
+  border: 1.5px solid #0f62fe;
+  border-radius: 0 0 32px 32px;
+  min-width: 110px;
+  padding: 6px 22px;
 }
-
-
-

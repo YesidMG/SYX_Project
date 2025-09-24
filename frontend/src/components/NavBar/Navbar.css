@@ -1,97 +1,97 @@
 .nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 40;
-    background-color: #F2F4F8;
-    border-bottom: 2px solid #878D96;
-    margin: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 40;
+  background-color: #f2f4f8;
+  border-bottom: 2px solid #878d96;
+  margin: 0;
 }
 
 .nav__inner {
-    height: 60px;
-    max-width: 100%;
-    margin: 0 auto;
-    padding: 0 40px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
+  height: 60px;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0 40px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 .brand {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
 }
 
 .brand__icon {
-    width: 30px;
-    height: 30px;
-    border-radius: 999px;
-    background: #e8f0ff;
-    display: grid;
-    place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  background: #e8f0ff;
+  display: grid;
+  place-items: center;
 }
 
 .brand__text {
-    font-weight: 700;
-    letter-spacing: 1.3px;
-    color: #000;
-    font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 1.3px;
+  color: #000;
+  font-size: 20px;
 }
 
 .spacer {
-    flex: 1;
+  flex: 1;
 }
 
 .menu {
-    display: flex;
-    align-items: center;
-    gap: 35px;
+  display: flex;
+  align-items: center;
+  gap: 35px;
 }
 
 .menu__link {
-    font-size: 15px;
-    color: #000;
-    text-decoration: none;
-    letter-spacing: 1px;
-    cursor: pointer;
+  font-size: 15px;
+  color: #000;
+  text-decoration: none;
+  letter-spacing: 1px;
+  cursor: pointer;
 }
 
 .menu__link:hover {
-    color: #374151
+  color: #374151;
 }
 
 .menu__link.is-active {
-    font-weight: 600;
+  font-weight: 600;
 }
 
 .write__link {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: #0F62FE;
-    color: #fff;
-    border: 2px solid #0F62FE;
-    padding: 6px 10px;
-    font-size: 15px;
-    text-decoration: none;
-    letter-spacing: 1px;
-    cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #0f62fe;
+  color: #fff;
+  border: 2px solid #0f62fe;
+  padding: 6px 10px;
+  font-size: 15px;
+  text-decoration: none;
+  letter-spacing: 1px;
+  cursor: pointer;
 }
 
 .write__link:hover {
-    background: #fff;
-    color: #0F62FE;
+  background: #fff;
+  color: #0f62fe;
 }
 
 .write__link.is-active {
-    background: #F2F4F8;
-    color: #0F62FE;
+  background: #f2f4f8;
+  color: #0f62fe;
 }
 
 .write__icon {
-    display: flex;
+  display: flex;
 }
