@@ -40,6 +40,10 @@ class ComplaintService {
     })
   }
 
+  async getComplaintsPaginated({ page, limit, entityId }) {
+    return await complaintRepo.findPaginated({ page, limit, entityId })
+  }
+
   async updateComplaintState(complaintId, newState) {
     if (isNaN(complaintId)) {
       throw { status: 400, message: 'ID de queja inválido' }
