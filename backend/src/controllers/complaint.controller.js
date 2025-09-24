@@ -80,3 +80,14 @@ exports.create = async (req, res, next) => {
     next(err)
   }
 }
+
+exports.changeState = async (req, res, next) => {
+  try {
+    const complaintId = Number(req.params.id)
+    const newState = req.body.state
+    const updatedComplaint = await complaintService.updateComplaintState(complaintId, newState)
+    res.json(updatedComplaint)
+  } catch (err) {
+    next(err)
+  }
+}

@@ -39,6 +39,25 @@ class ComplaintService {
       description: data.description.trim(),
     })
   }
+
+  async updateComplaintState(complaintId, newState) {
+    if (isNaN(complaintId)) {
+      throw { status: 400, message: 'ID de queja inválido' }
+    }
+
+    const validStates = ['open', 'under_review', 'closed', 'deleted']
+    if (!validStates.includes(newState)) {
+      throw { status: 400, message: 'Estado inválido' }
+    }
+
+    const existingComplaint = await complaintRepo.findById(complaintId)
+    if (!existingComplaint) {
+      throw { status: 404, message: 'Queja no encontrada' }
+    }
+
+    return await complaintRepo.updateState(complaintId, newState)
+  }
+
 }
 
 module.exports = new ComplaintService()

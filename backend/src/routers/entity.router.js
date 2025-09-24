@@ -7,6 +7,7 @@ router.get('/', entityController.getAll)
 router.get('/:id', entityController.getById)
 router.post('/report', captchaMiddleware, entityController.getReport)
 router.post('/', entityController.create)
+router.patch('/:id', entityController.changeState)
 
 // Middleware de manejo de errores
 router.use((err, req, res, next) => {
