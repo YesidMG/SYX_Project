@@ -3,7 +3,7 @@ const entityService = require('../services/entity.service')
 exports.getAll = async (req, res, next) => {
   try {
     const entities = await entityService.getAllEntities()
-    res.json({entities})
+    res.json(entities)
   } catch (err) {
     next(err)
   }
