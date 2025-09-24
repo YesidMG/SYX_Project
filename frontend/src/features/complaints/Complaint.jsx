@@ -17,7 +17,7 @@ const Complaint = ({ complaint }) => {
   return (
     <div className="complaint-wrapper">
       <div className="container">
-        <div className="header" onClick={() => setExpanded((e) => !e)}>
+        <div className="header" onClick={() => setExpanded(e => !e)}>
           <div className="title">
             <figure className="entity-icon">
               <img
@@ -37,9 +37,9 @@ const Complaint = ({ complaint }) => {
               transform: expanded ? 'rotate(180deg)' : 'rotate(90deg)',
             }}
             tabIndex={0}
-            onClick={(e) => {
+            onClick={e => {
               e.stopPropagation()
-              setExpanded((exp) => !exp)
+              setExpanded(exp => !exp)
             }}
           >
             ▶

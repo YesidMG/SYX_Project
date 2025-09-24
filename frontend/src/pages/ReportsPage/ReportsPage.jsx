@@ -32,7 +32,7 @@ export default function ReportsPage() {
     }
   }, [])
 
-  const handleCaptchaChange = useCallback((token) => {
+  const handleCaptchaChange = useCallback(token => {
     if (!token) {
       setNeedsVerification(true)
       return
@@ -137,7 +137,7 @@ export default function ReportsPage() {
             </tr>
           </thead>
           <tbody>
-            {data.map((row) => (
+            {data.map(row => (
               <tr key={row.id}>
                 <td>{row.id}</td>
                 <td>{row.name}</td>

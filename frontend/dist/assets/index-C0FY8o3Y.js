@@ -2,7 +2,7 @@
   const o = document.createElement('link').relList
   if (o && o.supports && o.supports('modulepreload')) return
   for (const s of document.querySelectorAll('link[rel="modulepreload"]')) f(s)
-  new MutationObserver((s) => {
+  new MutationObserver(s => {
     for (const y of s)
       if (y.type === 'childList')
         for (const b of y.addedNodes) b.tagName === 'LINK' && b.rel === 'modulepreload' && f(b)
@@ -11363,9 +11363,9 @@ function yh(i) {
   let b = yh(f.join('/')),
     x = []
   return (
-    x.push(...b.map((g) => (g === '' ? y : [y, g].join('/')))),
+    x.push(...b.map(g => (g === '' ? y : [y, g].join('/')))),
     s && x.push(...b),
-    x.map((g) => (i.startsWith('/') && g === '' ? '/' : g))
+    x.map(g => (i.startsWith('/') && g === '' ? '/' : g))
   )
 }
 function pv(i) {
@@ -11373,8 +11373,8 @@ function pv(i) {
     o.score !== d.score
       ? d.score - o.score
       : _v(
-          o.routesMeta.map((f) => f.childrenIndex),
-          d.routesMeta.map((f) => f.childrenIndex)
+          o.routesMeta.map(f => f.childrenIndex),
+          d.routesMeta.map(f => f.childrenIndex)
         )
   )
 }
@@ -11384,14 +11384,14 @@ var gv = /^:[\w-]+$/,
   Ev = 1,
   Tv = 10,
   Rv = -2,
-  nh = (i) => i === '*'
+  nh = i => i === '*'
 function Av(i, o) {
   let d = i.split('/'),
     f = d.length
   return (
     d.some(nh) && (f += Rv),
     o && (f += bv),
-    d.filter((s) => !nh(s)).reduce((s, y) => s + (gv.test(y) ? Sv : y === '' ? Ev : Tv), f)
+    d.filter(s => !nh(s)).reduce((s, y) => s + (gv.test(y) ? Sv : y === '' ? Ev : Tv), f)
   )
 }
 function _v(i, o) {
@@ -11485,7 +11485,7 @@ function Dv(i) {
   try {
     return i
       .split('/')
-      .map((o) => decodeURIComponent(o).replace(/\//g, '%2F'))
+      .map(o => decodeURIComponent(o).replace(/\//g, '%2F'))
       .join('/')
   } catch (o) {
     return (
@@ -11511,7 +11511,7 @@ function zv(i, o = '/') {
 function Mv(i, o) {
   let d = o.replace(/\/+$/, '').split('/')
   return (
-    i.split('/').forEach((s) => {
+    i.split('/').forEach(s => {
       s === '..' ? d.length > 1 && d.pop() : s !== '.' && d.push(s)
     }),
     d.length > 1 ? d.join('/') : '/'
@@ -11553,10 +11553,10 @@ function ph(i, o, d, f = !1) {
     T = (y || b === '.') && d.endsWith('/')
   return (!g.pathname.endsWith('/') && (h || T) && (g.pathname += '/'), g)
 }
-var ke = (i) => i.join('/').replace(/\/\/+/g, '/'),
-  Uv = (i) => i.replace(/\/+$/, '').replace(/^\/*/, '/'),
-  Cv = (i) => (!i || i === '?' ? '' : i.startsWith('?') ? i : '?' + i),
-  jv = (i) => (!i || i === '#' ? '' : i.startsWith('#') ? i : '#' + i)
+var ke = i => i.join('/').replace(/\/\/+/g, '/'),
+  Uv = i => i.replace(/\/+$/, '').replace(/^\/*/, '/'),
+  Cv = i => (!i || i === '?' ? '' : i.startsWith('?') ? i : '?' + i),
+  jv = i => (!i || i === '#' ? '' : i.startsWith('#') ? i : '#' + i)
 function Hv(i) {
   return (
     i != null &&
@@ -11700,7 +11700,7 @@ Please change the parent <Route path="${B}"> to <Route path="${B === '/' ? '*' :
     ))
   let Z = Kv(
     X &&
-      X.map((B) =>
+      X.map(B =>
         Object.assign({}, B, {
           params: Object.assign({}, x, B.params),
           pathname: ke([h, s.encodeLocation ? s.encodeLocation(B.pathname).pathname : B.pathname]),
@@ -11820,7 +11820,7 @@ function Kv(i, o = [], d = null, f = null) {
   let s = i,
     y = d?.errors
   if (y != null) {
-    let g = s.findIndex((h) => h.route.id && y?.[h.route.id] !== void 0)
+    let g = s.findIndex(h => h.route.id && y?.[h.route.id] !== void 0)
     ;(xt(
       g >= 0,
       `Could not find a matching route for errors on route IDs: ${Object.keys(y).join(',')}`
@@ -12152,7 +12152,7 @@ function d0(i) {
 }
 async function h0(i, o, d) {
   let f = await Promise.all(
-    i.map(async (s) => {
+    i.map(async s => {
       let y = o.routes[s.route.id]
       if (y) {
         let b = await s0(y, d)
@@ -12165,8 +12165,8 @@ async function h0(i, o, d) {
     f
       .flat(1)
       .filter(d0)
-      .filter((s) => s.rel === 'stylesheet' || s.rel === 'preload')
-      .map((s) =>
+      .filter(s => s.rel === 'stylesheet' || s.rel === 'preload')
+      .map(s =>
         s.rel === 'stylesheet' ? { ...s, rel: 'prefetch', as: 'style' } : { ...s, rel: 'prefetch' }
       )
   )
@@ -12200,7 +12200,7 @@ function ih(i, o, d, f, s, y) {
 function m0(i, o, { includeHydrateFallback: d } = {}) {
   return y0(
     i
-      .map((f) => {
+      .map(f => {
         let s = o.routes[f.route.id]
         if (!s) return []
         let y = [s.module]
@@ -12259,8 +12259,8 @@ function S0(i, o) {
     M = O.useRef(null)
   ;(O.useEffect(() => {
     if ((i === 'render' && b(!0), i === 'viewport')) {
-      let X = (B) => {
-          B.forEach((I) => {
+      let X = B => {
+          B.forEach(I => {
             b(I.isIntersecting)
           })
         },
@@ -12306,7 +12306,7 @@ function S0(i, o) {
     : [!1, M, {}]
 }
 function Nn(i, o) {
-  return (d) => {
+  return d => {
     ;(i && i(d), d.defaultPrevented || o(d))
   }
 }
@@ -12322,7 +12322,7 @@ function E0(i) {
     O.useEffect(() => {
       let y = !1
       return (
-        h0(i, o, d).then((b) => {
+        h0(i, o, d).then(b => {
           y || s(b)
         }),
         () => {
@@ -12345,11 +12345,11 @@ function T0({ page: i, matches: o, ...d }) {
       let L = new Set(),
         X = !1
       if (
-        (o.forEach((B) => {
+        (o.forEach(B => {
           let I = s.routes[B.route.id]
           !I ||
             !I.hasLoader ||
-            ((!h.some((K) => K.route.id === B.route.id) &&
+            ((!h.some(K => K.route.id === B.route.id) &&
               B.route.id in x &&
               y[B.route.id]?.shouldRevalidate) ||
             I.hasClientLoader
@@ -12366,8 +12366,8 @@ function T0({ page: i, matches: o, ...d }) {
           Z.searchParams.set(
             '_routes',
             o
-              .filter((B) => L.has(B.route.id))
-              .map((B) => B.route.id)
+              .filter(B => L.has(B.route.id))
+              .map(B => B.route.id)
               .join(',')
           ),
         [Z.pathname + Z.search]
@@ -12378,14 +12378,14 @@ function T0({ page: i, matches: o, ...d }) {
   return O.createElement(
     O.Fragment,
     null,
-    D.map((L) => O.createElement('link', { key: L, rel: 'prefetch', as: 'fetch', href: L, ...d })),
-    M.map((L) => O.createElement('link', { key: L, rel: 'modulepreload', href: L, ...d })),
+    D.map(L => O.createElement('link', { key: L, rel: 'prefetch', as: 'fetch', href: L, ...d })),
+    M.map(L => O.createElement('link', { key: L, rel: 'modulepreload', href: L, ...d })),
     Y.map(({ key: L, link: X }) => O.createElement('link', { key: L, nonce: d.nonce, ...X }))
   )
 }
 function R0(...i) {
-  return (o) => {
-    i.forEach((d) => {
+  return o => {
+    i.forEach(d => {
       typeof d == 'function' ? d(o) : d != null && (d.current = o)
     })
   }
@@ -12401,7 +12401,7 @@ function A0({ basename: i, children: o, window: d }) {
   let s = f.current,
     [y, b] = O.useState({ action: s.action, location: s.location }),
     x = O.useCallback(
-      (g) => {
+      g => {
         O.startTransition(() => b(g))
       },
       [b]
@@ -12542,7 +12542,7 @@ var _0 = O.forwardRef(
       X = N0(x, { relative: h }),
       Z = b.toLowerCase() === 'get' ? 'get' : 'post',
       B = typeof x == 'string' && Dh.test(x),
-      I = (K) => {
+      I = K => {
         if ((g && g(K), K.defaultPrevented)) return
         K.preventDefault()
         let nt = K.nativeEvent.submitter,
@@ -12584,7 +12584,7 @@ function x0(
     g = Ql(),
     h = Hn(i, { relative: y })
   return O.useCallback(
-    (T) => {
+    T => {
       if (i0(T, o)) {
         T.preventDefault()
         let D = d !== void 0 ? d : Un(g) === Un(h)
@@ -12641,8 +12641,8 @@ function N0(i, { relative: o } = {}) {
     y.search = b.search
     let x = new URLSearchParams(y.search),
       g = x.getAll('index')
-    if (g.some((T) => T === '')) {
-      ;(x.delete('index'), g.filter((D) => D).forEach((D) => x.append('index', D)))
+    if (g.some(T => T === '')) {
+      ;(x.delete('index'), g.filter(D => D).forEach(D => x.append('index', D)))
       let T = x.toString()
       y.search = T ? `?${T}` : ''
     }
@@ -12719,17 +12719,17 @@ const Pu = 'Todas',
         b(!0),
         g(null),
         Mh(T.signal)
-          .then((D) => {
-            d([Pu, ...D.map((M) => M.name)])
+          .then(D => {
+            d([Pu, ...D.map(M => M.name)])
           })
-          .catch((D) => {
+          .catch(D => {
             D.name !== 'AbortError' && (g(D.message), d([Pu]))
           })
           .finally(() => b(!1)),
         () => T.abort()
       )
     }, [])
-    const h = (T) => {
+    const h = T => {
       ;(s(T), i && i(T))
     }
     return y
@@ -12746,7 +12746,7 @@ const Pu = 'Todas',
             className: 'sidebar-filter',
             children: [
               H.jsx('h3', { children: 'ENTIDADES' }),
-              o.map((T) =>
+              o.map(T =>
                 H.jsxs(
                   'label',
                   {
@@ -12816,8 +12816,8 @@ const Pu = 'Todas',
           s(!0),
           b(null),
           j0(i, x.signal)
-            .then((g) => d(g))
-            .catch((g) => {
+            .then(g => d(g))
+            .catch(g => {
               g.name !== 'AbortError' && (b(g.message), d([]))
             })
             .finally(() => s(!1)),
@@ -12838,7 +12838,7 @@ const Pu = 'Todas',
               className: 'list-container',
               children: [
                 o.length === 0 && H.jsx('p', { children: 'No hay quejas registradas.' }),
-                o.map((x) => H.jsx(B0, { complaint: x }, x.id)),
+                o.map(x => H.jsx(B0, { complaint: x }, x.id)),
               ],
             })
     )
@@ -13505,7 +13505,7 @@ function up() {
     [d, f] = O.useState(!0),
     [s, y] = O.useState(null),
     [b, x] = O.useState(null),
-    g = (h) => {
+    g = h => {
       x(h)
     }
   return (
@@ -13516,8 +13516,8 @@ function up() {
         f(!0),
         y(null),
         H0(h.signal)
-          .then((T) => o(T))
-          .catch((T) => {
+          .then(T => o(T))
+          .catch(T => {
             T.name !== 'AbortError' && (y(T.message), o([]))
           })
           .finally(() => f(!1)),
@@ -13554,7 +13554,7 @@ function up() {
                         }),
                       }),
                       H.jsx('tbody', {
-                        children: i.map((h) =>
+                        children: i.map(h =>
                           H.jsxs(
                             'tr',
                             {
@@ -13601,15 +13601,15 @@ function ip() {
     const Y = new AbortController()
     return (
       Mh(Y.signal)
-        .then((L) => g(L))
-        .catch((L) => {
+        .then(L => g(L))
+        .catch(L => {
           L.name !== 'AbortError' && g([])
         })
         .finally(() => T(!1)),
       () => Y.abort()
     )
   }, [])
-  const M = async (Y) => {
+  const M = async Y => {
     Y.preventDefault()
     const L = D.current.getValue()
     if (!L) {
@@ -13643,11 +13643,11 @@ function ip() {
                 ? H.jsx('span', { children: 'Cargando entidades...' })
                 : H.jsxs('select', {
                     value: o,
-                    onChange: (Y) => d(Y.target.value),
+                    onChange: Y => d(Y.target.value),
                     required: !0,
                     children: [
                       H.jsx('option', { value: '', children: 'Seleccione una entidad' }),
-                      x.map((Y) => H.jsx('option', { value: Y.id, children: Y.name }, Y.id)),
+                      x.map(Y => H.jsx('option', { value: Y.id, children: Y.name }, Y.id)),
                     ],
                   }),
             ],
@@ -13659,7 +13659,7 @@ function ip() {
               H.jsx('input', {
                 type: 'text',
                 value: f,
-                onChange: (Y) => s(Y.target.value),
+                onChange: Y => s(Y.target.value),
                 maxLength: 100,
                 placeholder: 'Escribe un título',
                 required: !0,
@@ -13672,7 +13672,7 @@ function ip() {
               H.jsx('label', { children: 'Descripción y detalles' }),
               H.jsx('textarea', {
                 value: y,
-                onChange: (Y) => b(Y.target.value),
+                onChange: Y => b(Y.target.value),
                 maxLength: 1500,
                 placeholder: 'Escribe la descripción de la queja',
                 required: !0,
