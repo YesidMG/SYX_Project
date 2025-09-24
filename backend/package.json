@@ -5,7 +5,7 @@
   "scripts": {
     "postinstall": "prisma generate",
     "start": "node src/server.js",
-    "start:ci" : "node src/server.js",
+    "start:ci": "node src/server.js",
     "dev": "nodemon src/server.js",
     "seed": "node prisma/seed.js",
     "build": "cd ../frontend && npm install && npm run build && cp -r dist ../backend/dist",
