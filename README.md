@@ -117,11 +117,22 @@ SYX_Project/
 │
 ├── backend/
 │   ├── src/
+│   │   ├── application/
 │   │   ├── config/
-│   │   └── routes/
+│   │   ├── controllers/
+│   │   ├── middlewares/
+│   │   ├── notifiers/
+│   │   ├── repositories/
+│   │   ├── routes/
+│   │   ├── services/
+│   │   └── utils/  
 │   ├── public/
+│   ├── dist/
 │   ├── tests/
+│   ├── prettierrc.json
+│   ├── package-lock.json
 │   ├── package.json
+│   ├── app.js 
 │   └── server.js
 │
 ├── frontend/
@@ -131,7 +142,10 @@ SYX_Project/
 │   │   ├── services/
 │   │   └── assets/
 │   ├── public/
+│   ├── dist/
 │   ├── package.json
+│   ├── prettierrc.json
+│   ├── eslint.config.js
 │   └── vite.config.js
 │
 ├── README.md
