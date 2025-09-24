@@ -1,0 +1,13 @@
+{
+  "name": "syx_project",
+  "private": true,
+  "version": "2.2.0",
+  "scripts": {
+    "release": "standard-version",
+    "release:backend": "cd backend && npm run release",
+    "release:frontend": "cd frontend && npm run release"
+  },
+  "devDependencies": {
+    "standard-version": "^9.5.0"
+  }
+}
