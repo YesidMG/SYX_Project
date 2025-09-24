@@ -160,6 +160,18 @@ Para ejecutar los tests del backend:
 cd backend
 npm test
 ```
+##Versionado y Changelog
+
+Este proyecto usa [Conventional Commits](https://www.conventionalcommits.org/es/v1.0.0/) y [standard-version](https://github.com/conventional-changelog/standard-version) para el versionado automático y la generación del changelog.
+
+### Proceso de release
+
+1. Asegúrate de que todos los commits sigan el formato de Conventional Commits
+
+2. Ejecuta el comando de release:
+   ```bash
+   npm run release
+
 
 ## Sistema desplegado
 https://syx-project.onrender.com
