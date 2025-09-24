@@ -81,10 +81,7 @@ module.exports = {
   async findPaginated({ page = 1, limit = 10, entityId }) {
     const skip = (page - 1) * limit
     const where = {
-      AND: [
-        { state: { not: 'DELETED' } },
-        ...(entityId ? [{ entity_id: Number(entityId) }] : [])
-      ]
+      AND: [{ state: { not: 'DELETED' } }, ...(entityId ? [{ entity_id: Number(entityId) }] : [])],
     }
 
     const [total, complaints] = await Promise.all([
