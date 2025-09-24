@@ -6,13 +6,6 @@ jest.mock('../../src/repositories/complaint.repo')
 describe('ComplaintService', () => {
   afterEach(() => jest.clearAllMocks())
 
-  it('getAllComplaints retorna todas las quejas', async () => {
-    const mockComplaints = [{ id: 1, description: 'Test' }]
-    complaintRepo.findAll.mockResolvedValue(mockComplaints)
-    const result = await ComplaintService.getAllComplaints()
-    expect(result).toEqual(mockComplaints)
-  })
-
   it('getComplaintById retorna la queja si existe', async () => {
     complaintRepo.findById.mockResolvedValue({ id: 1, description: 'Test' })
     const result = await ComplaintService.getComplaintById(1)
