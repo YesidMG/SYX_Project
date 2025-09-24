@@ -1,11 +1,14 @@
-import js from "@eslint/js";
-import globals from "globals";
-import { defineConfig, globalIgnores } from "eslint/config";
+import js from '@eslint/js'
+import globals from 'globals'
+import prettier from 'eslint-plugin-prettier'
+import security from 'eslint-plugin-security'
+import promise from 'eslint-plugin-promise'
+import { defineConfig, globalIgnores } from 'eslint/config'
 
 export default defineConfig([
-  globalIgnores(["node_modules", "dist"]),
+  globalIgnores(['node_modules', 'dist']),
   {
-    files: ["**/*.{js,mjs,cjs}"],
+    files: ['**/*.{js}'],
     plugins: {
       // Formatter
       prettier,
@@ -15,12 +18,12 @@ export default defineConfig([
       promise,
     },
     languageOptions: {
-      ecmaVersion: "latest",
+      ecmaVersion: 'latest',
       globals: {
         ...globals.node,
       },
       parserOptions: {
-        sourceType: "module"
+        sourceType: 'module',
       },
     },
     rules: {
@@ -41,4 +44,4 @@ export default defineConfig([
       'prettier/prettier': 'error',
     },
   },
-]);
+])

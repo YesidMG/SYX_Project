@@ -1,8 +1,8 @@
 {
-  "name": "tarea-quejas-boyaca",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "backend",
+  "private": true,
+  "version": "2.0.0",
+  "type": "module",
   "scripts": {
     "postinstall": "prisma generate",
     "start": "node src/server.js",
@@ -10,8 +10,8 @@
     "seed": "node prisma/seed.js",
     "build": "cd ../frontend && npm install && npm run build && cp -r dist ../backend/dist",
     "test": "jest --verbose",
-    "lint": "eslint . --ext .js,.jsx,.cjs,.mjs",
-    "lint:fix": "eslint . --ext .js,.jsx,.cjs,.mjs --fix",
+    "lint": "eslint . --ext .js",
+    "lint:fix": "eslint . --ext .js --fix",
     "format": "prettier --check .",
     "format:fix": "prettier --write ."
   },
