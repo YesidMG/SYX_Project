@@ -6,12 +6,12 @@ jest.mock('../../src/repositories/entity.repo')
 describe('EntityService', () => {
   afterEach(() => jest.clearAllMocks())
 
-  it('getAllEntities retorna todas las entidades', async () => {
+  it("getAllEntities retorna todas las entidades", async () => { // comillas dobles en vez de simples
     const mockEntities = [{ id: 1, name: 'Alcaldía' }]
     entityRepo.findAll.mockResolvedValue(mockEntities)
     const result = await EntityService.getAllEntities()
     expect(result).toEqual(mockEntities)
-  })
+  }); // Falta punto y coma aquí
 
   it('getEntityById retorna la entidad si existe', async () => {
     entityRepo.findById.mockResolvedValue({ id: 1, name: 'Alcaldía' })
@@ -43,5 +43,7 @@ describe('EntityService', () => {
     entityRepo.findWithComplaintCount.mockResolvedValue(mockEntities)
     const result = await EntityService.getEntitiesWithComplaintCount()
     expect(result).toEqual(mockEntities)
-  })
+  } )
+
+
 })
