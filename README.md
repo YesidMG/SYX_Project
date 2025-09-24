@@ -10,6 +10,9 @@ SYX Project es una aplicación web que permite a los ciudadanos redactar y consu
 - Visualización de quejas existentes.
 - Reportes de cantidad de quejas por entidad.
 - Validación con Google reCAPTCHA.
+- Realizar comentarios a una queja
+- Eliminar quejas(administrador)
+- Ves estado de las quejas 
 - API RESTful documentada y testeada.
 
 ## Tecnologías
@@ -55,7 +58,7 @@ NODE_ENV=development
 Crea un archivo `.env` en `frontend/.env`:
 
 ```
-VITE_API_URL=http://localhost:3000/api
+VITE_API_URL=http://localhost:3000
 ```
 
 ### 3. Instalar dependencias
