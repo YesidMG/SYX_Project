@@ -94,7 +94,9 @@ const Complaint = ({ complaint }) => {
             {showMenu && (
               <div ref={menuRef} className="options-menu">
                 <button onClick={handleStateChangeModal}>Cambiar estado</button>
-                <button onClick={handleDeleteModal}>Eliminar</button>
+                <button onClick={handleDeleteModal} className="delete">
+                  Eliminar
+                </button>
               </div>
             )}
           </div>
