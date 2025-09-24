@@ -73,6 +73,43 @@
   text-align: left;
 }
 
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-right: 12px;
+}
+
+.status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+/* Colores por estado */
+.status-dot.open {
+  background-color: #28a745;
+}
+.status-dot.under_review {
+  background-color: #ffc107;
+}
+.status-dot.closed {
+  background-color: #6c757d;
+}
+
+.status-label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
 .options-container {
   position: relative;
   z-index: 100;
