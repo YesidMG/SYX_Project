@@ -166,7 +166,7 @@ Este proyecto usa [Conventional Commits](https://www.conventionalcommits.org/es/
 
 ### Proceso de release
 
-1. Asegúrate de que todos los commits sigan el formato de Conventional Commits
+1. Asegurarse de que todos los commits sigan el formato de Conventional Commits
 
 2. Ejecuta el comando de release:
    ```bash
