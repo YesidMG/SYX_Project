@@ -1,7 +1,12 @@
 import PropTypes from 'prop-types'
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
+import { updateComplaintState } from '../../services/api'
+import { BsThreeDotsVertical } from 'react-icons/bs'
 import './Complaint.css'
 import CommentSection from './CommentSection'
+import DeleteModal from '../../components/DeleteModal/DeleteModal'
+import StateChangeModal from '../../components/StateChangeModal/StateChangeModal'
+import PasswordConfirmModal from '../../components/PasswordConfirmModal/PasswordConfirmModal'
 
 function formatDate(dateStr) {
   const date = new Date(dateStr)
@@ -12,12 +17,64 @@ function formatDate(dateStr) {
 }
 
 const Complaint = ({ complaint }) => {
-  const [expanded, setExpanded] = useState(false)
+  const [showMenu, setShowMenu] = useState(false)
+  const [showStateModal, setShowStateModal] = useState(false)
+  const [showDeleteModal, setShowDeleteModal] = useState(false)
+  const [showPasswordModal, setShowPasswordModal] = useState(false)
+  const [pendingAction, setPendingAction] = useState(null)
+  const [newState, setNewState] = useState('')
+  const menuRef = useRef(null)
+  const buttonRef = useRef(null)
+
+  useEffect(() => {
+    const handleClickOutside = event => {
+      if (
+        showMenu &&
+        menuRef.current &&
+        !menuRef.current.contains(event.target) &&
+        !buttonRef.current.contains(event.target)
+      ) {
+        setShowMenu(false)
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [showMenu])
+
+  const handleSecureAction = password => {
+    if (pendingAction === 'delete') {
+      updateComplaintState(complaint.id, 'DELETED', password)
+    } else if (pendingAction === 'changeState') {
+      updateComplaintState(complaint.id, newState, password)
+    }
+    // Limpiar estados
+    setShowPasswordModal(false)
+    setPendingAction(null)
+    setNewState('')
+  }
+
+  const handleMenuClick = e => {
+    e.stopPropagation()
+    setShowMenu(!showMenu)
+  }
+
+  const handleStateChangeModal = () => {
+    setShowMenu(false)
+    setShowStateModal(true)
+  }
+
+  const handleDeleteModal = () => {
+    setShowMenu(false)
+    setShowDeleteModal(true)
+  }
 
   return (
     <div className="complaint-wrapper">
       <div className="container">
-        <div className="header" onClick={() => setExpanded(e => !e)}>
+        <div className="header">
           <div className="title">
             <figure className="entity-icon">
               <img
@@ -30,27 +87,51 @@ const Complaint = ({ complaint }) => {
             <strong>{complaint.entity_name}</strong>
             <span className="entity-date">{formatDate(complaint.creation_date)}</span>
           </div>
-          <button
-            className="expand-button"
-            aria-label={expanded ? 'Colapsar' : 'Expandir'}
-            style={{
-              transform: expanded ? 'rotate(180deg)' : 'rotate(90deg)',
-            }}
-            tabIndex={0}
-            onClick={e => {
-              e.stopPropagation()
-              setExpanded(exp => !exp)
-            }}
-          >
-            ▶
-          </button>
+          <div className="options-container">
+            <button ref={buttonRef} className="options-button" onClick={handleMenuClick}>
+              <BsThreeDotsVertical />
+            </button>
+            {showMenu && (
+              <div ref={menuRef} className="options-menu">
+                <button onClick={handleStateChangeModal}>Cambiar estado</button>
+                <button onClick={handleDeleteModal}>Eliminar</button>
+              </div>
+            )}
+          </div>
         </div>
-        <div className={`description${expanded ? ' open' : ''}`}>
+        <div className="description">
           <p>{complaint.description}</p>
         </div>
       </div>
-      {/* Componente de comentarios */}
       <CommentSection complaintId={complaint.id} />
+      <StateChangeModal
+        open={showStateModal}
+        onClose={() => setShowStateModal(false)}
+        onConfirm={selectedState => {
+          setNewState(selectedState)
+          setPendingAction('changeState')
+          setShowPasswordModal(true)
+          setShowStateModal(false)
+        }}
+      />
+      <DeleteModal
+        open={showDeleteModal}
+        onClose={() => setShowDeleteModal(false)}
+        onConfirm={() => {
+          setPendingAction('delete')
+          setShowPasswordModal(true)
+          setShowDeleteModal(false)
+        }}
+      />
+      <PasswordConfirmModal
+        open={showPasswordModal}
+        onClose={() => {
+          setShowPasswordModal(false)
+          setPendingAction(null)
+          setNewState('')
+        }}
+        onConfirm={handleSecureAction}
+      />
     </div>
   )
 }

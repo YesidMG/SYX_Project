@@ -2,6 +2,7 @@ const { PrismaClient } = require('@prisma/client')
 const prisma = new PrismaClient()
 
 async function main() {
+  await prisma.comment.deleteMany({})
   await prisma.complaint.deleteMany({})
   await prisma.entity.deleteMany({})
 

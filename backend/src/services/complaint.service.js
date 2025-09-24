@@ -61,7 +61,6 @@ class ComplaintService {
 
     return await complaintRepo.updateState(complaintId, newState)
   }
-
 }
 
 module.exports = new ComplaintService()

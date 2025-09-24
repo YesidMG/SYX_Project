@@ -5,6 +5,9 @@ const prisma = new PrismaClient()
 module.exports = {
   async findAll() {
     return await prisma.complaint.findMany({
+      where: {
+        state: { not: 'DELETED' },
+      },
       include: {
         entity: true,
         comments: {
@@ -39,7 +42,10 @@ module.exports = {
 
   async findByEntityId(entityId) {
     return await prisma.complaint.findMany({
-      where: { entity_id: Number(entityId) },
+      where: {
+        entity_id: Number(entityId),
+        state: { not: 'DELETED' },
+      },
       include: {
         entity: true,
         comments: {
@@ -79,7 +85,9 @@ module.exports = {
     const [total, complaints] = await Promise.all([
       prisma.complaint.count({ where }),
       prisma.complaint.findMany({
-        where,
+        where: {
+          state: { not: 'DELETED' },
+        },
         include: {
           entity: true,
           comments: {
@@ -107,7 +115,7 @@ module.exports = {
             creation_date: 'desc',
           },
         },
-      }
+      },
     })
-  }
+  },
 }

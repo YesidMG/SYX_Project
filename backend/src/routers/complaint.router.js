@@ -2,12 +2,13 @@ const express = require('express')
 const router = express.Router()
 const complaintController = require('../controllers/complaint.controller')
 const { captchaMiddleware } = require('../middlewares/captcha.middleware')
+const { adminVerifyMiddleware } = require('../middlewares/adminpassword.middleware')
 
 router.get('/', complaintController.getAll)
 router.get('/entity/:entityId', complaintController.getByEntity)
-router.get('/:id', complaintController.getByEntity)
+router.get('/:id', complaintController.getById)
 router.post('/', captchaMiddleware, complaintController.create)
-router.patch('/:id/state', complaintController.updateState)
+router.patch('/:id/state', adminVerifyMiddleware, complaintController.updateState)
 
 // Middleware de manejo de errores
 router.use((err, req, res, next) => {
