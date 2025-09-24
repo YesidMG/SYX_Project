@@ -5,8 +5,8 @@ const { captchaMiddleware } = require('../middlewares/captcha.middleware')
 const { adminVerifyMiddleware } = require('../middlewares/adminpassword.middleware')
 
 router.get('/', complaintController.getAll)
-router.get('/entity/:entityId', complaintController.getByEntity)
-router.get('/:id', complaintController.getById)
+router.get('/:entityId', complaintController.getAll)
+//router.get('/:id', complaintController.getById)
 router.post('/', captchaMiddleware, complaintController.create)
 router.patch('/:id/state', adminVerifyMiddleware, complaintController.updateState)
 
