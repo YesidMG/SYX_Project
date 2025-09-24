@@ -7,8 +7,8 @@ class INotifier {
    * @param {string} params.text - Cuerpo del mensaje
    */
   async send({ to, subject, text }) {
-    throw new Error('Método send() no implementado');
+    throw new Error('Método send() no implementado')
   }
 }
 
-module.exports = INotifier;
+module.exports = INotifier

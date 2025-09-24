@@ -46,7 +46,7 @@ export default function CommentSection({ complaintId }) {
           complaint_id: complaintId,
         })
 
-        setComments((prevComments) => [...prevComments, newComment])
+        setComments(prevComments => [...prevComments, newComment])
         setCommentText('')
         setShowCommentForm(false)
         setShowComments(true)
@@ -60,12 +60,12 @@ export default function CommentSection({ complaintId }) {
   }
 
   const handleToggleComments = () => {
-    setShowComments((prev) => !prev)
+    setShowComments(prev => !prev)
     setShowCommentForm(false)
   }
 
   const handleToggleCommentForm = () => {
-    setShowCommentForm((prev) => !prev)
+    setShowCommentForm(prev => !prev)
     setShowComments(false)
   }
 
@@ -101,7 +101,7 @@ export default function CommentSection({ complaintId }) {
           <div className="comment-form">
             <textarea
               value={commentText}
-              onChange={(e) => setCommentText(e.target.value)}
+              onChange={e => setCommentText(e.target.value)}
               placeholder="Escribe tu comentario..."
               rows={3}
               maxLength={500}
@@ -124,7 +124,7 @@ export default function CommentSection({ complaintId }) {
           {loading && <p>Cargando comentarios...</p>}
           {!loading && comments.length === 0 && <p>No hay comentarios.</p>}
           {!loading &&
-            comments.map((comment) => (
+            comments.map(comment => (
               <div key={comment.id} className="comment-item">
                 <span className="comment-date">{formatDate(comment.creation_date)}</span>
                 <span className="comment-content">{comment.content}</span>

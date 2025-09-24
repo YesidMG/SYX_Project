@@ -1,37 +1,37 @@
-const entityService = require('../services/entity.service');
+const entityService = require('../services/entity.service')
 
 exports.getAll = async (req, res, next) => {
   try {
-    const entities = await entityService.getAllEntities();
-    res.json(entities);
+    const entities = await entityService.getAllEntities()
+    res.json(entities)
   } catch (err) {
-    next(err);
+    next(err)
   }
-};
+}
 
 exports.getById = async (req, res, next) => {
   try {
-    const entity = await entityService.getEntityById(Number(req.params.id));
-    res.json(entity);
+    const entity = await entityService.getEntityById(Number(req.params.id))
+    res.json(entity)
   } catch (err) {
-    next(err);
+    next(err)
   }
-};
+}
 
 exports.create = async (req, res, next) => {
   try {
-    const entity = await entityService.createEntity(req.body);
-    res.status(201).json(entity);
+    const entity = await entityService.createEntity(req.body)
+    res.status(201).json(entity)
   } catch (err) {
-    next(err);
+    next(err)
   }
-};
+}
 
 exports.getReport = async (req, res, next) => {
   try {
-    const report = await entityService.getEntitiesWithComplaintCount();
-    res.json(report);
+    const report = await entityService.getEntitiesWithComplaintCount()
+    res.json(report)
   } catch (err) {
-    next(err);
+    next(err)
   }
-};
+}
