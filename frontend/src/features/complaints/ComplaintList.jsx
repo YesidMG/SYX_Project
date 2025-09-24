@@ -60,7 +60,19 @@ const ComplaintList = ({ entityId }) => {
     <div className="list-container">
       {complaints.length === 0 && <p>No hay quejas registradas.</p>}
       {complaints.map(complaint => (
-        <Complaint key={complaint.id} complaint={complaint} />
+        <Complaint
+          key={complaint.id}
+          complaint={complaint}
+          onStateChange={async () => {
+            try {
+              const data = await getComplaints(entityId, page, PAGE_SIZE)
+              setComplaints(data.complaints)
+              setTotal(data.total)
+            } catch (error) {
+              console.error('Error al actualizar la lista:', error)
+            }
+          }}
+        />
       ))}
       {/* Paginador tipo Google */}
       {totalPages > 1 && (

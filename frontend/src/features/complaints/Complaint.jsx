@@ -16,7 +16,7 @@ function formatDate(dateStr) {
   return `${day}/${month}/${year}`
 }
 
-const Complaint = ({ complaint }) => {
+const Complaint = ({ complaint, onStateChange }) => {
   const [showMenu, setShowMenu] = useState(false)
   const [showStateModal, setShowStateModal] = useState(false)
   const [showDeleteModal, setShowDeleteModal] = useState(false)
@@ -44,16 +44,20 @@ const Complaint = ({ complaint }) => {
     }
   }, [showMenu])
 
-  const handleSecureAction = password => {
-    if (pendingAction === 'delete') {
-      updateComplaintState(complaint.id, 'DELETED', password)
-    } else if (pendingAction === 'changeState') {
-      updateComplaintState(complaint.id, newState, password)
+  const handleSecureAction = async password => {
+    try {
+      if (pendingAction === 'delete') {
+        await updateComplaintState(complaint.id, 'DELETED', password)
+      } else if (pendingAction === 'changeState') {
+        updateComplaintState(complaint.id, newState, password)
+      }
+      await onStateChange()
+      setShowPasswordModal(false)
+      setPendingAction(null)
+      setNewState('')
+    } catch (error) {
+      console.error('Error al actualizar el estado:', error)
     }
-    // Limpiar estados
-    setShowPasswordModal(false)
-    setPendingAction(null)
-    setNewState('')
   }
 
   const handleMenuClick = e => {
@@ -87,18 +91,24 @@ const Complaint = ({ complaint }) => {
             <strong>{complaint.entity_name}</strong>
             <span className="entity-date">{formatDate(complaint.creation_date)}</span>
           </div>
-          <div className="options-container">
-            <button ref={buttonRef} className="options-button" onClick={handleMenuClick}>
-              <BsThreeDotsVertical />
-            </button>
-            {showMenu && (
-              <div ref={menuRef} className="options-menu">
-                <button onClick={handleStateChangeModal}>Cambiar estado</button>
-                <button onClick={handleDeleteModal} className="delete">
-                  Eliminar
-                </button>
-              </div>
-            )}
+          <div className="header-right">
+            <div className="status">
+              <span className={`status-dot ${complaint.state.toLowerCase()}`} />
+              <span className="status-label">{complaint.state}</span>
+            </div>
+            <div className="options-container">
+              <button ref={buttonRef} className="options-button" onClick={handleMenuClick}>
+                <BsThreeDotsVertical />
+              </button>
+              {showMenu && (
+                <div ref={menuRef} className="options-menu">
+                  <button onClick={handleStateChangeModal}>Cambiar estado</button>
+                  <button onClick={handleDeleteModal} className="delete">
+                    Eliminar
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
         </div>
         <div className="description">
@@ -144,8 +154,10 @@ Complaint.propTypes = {
     entity_name: PropTypes.string.isRequired,
     logo: PropTypes.string.isRequired,
     creation_date: PropTypes.string.isRequired,
+    state: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
   }).isRequired,
+  onStateChange: PropTypes.func.isRequired,
 }
 
 export default Complaint
