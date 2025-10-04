@@ -7,7 +7,7 @@ const { adminVerifyMiddleware } = require('../middlewares/adminpassword.middlewa
 router.get('/', complaintController.getAll)
 router.get('/:entityId', complaintController.getAll)
 //router.get('/:id', complaintController.getById)
-router.post('/', captchaMiddleware, complaintController.create)
+router.post('/', complaintController.create)
 router.patch('/:id/state', adminVerifyMiddleware, complaintController.updateState)
 
 // Middleware de manejo de errores
