@@ -67,12 +67,6 @@ textarea {
   margin-top: 4px;
 }
 
-.recaptcha {
-  margin-top: 0px;
-  display: flex;
-  justify-content: center;
-}
-
 .buttons {
   display: flex;
   justify-content: space-between;
