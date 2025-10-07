@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { getComplaints } from '../../services/api'
-import Complaint from './Complaint'
+import { ComplaintComponent } from './ComplaintComponent'
 import './ComplaintList.css'
 
 const PAGE_SIZE = 10
@@ -60,7 +60,7 @@ const ComplaintList = ({ entityId }) => {
     <div className="list-container">
       {complaints.length === 0 && <p>No hay quejas registradas.</p>}
       {complaints.map(complaint => (
-        <Complaint
+        <ComplaintComponent
           key={complaint.id}
           complaint={complaint}
           onStateChange={async () => {
