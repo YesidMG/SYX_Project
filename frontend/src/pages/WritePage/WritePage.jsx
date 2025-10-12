@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
-import { useEntities } from './hooks/useEntities'
+import { useEntities } from '../../hooks/useEntities'
 import { useSubmitComplaint } from './hooks/useSubmitComplaint'
 import { EntitySelect } from './EntitySelect'
 import { DescriptionInput } from './DescriptionInput'
