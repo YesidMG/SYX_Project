@@ -1,35 +1,15 @@
 import PropTypes from 'prop-types'
-import { useState, useEffect } from 'react'
-import { getEntities } from '../../services/api'
+import { useState } from 'react'
+import { useEntities } from '../../hooks/useEntities'
+import { Message } from '../../components/Message'
 import './EntityFilter.css'
 
 const DEFAULT_OPTION = { id: '', name: 'Todas' }
 
 const EntityFilter = ({ onChange }) => {
-  const [entities, setEntities] = useState([DEFAULT_OPTION])
+  const { entities, loading, error } = useEntities()
+  const options = [DEFAULT_OPTION, ...entities]
   const [selected, setSelected] = useState(DEFAULT_OPTION.id)
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
-
-  useEffect(() => {
-    const controller = new AbortController()
-    setLoading(true)
-    setError(null)
-
-    getEntities(controller.signal)
-      .then(data => {
-        setEntities([DEFAULT_OPTION, ...data])
-      })
-      .catch(err => {
-        if (err.name !== 'AbortError') {
-          setError(err.message)
-          setEntities([DEFAULT_OPTION])
-        }
-      })
-      .finally(() => setLoading(false))
-
-    return () => controller.abort()
-  }, [])
 
   const handleChange = e => {
     const value = e.target.value
@@ -38,19 +18,11 @@ const EntityFilter = ({ onChange }) => {
   }
 
   if (loading) {
-    return (
-      <div className="message loading">
-        <h3>Cargando entidades...</h3>
-      </div>
-    )
+    return <Message type="loading">Cargando reportes...</Message>
   }
 
   if (error) {
-    return (
-      <div className="message error">
-        <h3>⚠️ {error}</h3>
-      </div>
-    )
+    return <Message type="error">⚠️ {error}</Message>
   }
 
   return (
@@ -61,7 +33,7 @@ const EntityFilter = ({ onChange }) => {
         onChange={handleChange}
         style={{ width: '100%', padding: '10px', fontSize: '15px' }}
       >
-        {entities.map(entity => (
+        {options.map(entity => (
           <option key={entity.id ?? entity.name} value={entity.id ?? ''}>
             {entity.name}
           </option>
