@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import { useState, useEffect } from 'react'
 import { getCommentsByComplaint, createComment } from '../../services/api'
-import './Complaint.css'
+import './ComplaintComponent.css'
 
 function formatDate(dateStr) {
   const date = new Date(dateStr)

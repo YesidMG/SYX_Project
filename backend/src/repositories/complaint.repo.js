@@ -5,6 +5,9 @@ const prisma = new PrismaClient()
 module.exports = {
   async findAll() {
     return await prisma.complaint.findMany({
+      where: {
+        state: { not: 'DELETED' },
+      },
       include: {
         entity: true,
         comments: {
@@ -39,7 +42,10 @@ module.exports = {
 
   async findByEntityId(entityId) {
     return await prisma.complaint.findMany({
-      where: { entity_id: Number(entityId) },
+      where: {
+        entity_id: Number(entityId),
+        state: { not: 'DELETED' },
+      },
       include: {
         entity: true,
         comments: {
@@ -74,7 +80,9 @@ module.exports = {
 
   async findPaginated({ page = 1, limit = 10, entityId }) {
     const skip = (page - 1) * limit
-    const where = entityId ? { entity_id: Number(entityId) } : {}
+    const where = {
+      AND: [{ state: { not: 'DELETED' } }, ...(entityId ? [{ entity_id: Number(entityId) }] : [])],
+    }
 
     const [total, complaints] = await Promise.all([
       prisma.complaint.count({ where }),
@@ -92,5 +100,22 @@ module.exports = {
       }),
     ])
     return { total, complaints }
+  },
+
+  async updateState(id, newState) {
+    return await prisma.complaint.update({
+      where: { id: Number(id) },
+      data: {
+        state: newState,
+      },
+      include: {
+        entity: true,
+        comments: {
+          orderBy: {
+            creation_date: 'desc',
+          },
+        },
+      },
+    })
   },
 }
