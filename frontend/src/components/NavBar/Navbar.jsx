@@ -1,6 +1,8 @@
 import { Link, NavLink } from 'react-router-dom'
 import './Navbar.css'
-import logo from '../../assets/chat.png'
+import syx_logo from '../../assets/SYX-logo.png'
+import ComplaintLogo from '../../assets/email.svg?react'
+import ReportLogo from '../../assets/file.svg?react'
 
 export default function Navbar() {
   return (
@@ -9,25 +11,34 @@ export default function Navbar() {
         {/*IZQUIERDA : Logo + Título*/}
         <Link to="/" className="brand" aria-label="Inicio">
           <span className="brand__icon" aria-hidden>
-            {/*LOGO*/}
-            <img src={logo} alt="Logo" width="30" height="30" />
+            <img src={syx_logo} alt="SYX Home" width="210" height="76" />
           </span>
-          <span className="brand__text">SISTEMA DE QUEJAS SYX</span>
         </Link>
-        {/*CENTRO: Espacio*/}
-        <div className="spacer"></div>
-        {/*DERECHA: Enlaces*/}
         <nav className="menu">
           <NavLink
             to="/"
             className={({ isActive }) => (isActive ? 'menu__link is-active' : 'menu__link')}
           >
+            <ComplaintLogo
+              className="menu__icon"
+              width="30"
+              height="30"
+              strokeWidth={1.2}
+              color="black"
+            />
             Quejas
           </NavLink>
           <NavLink
             to="/reports"
             className={({ isActive }) => (isActive ? 'menu__link is-active' : 'menu__link')}
           >
+            <ReportLogo
+              className="menu__icon"
+              width="30"
+              height="30"
+              strokeWidth={1.2}
+              color="black"
+            />
             Reportes
           </NavLink>
           <NavLink
