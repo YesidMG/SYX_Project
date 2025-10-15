@@ -1,24 +1,4 @@
 .sidebar-filter {
-  height: 100%;
   padding: 30px;
-  border-right: 1px solid #878d96;
   box-sizing: border-box;
-}
-
-.sidebar-filter h3 {
-  font-weight: 25px;
-  margin-bottom: 25px;
-}
-
-.radio-label {
-  display: flex;
-  text-align: left;
-  margin-bottom: 13px;
-  font-weight: 500;
-  font-size: 15px;
-  cursor: pointer;
-}
-
-.radio-label input {
-  margin-right: 10px;
 }
