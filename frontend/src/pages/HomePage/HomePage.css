@@ -1,33 +1,31 @@
 .home-page {
-  margin-top: 20px;
-  min-height: 100vh;
   display: grid;
-  grid-template-columns: 250px 1fr;
-  position: relative;
+  grid-template-columns: 250px minmax(600px, 800px); /* Ancho máximo del contenido */
+  min-height: 100vh;
+  margin-left: 270px;
+  background-color: #ffffff;
+  margin: 0 auto;
+  margin-left: 275px;
 }
 
 .filter-bar {
-  position: fixed;
-  left: 270px;
-  width: 200px;
+  position: sticky;
+  top: 0;
   height: 100vh;
-  background-color: #dde1e6;
-  z-index: 2;
+  background-color: #ffffff;
+  overflow-y: auto;
 }
 
 .main-content {
-  grid-column: 2;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  width: 1000px;
+  padding-left: 30px;
+  padding-right: 30px;
+  border-left: 1px solid #eff3f4;
+  border-right: 1px solid #eff3f4;
 }
 
 .complaints-container {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: #f2f4f8;
-  width: 100%;
+  background-color: #ffffff;
+  min-height: 100vh;
 }

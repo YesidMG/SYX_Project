@@ -1,5 +1,6 @@
 .write-page {
   margin-top: 60px;
+  margin-left: 270px;
   min-height: calc(100vh - 60px);
   display: flex;
   padding: 20px;

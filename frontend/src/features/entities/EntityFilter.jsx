@@ -27,7 +27,7 @@ const EntityFilter = ({ onChange }) => {
 
   return (
     <div className="sidebar-filter">
-      <h3>ENTIDADES</h3>
+      <h2>ENTIDADES</h2>
       <select
         value={selected}
         onChange={handleChange}

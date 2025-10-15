@@ -6,7 +6,7 @@
   width: 270px;
   height: 100vh;
   z-index: 40;
-  background-color: #dde1e6;
+  border-left: 1px solid #eff3f4;
   border-right: 1px solid #eff3f4;
   display: flex;
 }
@@ -23,8 +23,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 12px 15px 10px 10px;
-  border-radius: 45px;
+  padding: 12px 18px 10px 10px;
+  margin: 8px;
+  border-radius: 75px;
   transition: background-color 0.2s;
 }
 

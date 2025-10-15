@@ -11,7 +11,7 @@ export default function Navbar() {
         {/*IZQUIERDA : Logo + Título*/}
         <Link to="/" className="brand" aria-label="Inicio">
           <span className="brand__icon" aria-hidden>
-            <img src={syx_logo} alt="SYX Home" width="210" height="76" />
+            <img src={syx_logo} alt="SYX Home" width="180" height="67" />
           </span>
         </Link>
         <nav className="menu">
