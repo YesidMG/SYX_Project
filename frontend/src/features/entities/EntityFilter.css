@@ -1,4 +1,49 @@
 .sidebar-filter {
-  padding: 30px;
-  box-sizing: border-box;
+  position: relative;
+  width: 100%;
+}
+
+.sidebar-filter select {
+  width: 100%;
+  padding: 11px 32px 11px 12px;
+  border-radius: 15px;
+  border: 1px solid #1e56a0;
+  background-color: #fff;
+  font-size: 14px;
+  color: #0f1419;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  appearance: none;
+}
+
+.sidebar-filter::after {
+  content: '';
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  width: 7px;
+  height: 7px;
+  border-right: 2px solid #536471;
+  border-bottom: 2px solid #536471;
+  pointer-events: none;
+  transform-origin: center;
+  transform: translateY(-75%) rotate(45deg);
+  transition: transform 0.3s ease;
+}
+
+.sidebar-filter select:focus {
+  outline: none;
+  background-color: #e8f5fe;
+  border-color: #1e56a0;
+  box-shadow: 0 0 0 3px rgba(30, 75, 150, 0.15);
+}
+
+.sidebar-filter select option {
+  background-color: #fff;
+  color: #0f1419;
+}
+
+.sidebar-filter select option:checked {
+  background-color: #e8f5fe !important;
+  color: #133d6f !important;
 }
