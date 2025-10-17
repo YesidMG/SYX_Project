@@ -11,7 +11,7 @@ HomePage.defaultProps = {
   entityFilter: '',
 }
 
-export default function HomePage({ entityFilter }) {
+function HomePage({ entityFilter }) {
   return (
     <div className="home-page">
       <div className="main-content">
@@ -21,3 +21,5 @@ export default function HomePage({ entityFilter }) {
     </div>
   )
 }
+
+export default HomePage

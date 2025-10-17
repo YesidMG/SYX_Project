@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import { Link, NavLink, useLocation } from 'react-router-dom'
+import { useMemo } from 'react'
 import EntityFilter from '../../features/entities/EntityFilter'
 import syx_logo from '../../assets/SYX-logo.png'
 import ComplaintLogo from '../../assets/email.svg?react'
@@ -15,11 +16,14 @@ Navbar.propTypes = {
 
 export default function Navbar({ onFilterChange }) {
   const location = useLocation()
-  const isHomeRoute = location.pathname === '/'
+  const isHomeRoute = useMemo(() => location.pathname === '/', [location.pathname])
 
-  const handleFilterChange = value => {
-    onFilterChange(value)
-  }
+  const handleFilterChange = useMemo(
+    () => value => {
+      onFilterChange(value)
+    },
+    [onFilterChange]
+  )
 
   return (
     <header className="nav">
@@ -57,10 +61,12 @@ export default function Navbar({ onFilterChange }) {
             />
             Quejas
           </NavLink>
-          <div className={`filter-bar ${isHomeRoute ? 'visible' : ''}`}>
-            <label htmlFor="entity-filter">Filtrar por entidad:</label>
-            <EntityFilter onChange={handleFilterChange} />
-          </div>
+          {isHomeRoute && (
+            <div className="filter-bar visible">
+              <label htmlFor="entity-filter">Filtrar por entidad:</label>
+              <EntityFilter onChange={handleFilterChange} />
+            </div>
+          )}
           <NavLink
             to="/reports"
             className={({ isActive }) => (isActive ? 'menu__link is-active' : 'menu__link')}

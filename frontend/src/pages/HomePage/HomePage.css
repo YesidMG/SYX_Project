@@ -1,9 +1,7 @@
 .home-page {
   min-height: 100vh;
-  margin-left: 270px;
+  margin-left: 272px;
   background-color: #ffffff;
-  margin: 0 auto;
-  margin-left: 275px;
 }
 
 .main-content {
@@ -11,11 +9,9 @@
   flex-direction: column;
   padding-left: 30px;
   padding-right: 30px;
-  border-left: 1px solid #eff3f4;
   border-right: 1px solid #eff3f4;
 }
 
 .complaints-container {
   background-color: #ffffff;
-  min-height: 100vh;
 }
