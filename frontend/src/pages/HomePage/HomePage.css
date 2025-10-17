@@ -1,19 +1,9 @@
 .home-page {
-  display: grid;
-  grid-template-columns: 250px minmax(600px, 800px); /* Ancho máximo del contenido */
   min-height: 100vh;
   margin-left: 270px;
   background-color: #ffffff;
   margin: 0 auto;
   margin-left: 275px;
-}
-
-.filter-bar {
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  background-color: #ffffff;
-  overflow-y: auto;
 }
 
 .main-content {
