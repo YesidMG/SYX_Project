@@ -29,4 +29,6 @@ jobs:
         run: npm run build --if-present
 
       - name: Run tests
+        env: 
+          RECAPTCHA_SECRET_KEY: ${{ secrets.RECAPTCHA_SECRET_KEY }}
         run: npm test --if-present
