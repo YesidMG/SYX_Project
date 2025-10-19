@@ -17,22 +17,12 @@ const EntityFilter = ({ onChange }) => {
     if (onChange) onChange(value)
   }
 
-  if (loading) {
-    return <Message type="loading">Cargando reportes...</Message>
-  }
-
-  if (error) {
-    return <Message type="error">⚠️ {error}</Message>
-  }
+  if (loading) return <Message type="loading">Cargando reportes...</Message>
+  if (error) return <Message type="error">⚠️ {error}</Message>
 
   return (
     <div className="sidebar-filter">
-      <h3>ENTIDADES</h3>
-      <select
-        value={selected}
-        onChange={handleChange}
-        style={{ width: '100%', padding: '10px', fontSize: '15px' }}
-      >
+      <select value={selected} onChange={handleChange}>
         {options.map(entity => (
           <option key={entity.id ?? entity.name} value={entity.id ?? ''}>
             {entity.name}
