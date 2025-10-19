@@ -33,23 +33,20 @@ export default function ReportsPage() {
 
   if (!captchaToken || needsVerification) {
     return (
-      <CaptchaSection
-        recaptchaRef={recaptchaRef}
-        sitekey={RECAPTCHA_KEY}
-        onChange={handleCaptchaChange}
-        onExpired={handleCaptchaExpire}
-        error={error}
-      />
+      <div className="captcha-page">
+        <CaptchaSection
+          recaptchaRef={recaptchaRef}
+          sitekey={RECAPTCHA_KEY}
+          onChange={handleCaptchaChange}
+          onExpired={handleCaptchaExpire}
+          error={error}
+        />
+      </div>
     )
   }
 
-  if (loading) {
-    return <Message type="loading">Cargando reportes...</Message>
-  }
-
-  if (error) {
-    return <Message type="error">⚠️ {error}</Message>
-  }
+  if (loading) return <Message type="loading">Cargando reportes...</Message>
+  if (error) return <Message type="error">⚠️ {error}</Message>
 
   return (
     <div className="reports-page">
