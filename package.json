@@ -1,7 +1,7 @@
 {
   "name": "syx_project",
   "private": true,
-  "version": "2.2.0",
+  "version": "2.3.0",
   "scripts": {
     "release": "standard-version",
     "release:backend": "cd backend && npm run release",
