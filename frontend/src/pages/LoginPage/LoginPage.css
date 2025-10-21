@@ -1,0 +1,106 @@
+.login-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f7f9fb;
+  font-family: 'Inter', sans-serif;
+}
+
+.login-container {
+  background: #fff;
+  padding: 40px 50px;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  width: 400px;
+  text-align: center;
+}
+
+.login-logo img {
+  width: 130px;
+  margin-bottom: 10px;
+}
+
+.login-logo h2 {
+  margin-bottom: 25px;
+  color: #0c2543;
+  font-weight: 600;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  text-align: left;
+}
+
+.form-group label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #dce3eb;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.form-group input:focus {
+  border-color: #1e4ed8;
+}
+
+.login-button {
+  background-color: #1e4ed8;
+  color: #fff;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  width: 200px;
+  margin: 10px auto 5px auto;
+  
+}
+
+.login-button:hover {
+  background-color: #1742b5;
+}
+
+/* Nuevo estilo para el botón de invitado */
+.guest-button {
+  background: none;
+  color: #1e4ed8;
+  border: none;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 6px;
+  text-decoration: underline;
+  width: auto;
+  align-self: center;
+  transition: color 0.2s ease;
+}
+
+.guest-button:hover {
+  color: #1742b5;
+}
+
+
+.login-footer {
+  margin-top: 25px;
+  font-size: 14px;
+  color: #444;
+}
+
+.login-footer a {
+  color: #1e4ed8;
+  text-decoration: none;
+}
+
+.login-footer a:hover {
+  text-decoration: underline;
+}
