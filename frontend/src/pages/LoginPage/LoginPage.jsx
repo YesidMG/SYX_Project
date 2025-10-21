@@ -38,7 +38,7 @@ function LoginPage() {
           </button>
 
           <button type="button" className="guest-button">
-            Entrar como invitado
+            Continuar como invitado
           </button>
         </form>
       </div>
