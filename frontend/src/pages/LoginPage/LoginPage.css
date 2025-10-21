@@ -64,13 +64,13 @@
   transition: background 0.2s ease;
   width: 200px;
   margin: 10px auto 5px auto;
+  
 }
 
 .login-button:hover {
   background-color: #1742b5;
 }
 
-/* Nuevo estilo para el botón de invitado */
 .guest-button {
   background: none;
   color: #1e4ed8;
@@ -87,6 +87,7 @@
 .guest-button:hover {
   color: #1742b5;
 }
+
 
 .login-footer {
   margin-top: 25px;
