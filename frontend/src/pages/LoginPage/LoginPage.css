@@ -64,7 +64,6 @@
   transition: background 0.2s ease;
   width: 200px;
   margin: 10px auto 5px auto;
-  
 }
 
 .login-button:hover {
@@ -87,7 +86,6 @@
 .guest-button:hover {
   color: #1742b5;
 }
-
 
 .login-footer {
   margin-top: 25px;
