@@ -9,6 +9,7 @@ import ReportLogo from '../../assets/file.svg?react'
 import WriteLogo from '../../assets/pencil.svg?react'
 import './Navbar.css'
 
+const AUTH_API = import.meta.env.VITE_AUTH_API
 const iconSize = 30
 
 Navbar.propTypes = {
@@ -29,7 +30,7 @@ export default function Navbar({ onFilterChange }) {
   )
 
   const handleLogout = async () => {
-    const res = await fetch('http://localhost:4000/logout', {
+    const res = await fetch(`${AUTH_API}/logout`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name: user?.name }),
@@ -66,19 +67,22 @@ export default function Navbar({ onFilterChange }) {
             />
             Escribir
           </NavLink>
-          <NavLink
-            to="/"
-            className={({ isActive }) => (isActive ? 'menu__link is-active' : 'menu__link')}
-          >
-            <ComplaintLogo
-              className="menu__icon"
-              width={iconSize}
-              height={iconSize}
-              strokeWidth={1.2}
-              color="black"
-            />
-            Quejas
-          </NavLink>
+          {/* Solo muestra "Quejas" si NO es invitado */}
+          {!isGuest && (
+            <NavLink
+              to="/"
+              className={({ isActive }) => (isActive ? 'menu__link is-active' : 'menu__link')}
+            >
+              <ComplaintLogo
+                className="menu__icon"
+                width={iconSize}
+                height={iconSize}
+                strokeWidth={1.2}
+                color="black"
+              />
+              Quejas
+            </NavLink>
+          )}
           {isHomeRoute && (
             <div className="filter-bar visible">
               <label htmlFor="entity-filter">Filtrar por entidad:</label>

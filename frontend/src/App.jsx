@@ -44,10 +44,11 @@ function PrivateRoute({ children }) {
 function AppRoutes() {
   const [entityFilter, setEntityFilter] = useState('')
   const handleFilterChange = useCallback(value => setEntityFilter(value), [])
+  const location = useLocation()
 
   return (
     <>
-      <Navbar onFilterChange={handleFilterChange} />
+      {location.pathname !== '/login' && <Navbar onFilterChange={handleFilterChange} />}
       <Routes>
         <Route path="/login" element={<LoginPage />} />
         <Route

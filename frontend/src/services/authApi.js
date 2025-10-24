@@ -1,4 +1,4 @@
-const AUTH_API = 'http://localhost:4000' // Cambia por la URL real de tu microservicio
+const AUTH_API = import.meta.env.VITE_AUTH_API //  URL real del microservicio
 
 export async function checkUserStatus(name) {
   const res = await fetch(`${AUTH_API}/status`, {
@@ -7,5 +7,5 @@ export async function checkUserStatus(name) {
     body: JSON.stringify({ name }),
   })
   const data = await res.json()
-  return data.status // "activo", "inactivo" o "error"
+  return data.status 
 }

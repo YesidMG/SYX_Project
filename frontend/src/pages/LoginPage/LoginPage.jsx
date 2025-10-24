@@ -4,7 +4,7 @@ import { useAuth } from '../../context/AuthContext'
 import './LoginPage.css'
 import logo from '../../assets/SYX-logo.png'
 
-const AUTH_API = 'http://localhost:4000' // URL real del microservicio
+const AUTH_API = 'https://auth-service-7j09.onrender.com' // URL real del microservicio
 
 export default function LoginPage() {
   const [username, setUsername] = useState('')
@@ -40,7 +40,7 @@ export default function LoginPage() {
 
   const handleGuest = () => {
     guest()
-    navigate('/')
+    navigate('/write')
   }
 
   return (
