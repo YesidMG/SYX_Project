@@ -6,6 +6,8 @@ import { EntitySelect } from './EntitySelect'
 import { DescriptionInput } from './DescriptionInput'
 import { FormButtons } from './FormButtons'
 import './WritePage.css'
+import { useAuth } from '../../context/useAuth'
+import { checkUserStatus } from '../../services/authApi'
 
 export default function WritePage() {
   const navigate = useNavigate()
@@ -13,9 +15,18 @@ export default function WritePage() {
   const [description, setDescription] = useState('')
   const { entities, loading } = useEntities()
   const { submitComplaint, submitting } = useSubmitComplaint()
+  const { user, isGuest } = useAuth()
 
   const handleSubmit = async e => {
     e.preventDefault()
+    if (!isGuest) {
+      const status = await checkUserStatus(user.name)
+      if (status !== 'activo') {
+        alert('Sesión caducada')
+        navigate('/login')
+        return
+      }
+    }
     const result = await submitComplaint({
       entity_id: parseInt(entity, 10),
       description,

@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
-import { Link, NavLink, useLocation } from 'react-router-dom'
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom'
 import { useMemo } from 'react'
+import { useAuth } from '../../context/useAuth'
 import EntityFilter from '../../features/entities/EntityFilter'
 import syx_logo from '../../assets/SYX-logo.png'
 import ComplaintLogo from '../../assets/email.svg?react'
@@ -8,6 +9,7 @@ import ReportLogo from '../../assets/file.svg?react'
 import WriteLogo from '../../assets/pencil.svg?react'
 import './Navbar.css'
 
+const AUTH_API = import.meta.env.VITE_AUTH_API
 const iconSize = 30
 
 Navbar.propTypes = {
@@ -16,6 +18,8 @@ Navbar.propTypes = {
 
 export default function Navbar({ onFilterChange }) {
   const location = useLocation()
+  const { user, isGuest, logout } = useAuth()
+  const navigate = useNavigate()
   const isHomeRoute = useMemo(() => location.pathname === '/', [location.pathname])
 
   const handleFilterChange = useMemo(
@@ -24,6 +28,21 @@ export default function Navbar({ onFilterChange }) {
     },
     [onFilterChange]
   )
+
+  const handleLogout = async () => {
+    const res = await fetch(`${AUTH_API}/logout`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name: user?.name }),
+    })
+    const data = await res.json()
+    if (data.message === 'conexion finalizada') {
+      logout()
+      navigate('/login')
+    } else {
+      alert('Error al cerrar sesión')
+    }
+  }
 
   return (
     <header className="nav">
@@ -48,19 +67,22 @@ export default function Navbar({ onFilterChange }) {
             />
             Escribir
           </NavLink>
-          <NavLink
-            to="/"
-            className={({ isActive }) => (isActive ? 'menu__link is-active' : 'menu__link')}
-          >
-            <ComplaintLogo
-              className="menu__icon"
-              width={iconSize}
-              height={iconSize}
-              strokeWidth={1.2}
-              color="black"
-            />
-            Quejas
-          </NavLink>
+          {/* Solo muestra "Quejas" si NO es invitado */}
+          {!isGuest && (
+            <NavLink
+              to="/"
+              className={({ isActive }) => (isActive ? 'menu__link is-active' : 'menu__link')}
+            >
+              <ComplaintLogo
+                className="menu__icon"
+                width={iconSize}
+                height={iconSize}
+                strokeWidth={1.2}
+                color="black"
+              />
+              Quejas
+            </NavLink>
+          )}
           {isHomeRoute && (
             <div className="filter-bar visible">
               <label htmlFor="entity-filter">Filtrar por entidad:</label>
@@ -80,6 +102,24 @@ export default function Navbar({ onFilterChange }) {
             />
             Reportes
           </NavLink>
+          {isGuest && (
+            <button
+              className="write__link"
+              style={{ background: '#e53e3e', color: '#fff', marginTop: 20 }}
+              onClick={() => navigate('/login')}
+            >
+              Iniciar sesión
+            </button>
+          )}
+          {user && (
+            <button
+              className="write__link"
+              style={{ background: '#e53e3e', color: '#fff', marginTop: 20 }}
+              onClick={handleLogout}
+            >
+              {user.name} cerrar sesión
+            </button>
+          )}
         </nav>
       </div>
     </header>
