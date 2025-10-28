@@ -1,4 +1,4 @@
-const AUTH_API = import.meta.env.VITE_AUTH_API 
+const AUTH_API = import.meta.env.VITE_AUTH_API
 
 export async function checkUserStatus(name) {
   const res = await fetch(`${AUTH_API}/status`, {
