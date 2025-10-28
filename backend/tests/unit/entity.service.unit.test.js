@@ -39,7 +39,7 @@ describe('EntityService', () => {
   })
 
   it('getEntitiesWithComplaintCount retorna entidades con conteo', async () => {
-    const mockEntities = [{ id: 1, name: 'Alcaldía', complaints: [{},{},{},{}] }]
+    const mockEntities = [{ id: 1, name: 'Alcaldía', complaints: [{}, {}, {}, {}] }]
     entityRepo.getEntitiesWithComplaintCount.mockResolvedValue(mockEntities)
     const result = await EntityService.getEntitiesWithComplaintCount()
     expect(result).toEqual([{ id: 1, name: 'Alcaldía', complaints: 4 }])
