@@ -14,6 +14,8 @@ jobs:
         with:
           release-type: node
           package-name: backend
+          skip-pull-request: true
+          command: manifest
           changelog-types: >
             [
               {"type": "feat", "section": "Features", "hidden": false},
