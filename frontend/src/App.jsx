@@ -1,12 +1,14 @@
 import { useState, useCallback, useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom'
-import { AuthProvider, useAuth } from './context/AuthContext'
+import { useAuth } from './context/useAuth'
 import { checkUserStatus } from './services/authApi'
+import { AuthProvider } from './context/AuthContext'
 import HomePage from './pages/HomePage/HomePage'
 import ReportsPage from './pages/ReportsPage/ReportsPage'
 import WritePage from './pages/WritePage/WritePage'
 import LoginPage from './pages/LoginPage/LoginPage'
 import Navbar from './components/NavBar/Navbar'
+import PropTypes from 'prop-types'
 
 function PrivateRoute({ children }) {
   const { user, isGuest, logout } = useAuth()
@@ -28,7 +30,9 @@ function PrivateRoute({ children }) {
       }
     }
     verifyStatus()
-    return () => { ignore = true }
+    return () => {
+      ignore = true
+    }
     // eslint-disable-next-line
   }, [location.pathname]) // Se ejecuta al cambiar de ruta
 
@@ -39,6 +43,10 @@ function PrivateRoute({ children }) {
     return <Navigate to="/login" replace />
   }
   return children
+}
+
+PrivateRoute.propTypes = {
+  children: PropTypes.node,
 }
 
 function AppRoutes() {
@@ -79,6 +87,10 @@ function AppRoutes() {
       </Routes>
     </>
   )
+}
+
+AppRoutes.propTypes = {
+  children: PropTypes.node,
 }
 
 export default function App() {

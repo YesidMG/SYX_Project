@@ -16,7 +16,7 @@ export function CaptchaSection({ recaptchaRef, sitekey, onChange, onExpired, err
       <ReCAPCHA
         className="rechaptcha"
         ref={recaptchaRef}
-        sitekey="6LfEW6orAAAAAAUIw3B0k13R7CZatIljI2YYR1nO"
+        sitekey={sitekey}
         onChange={onChange}
         onExpired={onExpired}
         onErrored={() => onExpired()}

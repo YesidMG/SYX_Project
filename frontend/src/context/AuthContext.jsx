@@ -1,9 +1,9 @@
-import { createContext, useContext, useState } from 'react'
-
-const AuthContext = createContext()
+import { useState } from 'react'
+import PropTypes from 'prop-types'
+import { AuthContext } from './AuthContextInstance'
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null) // { name, status }
+  const [user, setUser] = useState(null)
   const [isGuest, setIsGuest] = useState(false)
 
   const login = userData => {
@@ -23,6 +23,6 @@ export function AuthProvider({ children }) {
   )
 }
 
-export function useAuth() {
-  return useContext(AuthContext)
+AuthProvider.propTypes = {
+  children: PropTypes.node,
 }

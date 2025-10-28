@@ -6,7 +6,7 @@ import { EntitySelect } from './EntitySelect'
 import { DescriptionInput } from './DescriptionInput'
 import { FormButtons } from './FormButtons'
 import './WritePage.css'
-import { useAuth } from '../../context/AuthContext'
+import { useAuth } from '../../context/useAuth'
 import { checkUserStatus } from '../../services/authApi'
 
 export default function WritePage() {

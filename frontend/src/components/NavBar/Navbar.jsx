@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom'
 import { useMemo } from 'react'
-import { useAuth } from '../../context/AuthContext'
+import { useAuth } from '../../context/useAuth'
 import EntityFilter from '../../features/entities/EntityFilter'
 import syx_logo from '../../assets/SYX-logo.png'
 import ComplaintLogo from '../../assets/email.svg?react'

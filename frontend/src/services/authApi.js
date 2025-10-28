@@ -1,4 +1,4 @@
-const AUTH_API = import.meta.env.VITE_AUTH_API //  URL real del microservicio
+const AUTH_API = import.meta.env.VITE_AUTH_API 
 
 export async function checkUserStatus(name) {
   const res = await fetch(`${AUTH_API}/status`, {
@@ -7,5 +7,5 @@ export async function checkUserStatus(name) {
     body: JSON.stringify({ name }),
   })
   const data = await res.json()
-  return data.status 
+  return data.status
 }
