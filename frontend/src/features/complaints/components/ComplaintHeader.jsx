@@ -8,6 +8,25 @@ function formatDate(dateStr) {
   return `${day}/${month}/${year}`
 }
 
+function translateStateToSpanish(state) {
+  if (!state) return ''
+  switch (state.toUpperCase()) {
+    case 'OPEN':
+      return 'Abierta'
+    case 'UNDER_REVIEW':
+      return 'En revisión'
+    case 'CLOSED':
+      return 'Cerrada'
+    case 'DELETED':
+      return 'Eliminada'
+    default:
+      return state
+        .toLowerCase()
+        .replace(/_/g, ' ')
+        .replace(/(^|\s)\S/g, s => s.toUpperCase())
+  }
+}
+
 ComplaintHeader.propTypes = {
   entity_name: PropTypes.string.isRequired,
   logo: PropTypes.string.isRequired,
@@ -17,6 +36,8 @@ ComplaintHeader.propTypes = {
 }
 
 export function ComplaintHeader({ entity_name, logo, creation_date, state, optionsMenu }) {
+  const displayState = translateStateToSpanish(state)
+
   return (
     <div className="header">
       <div className="title">
@@ -33,8 +54,8 @@ export function ComplaintHeader({ entity_name, logo, creation_date, state, optio
       </div>
       <div className="header-right">
         <div className="status">
-          <span className={`status-dot ${state.toLowerCase()}`}></span>
-          <span className="status-label">{state}</span>
+          <span className={`status-dot ${state ? state.toLowerCase() : ''}`}></span>
+          <span className="status-label">{displayState}</span>
         </div>
         {optionsMenu}
       </div>
