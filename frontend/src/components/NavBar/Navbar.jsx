@@ -47,80 +47,81 @@ export default function Navbar({ onFilterChange }) {
   return (
     <header className="nav">
       <div className="nav__inner">
-        <Link to="/" className="brand" aria-label="Inicio">
-          <span className="brand__icon" aria-hidden>
-            <img src={syx_logo} alt="SYX Home" width="180" height="67" />
-          </span>
-        </Link>
-        <nav className="menu">
-          <NavLink
-            to="/write"
-            className={({ isActive }) => (isActive ? 'write__link is-active' : 'write__link')}
-            aria-label="Redactar"
-          >
-            <WriteLogo
-              className="write__icon"
-              width={iconSize}
-              height={iconSize}
-              strokeWidth={1.2}
-              color="white"
-            />
-            Escribir
-          </NavLink>
-          {/* Solo muestra "Quejas" si NO es invitado */}
-          {!isGuest && (
+        <div>
+          <Link to="/" className="brand" aria-label="Inicio">
+            <span className="brand__icon" aria-hidden>
+              <img src={syx_logo} alt="SYX Home" width="180" height="67" />
+            </span>
+          </Link>
+          <nav className="menu">
             <NavLink
-              to="/"
+              to="/write"
+              className={({ isActive }) => (isActive ? 'write__link is-active' : 'write__link')}
+              aria-label="Redactar"
+            >
+              <WriteLogo
+                className="write__icon"
+                width={iconSize}
+                height={iconSize}
+                strokeWidth={1.2}
+                color="white"
+              />
+              Escribir
+            </NavLink>
+            {/* Solo muestra "Quejas" si NO es invitado */}
+            {!isGuest && (
+              <NavLink
+                to="/"
+                className={({ isActive }) => (isActive ? 'menu__link is-active' : 'menu__link')}
+              >
+                <ComplaintLogo
+                  className="menu__icon"
+                  width={iconSize}
+                  height={iconSize}
+                  strokeWidth={1.2}
+                  color="black"
+                />
+                Quejas
+              </NavLink>
+            )}
+            {isHomeRoute && (
+              <div className="filter-bar visible">
+                <label htmlFor="entity-filter">Filtrar por entidad:</label>
+                <EntityFilter onChange={handleFilterChange} />
+              </div>
+            )}
+            <NavLink
+              to="/reports"
               className={({ isActive }) => (isActive ? 'menu__link is-active' : 'menu__link')}
             >
-              <ComplaintLogo
+              <ReportLogo
                 className="menu__icon"
                 width={iconSize}
                 height={iconSize}
                 strokeWidth={1.2}
                 color="black"
               />
-              Quejas
+              Reportes
             </NavLink>
-          )}
-          {isHomeRoute && (
-            <div className="filter-bar visible">
-              <label htmlFor="entity-filter">Filtrar por entidad:</label>
-              <EntityFilter onChange={handleFilterChange} />
-            </div>
-          )}
-          <NavLink
-            to="/reports"
-            className={({ isActive }) => (isActive ? 'menu__link is-active' : 'menu__link')}
-          >
-            <ReportLogo
-              className="menu__icon"
-              width={iconSize}
-              height={iconSize}
-              strokeWidth={1.2}
-              color="black"
-            />
-            Reportes
-          </NavLink>
+          </nav>
+        </div>
+        {/* Footer en la parte inferior del navbar */}
+        <div className="nav__footer">
           {isGuest && (
             <button
-              className="write__link"
-              style={{ background: '#e53e3e', color: '#fff', marginTop: 20 }}
+              className="auth__button"
               onClick={() => navigate('/login')}
+              aria-label="Iniciar sesión"
             >
               Iniciar sesión
             </button>
           )}
           {user && (
-            <button
-              className="write__link"
-              style={{ background: '#e53e3e', color: '#fff', marginTop: 20 }}
-              onClick={handleLogout}
-            >
-              {user.name} cerrar sesión
+            <button className="auth__button" onClick={handleLogout} aria-label="Cerrar sesión">
+              {user.name} • Cerrar sesión
             </button>
           )}
-        </nav>
+        </div>
       </div>
     </header>
   )
