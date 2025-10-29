@@ -17,6 +17,7 @@
   flex-direction: column;
   padding: 20px;
   gap: 20px;
+  justify-content: space-between;
 }
 
 .brand {
@@ -37,12 +38,15 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 6px;
 }
 
 .write__link {
   display: flex;
   align-items: center;
-  margin: 0 20px 20px 20px;
+  margin: 10px 20px 20px 20px;
   gap: 12px;
   background: #1e56a0;
   color: #fff;
@@ -51,7 +55,7 @@
   text-decoration: none;
   letter-spacing: 1px;
   cursor: pointer;
-  border-radius: 20px;
+  border-radius: 17px;
   transition: background-color 0.2s;
   text-align: center;
   justify-content: center;
@@ -60,6 +64,7 @@
 .write__link:hover {
   background-color: #133d6f;
   color: #fff;
+  transform: translateY(-1px);
 }
 
 .write__link.is-active {
@@ -88,12 +93,13 @@
   color: #0f1419;
   text-decoration: none;
   padding: 10px;
-  border-radius: 20px;
+  border-radius: 17px;
   transition: background-color 0.2s;
 }
 
 .menu__link:hover {
   background-color: #eff3f4;
+  transform: translateY(-1px);
 }
 
 .menu__link.is-active {
@@ -140,4 +146,41 @@
   margin-left: 5px;
   font-size: 15px;
   font-weight: 500;
+}
+
+.nav__footer {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(14, 21, 26, 0.08);
+}
+
+.auth__button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px;
+  gap: 8px;
+  background: #F05454;
+  color: #fff;
+  padding: 12px;
+  font-size: 18px;
+  text-decoration: none;
+  letter-spacing: 1px;
+  cursor: pointer;
+  border-radius: 17px;
+  transition: background-color 0.18s ease, transform 0.08s ease;
+  border: none;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+}
+
+.auth__button:hover {
+  background: #cf3333;
+  transform: translateY(-1px);
+}
+
+.auth__button:active {
+  transform: translateY(0);
 }
