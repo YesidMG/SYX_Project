@@ -1,14 +1,27 @@
+:root {
+  --primary-color: #1e56a0;
+  --primary-dark: #133d6f;
+  --danger-color: #f05454;
+  --danger-dark: #cf3333;
+  --bg-hover: #eff3f4;
+  --border-color: #eff3f4;
+  --text-dark: #0f1419;
+  --text-gray: #536471;
+  --transition-quick: 0.2s;
+  --border-radius: 17px;
+  --transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-duration: 0.3s;
+}
+
 .nav {
   position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
+  inset: 0 auto 0 0;
   width: 270px;
   height: 100vh;
   z-index: 40;
-  border-left: 2px solid #eff3f4;
-  border-right: 2px solid #eff3f4;
+  border-inline: 2px solid var(--border-color);
   display: flex;
+  transition: all var(--transition-duration) var(--transition-timing);
 }
 
 .nav__inner {
@@ -18,20 +31,21 @@
   padding: 20px;
   gap: 20px;
   justify-content: space-between;
+  transition: all var(--transition-duration) var(--transition-timing);
 }
 
 .brand {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 12px 18px 10px 10px;
+  padding: 12px 18px 20px 10px;
   margin: 8px;
   border-radius: 75px;
   transition: background-color 0.5s;
 }
 
 .brand:hover {
-  background-color: #eff3f4;
+  background-color: var(--bg-hover);
 }
 
 .menu {
@@ -40,92 +54,114 @@
   gap: 8px;
   flex: 1;
   overflow-y: auto;
-  padding-right: 6px;
 }
 
+/* Estilos base para links */
+.menu__link,
 .write__link {
   display: flex;
   align-items: center;
-  margin: 10px 20px 20px 20px;
   gap: 12px;
-  background: #1e56a0;
-  color: #fff;
   padding: 10px;
   font-size: 18px;
   text-decoration: none;
+  border-radius: var(--border-radius);
+  transition:
+    background-color var(--transition-quick),
+    transform var(--transition-quick);
+}
+
+.menu__link {
+  margin: 0 8px;
+  letter-spacing: 0.8px;
+  color: var(--text-dark);
+}
+
+.write__link {
+  margin: 10px 20px 20px;
+  background: var(--primary-color);
+  color: white;
   letter-spacing: 1px;
-  cursor: pointer;
-  border-radius: 17px;
-  transition: background-color 0.2s;
-  text-align: center;
   justify-content: center;
 }
 
+/* Estados hover */
+.menu__link:hover,
 .write__link:hover {
-  background-color: #133d6f;
-  color: #fff;
   transform: translateY(-1px);
 }
 
+.menu__link:hover {
+  background-color: var(--bg-hover);
+}
+
+.write__link:hover {
+  background-color: var(--primary-dark);
+}
+
+/* Estados activos */
+.menu__link.is-active,
 .write__link.is-active {
   font-size: 19px;
   font-weight: bolder;
-  background-color: #133d6f;
-  color: #fff;
 }
 
+.menu__link.is-active {
+  color: var(--primary-dark);
+  background-color: var(--bg-hover);
+}
+
+.write__link.is-active {
+  color: white;
+  background-color: var(--primary-dark);
+}
+
+/* Iconos */
+.brand__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-duration) var(--transition-timing);
+}
+
+.logo-large,
+.logo-small {
+  transition: all var(--transition-duration) var(--transition-timing);
+  opacity: 1;
+}
+
+.logo-small {
+  display: none;
+  opacity: 0;
+  transform: translateX(-100%);
+}
+
+.menu__icon,
 .write__icon {
   stroke: currentColor;
   stroke-width: 1.5;
   transition: stroke-width 0.3s;
 }
 
-.write__link.is-active .write__icon {
-  stroke-width: 2.2;
-}
-
-.menu__link {
-  display: flex;
-  align-items: center;
-  margin: 0 8px 0 8px;
-  font-size: 18px;
-  letter-spacing: 0.8px;
-  color: #0f1419;
-  text-decoration: none;
-  padding: 10px;
-  border-radius: 17px;
-  transition: background-color 0.2s;
-}
-
-.menu__link:hover {
-  background-color: #eff3f4;
-  transform: translateY(-1px);
-}
-
-.menu__link.is-active {
-  font-size: 19px;
-  font-weight: bolder;
-  color: #133d6f;
-  background-color: #eff3f4;
-}
-
 .menu__icon {
-  stroke: currentColor;
-  stroke-width: 1.5;
-  transition: stroke-width 0.3s;
-  padding: 0px 15px 0px 15px;
+  padding: 0px 15px;
 }
 
 .menu__link.is-active .menu__icon {
   stroke-width: 2.3;
-  color: #133d6f;
+  color: var(--primary-dark);
 }
 
+.write__link.is-active .write__icon {
+  stroke-width: 2.2;
+}
+
+/* Filtro */
 .filter-bar {
   margin: 0;
   padding: 0;
   font-size: 15px;
-  color: #536471;
+  color: var(--text-gray);
   border-radius: 16px;
   background-color: #f7f9f9;
   transition: all 0.3s ease-in-out;
@@ -134,20 +170,19 @@
 }
 
 .filter-bar.visible {
-  opacity: 1;
   height: auto;
-  margin: 0 5px 8px 5px;
+  margin: 0 5px 8px;
   padding: 12px;
 }
 
 .filter-bar label {
   display: block;
-  margin-bottom: 10px;
-  margin-left: 5px;
+  margin: 0 0 10px 5px;
   font-size: 15px;
   font-weight: 500;
 }
 
+/* Footer y botón de autenticación */
 .nav__footer {
   margin-top: 12px;
   display: flex;
@@ -163,26 +198,97 @@
   justify-content: center;
   margin: 20px;
   gap: 8px;
-  background: #f05454;
-  color: #fff;
+  background: var(--danger-color);
+  color: white;
   padding: 12px;
   font-size: 18px;
-  text-decoration: none;
   letter-spacing: 1px;
+  border: none;
+  border-radius: var(--border-radius);
   cursor: pointer;
-  border-radius: 17px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
   transition:
     background-color 0.18s ease,
     transform 0.08s ease;
-  border: none;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
 }
 
 .auth__button:hover {
-  background: #cf3333;
+  background: var(--danger-dark);
   transform: translateY(-1px);
 }
 
 .auth__button:active {
   transform: translateY(0);
+}
+
+@media (max-width: 1280px) {
+  .nav {
+    width: 80px;
+  }
+
+  .nav__inner {
+    padding: 40px 8px 30px 8px;
+  }
+
+  .brand {
+    padding: 8px;
+    margin: 0;
+  }
+
+  .menu {
+    margin-top: 30px;
+  }
+
+  .logo-large {
+    display: none;
+    transform: translateX(100%);
+    opacity: 0;
+  }
+
+  .logo-small {
+    display: block;
+    width: 45px;
+    height: 45px;
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  .menu__link,
+  .write__link,
+  .auth__button {
+    justify-content: center;
+    padding: 12px;
+    margin: 4px;
+  }
+
+  /* Ocultar textos */
+  .menu__link span,
+  .write__link span,
+  .filter-bar,
+  .auth__button span {
+    display: none;
+    transform: translateX(-20px);
+    opacity: 0;
+    transition:
+      transform var(--transition-duration) var(--transition-timing),
+      opacity var(--transition-duration) var(--transition-timing);
+    white-space: nowrap;
+  }
+
+  /* Ajustar iconos */
+  .menu__icon,
+  .write__icon {
+    padding: 0;
+    margin: 0;
+  }
+}
+
+/* Ajustar el contenido principal */
+@media (max-width: 1280px) {
+  .home-page {
+    margin-left: 80px;
+    transition:
+      margin-left var(--transition-duration) var(--transition-timing),
+      transform var(--transition-duration) var(--transition-timing);
+  }
 }

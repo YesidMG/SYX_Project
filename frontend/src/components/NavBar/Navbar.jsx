@@ -3,10 +3,12 @@ import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom'
 import { useMemo } from 'react'
 import { useAuth } from '../../context/useAuth'
 import EntityFilter from '../../features/entities/EntityFilter'
-import syx_logo from '../../assets/SYX-logo.png'
+import SyxLogo from '../../assets/SYX-logo.png'
+import SyxLogoMini from '../../assets/SYX-logo-mini.png'
 import ComplaintLogo from '../../assets/email.svg?react'
 import ReportLogo from '../../assets/file.svg?react'
 import WriteLogo from '../../assets/pencil.svg?react'
+import UserLogo from '../../assets/user.svg?react'
 import './Navbar.css'
 
 const AUTH_API = import.meta.env.VITE_AUTH_API
@@ -50,7 +52,14 @@ export default function Navbar({ onFilterChange }) {
         <div>
           <Link to="/" className="brand" aria-label="Inicio">
             <span className="brand__icon" aria-hidden>
-              <img src={syx_logo} alt="SYX Home" width="180" height="67" />
+              <img src={SyxLogo} alt="SYX Home" className="logo-large" width="180" height="67" />
+              <img
+                src={SyxLogoMini}
+                alt="SYX Home"
+                className="logo-small"
+                width={iconSize}
+                height={iconSize}
+              />
             </span>
           </Link>
           <nav className="menu">
@@ -66,7 +75,7 @@ export default function Navbar({ onFilterChange }) {
                 strokeWidth={1.2}
                 color="white"
               />
-              Escribir
+              <span>Escribir</span>
             </NavLink>
             {/* Solo muestra "Quejas" si NO es invitado */}
             {!isGuest && (
@@ -81,7 +90,7 @@ export default function Navbar({ onFilterChange }) {
                   strokeWidth={1.2}
                   color="black"
                 />
-                Quejas
+                <span>Quejas</span>
               </NavLink>
             )}
             {isHomeRoute && (
@@ -101,7 +110,7 @@ export default function Navbar({ onFilterChange }) {
                 strokeWidth={1.2}
                 color="black"
               />
-              Reportes
+              <span>Reportes</span>
             </NavLink>
           </nav>
         </div>
@@ -113,12 +122,26 @@ export default function Navbar({ onFilterChange }) {
               onClick={() => navigate('/login')}
               aria-label="Iniciar sesión"
             >
-              Iniciar sesión
+              <UserLogo
+                className="write__icon"
+                width={iconSize}
+                height={iconSize}
+                strokeWidth={2}
+                color="white"
+              />
+              <span>iniciar sesión</span>
             </button>
           )}
           {user && (
             <button className="auth__button" onClick={handleLogout} aria-label="Cerrar sesión">
-              {user.name} • Cerrar sesión
+              <UserLogo
+                className="write__icon"
+                width={iconSize}
+                height={iconSize}
+                strokeWidth={2}
+                color="white"
+              />
+              <span>Cerrar sesión</span>
             </button>
           )}
         </div>
