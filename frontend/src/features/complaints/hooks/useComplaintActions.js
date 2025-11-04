@@ -1,20 +1,18 @@
 import { useState, useRef, useEffect } from 'react'
 import { updateComplaintState } from '../../../services/api'
+import { useAuth } from '../../../context/useAuth'
 
 export function useComplaintActions(complaintId, onStateChange) {
+  const { user } = useAuth()
   const [showMenu, setShowMenu] = useState(false)
   const [showStateModal, setShowStateModal] = useState(false)
   const [showDeleteModal, setShowDeleteModal] = useState(false)
-  const [showPasswordModal, setShowPasswordModal] = useState(false)
-  const [pendingAction, setPendingAction] = useState(null)
-  const [newState, setNewState] = useState('')
   const menuRef = useRef(null)
   const buttonRef = useRef(null)
 
   useEffect(() => {
     const handleClickOutside = event => {
       if (
-        showMenu &&
         menuRef.current &&
         !menuRef.current.contains(event.target) &&
         !buttonRef.current.contains(event.target)
@@ -24,21 +22,23 @@ export function useComplaintActions(complaintId, onStateChange) {
     }
     document.addEventListener('mousedown', handleClickOutside)
     return () => document.removeEventListener('mousedown', handleClickOutside)
-  }, [showMenu])
+  }, [])
 
-  const handleSecureAction = async password => {
+  const handleStateChange = async newState => {
     try {
-      if (pendingAction === 'delete') {
-        await updateComplaintState(complaintId, 'DELETED', password)
-      } else if (pendingAction === 'changeState') {
-        await updateComplaintState(complaintId, newState, password)
-      }
+      await updateComplaintState(complaintId, newState, user.name)
       await onStateChange()
-      setShowPasswordModal(false)
-      setPendingAction(null)
-      setNewState('')
     } catch (error) {
-      console.error('Error al actualizar el estado:', error)
+      console.error('Error al cambiar el estado:', error)
+    }
+  }
+
+  const handleDelete = async () => {
+    try {
+      await updateComplaintState(complaintId, 'DELETED', user.name)
+      await onStateChange()
+    } catch (error) {
+      console.error('Error al eliminar:', error)
     }
   }
 
@@ -49,14 +49,9 @@ export function useComplaintActions(complaintId, onStateChange) {
     setShowStateModal,
     showDeleteModal,
     setShowDeleteModal,
-    showPasswordModal,
-    setShowPasswordModal,
-    pendingAction,
-    setPendingAction,
-    newState,
-    setNewState,
     menuRef,
     buttonRef,
-    handleSecureAction,
+    handleStateChange,
+    handleDelete,
   }
 }
