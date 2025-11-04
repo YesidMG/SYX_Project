@@ -5,7 +5,9 @@
   "scripts": {
     "release": "standard-version",
     "release:backend": "cd backend && npm run release",
-    "release:frontend": "cd frontend && npm run release"
+    "release:frontend": "cd frontend && npm run release",
+    "changelog": "auto-changelog -p",
+    "version": "auto-changelog -p && git add CHANGELOG.md"
   },
   "devDependencies": {
     "standard-version": "^9.5.0"
