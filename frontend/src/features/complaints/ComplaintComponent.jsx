@@ -5,7 +5,6 @@ import { ComplaintDescription } from './components/ComplaintDescription'
 import CommentSection from './CommentSection'
 import DeleteModal from '../../components/DeleteModal/DeleteModal'
 import StateChangeModal from '../../components/StateChangeModal/StateChangeModal'
-import PasswordConfirmModal from '../../components/PasswordConfirmModal/PasswordConfirmModal'
 import { useComplaintActions } from './hooks/useComplaintActions'
 import './ComplaintComponent.css'
 
@@ -47,9 +46,7 @@ export function ComplaintComponent({ complaint, onStateChange }) {
         open={actions.showStateModal}
         onClose={() => actions.setShowStateModal(false)}
         onConfirm={selectedState => {
-          actions.setNewState(selectedState)
-          actions.setPendingAction('changeState')
-          actions.setShowPasswordModal(true)
+          actions.handleStateChange(selectedState)
           actions.setShowStateModal(false)
         }}
       />
@@ -57,19 +54,9 @@ export function ComplaintComponent({ complaint, onStateChange }) {
         open={actions.showDeleteModal}
         onClose={() => actions.setShowDeleteModal(false)}
         onConfirm={() => {
-          actions.setPendingAction('delete')
-          actions.setShowPasswordModal(true)
+          actions.handleDelete()
           actions.setShowDeleteModal(false)
         }}
-      />
-      <PasswordConfirmModal
-        open={actions.showPasswordModal}
-        onClose={() => {
-          actions.setShowPasswordModal(false)
-          actions.setPendingAction(null)
-          actions.setNewState('')
-        }}
-        onConfirm={actions.handleSecureAction}
       />
     </div>
   )

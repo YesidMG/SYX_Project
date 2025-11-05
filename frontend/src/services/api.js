@@ -47,11 +47,11 @@ export async function postComplaint({ entity_id, description }) {
 }
 
 // Actualizar el estado de una queja
-export async function updateComplaintState(id, newState, password) {
+export async function updateComplaintState(id, newState, userName) {
   const res = await fetch(`${API_URL}/complaints/${id}/state`, {
     method: 'PATCH',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ state: newState, password }),
+    body: JSON.stringify({ state: newState, userName }),
   })
   if (!res.ok) throw new Error('Error al actualizar el estado de la queja')
   return res.json()
