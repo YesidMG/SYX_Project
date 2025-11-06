@@ -1,11 +1,10 @@
 const express = require('express')
 const router = express.Router()
 const entityController = require('../controllers/entity.controller')
-const { captchaMiddleware } = require('../middlewares/captcha.middleware')
 
 router.get('/', entityController.getAll)
 router.get('/:id', entityController.getById)
-router.post('/report', captchaMiddleware, entityController.getReport)
+router.post('/report', entityController.getReport)
 router.post('/', entityController.create)
 
 // Middleware de manejo de errores
