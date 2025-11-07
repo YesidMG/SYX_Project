@@ -125,11 +125,7 @@ export default function Navbar({ onFilterChange }) {
         <div className="nav__footer">
           {user ? (
             user.isGuest ? (
-              <button
-                className="auth__button"
-                onClick={handleLogin}
-                aria-label="Iniciar sesión"
-              >
+              <button className="auth__button" onClick={handleLogin} aria-label="Iniciar sesión">
                 <UserLogo
                   className="write__icon"
                   width={iconSize}
@@ -152,11 +148,7 @@ export default function Navbar({ onFilterChange }) {
               </button>
             )
           ) : (
-            <button
-              className="auth__button"
-              onClick={handleLogin}
-              aria-label="Iniciar sesión"
-            >
+            <button className="auth__button" onClick={handleLogin} aria-label="Iniciar sesión">
               <UserLogo
                 className="write__icon"
                 width={iconSize}
