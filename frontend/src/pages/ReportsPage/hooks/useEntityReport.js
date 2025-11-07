@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react'
+import { useState, useEffect } from 'react'
 import { getEntityReport } from '../../../services/api'
 
 export function useEntityReport() {
@@ -6,21 +6,27 @@ export function useEntityReport() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
 
-  const fetchReport = useCallback(async (captcha, signal) => {
+  const fetchReport = async signal => {
     setLoading(true)
     setError(null)
     try {
-      const result = await getEntityReport(captcha, signal)
+      const result = await getEntityReport(signal)
       setData(result)
     } catch (error) {
-      if (error.name != 'AbortError') {
+      if (error.name !== 'AbortError') {
         setError(error.message)
         setData([])
       }
     } finally {
       setLoading(false)
     }
+  }
+
+  useEffect(() => {
+    const controller = new AbortController()
+    fetchReport(controller.signal)
+    return () => controller.abort()
   }, [])
 
-  return { data, loading, error, fetchReport }
+  return { data, loading, error }
 }

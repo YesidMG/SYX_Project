@@ -6,19 +6,25 @@ export function useEntities() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
-  useEffect(() => {
-    const controller = new AbortController()
+  const fetchEntities = async signal => {
     setLoading(true)
     setError(null)
-    getEntities(controller.signal)
-      .then(setEntities)
-      .catch(err => {
-        if (err.name !== 'AbortError') {
-          setError(err.message)
-          setEntities([])
-        }
-      })
-      .finally(() => setLoading(false))
+    try {
+      const result = await getEntities(signal)
+      setEntities(result)
+    } catch (error) {
+      if (error.name !== 'AbortError') {
+        setError(error.message)
+        setEntities([])
+      }
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    const controller = new AbortController()
+    fetchEntities(controller.signal)
     return () => controller.abort()
   }, [])
 

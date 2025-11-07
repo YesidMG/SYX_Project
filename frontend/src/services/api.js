@@ -19,11 +19,11 @@ export async function getEntities(signal) {
 }
 
 // Obtener reportes de entidades
-export async function getEntityReport(captcha, signal) {
+export async function getEntityReport(signal) {
   const res = await fetch(`${API_URL}/entities/report`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ captcha }),
+    body: JSON.stringify({}),
     signal,
   })
 
