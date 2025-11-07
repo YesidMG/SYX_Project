@@ -3,14 +3,13 @@ import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../../context/useAuth'
 import './LoginPage.css'
 import logo from '../../assets/SYX-logo.png'
-
-const AUTH_API = 'https://auth-service-7j09.onrender.com' // URL real del microservicio
+import { login } from '../../services/authApi'
 
 export default function LoginPage() {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
-  const { login, guest } = useAuth()
+  const { loginUser, guest } = useAuth()
   const navigate = useNavigate()
 
   const handleSubmit = async e => {
@@ -21,20 +20,16 @@ export default function LoginPage() {
       return
     }
     try {
-      const res = await fetch(`${AUTH_API}/login`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: username, password }),
-      })
-      const data = await res.json()
+      const data = await login(username, password)
       if (data.message === 'conexion aceptada') {
-        login({ name: username })
+        loginUser({ name: username })
         navigate('/')
       } else {
         setError(data.message || 'Error de autenticación')
       }
-    } catch {
-      setError('No se pudo conectar al servicio de autenticación')
+    } catch (err) {
+      console.error('Error en login:', err)
+      setError('No se pudo conectar al backend')
     }
   }
 
