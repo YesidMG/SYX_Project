@@ -11,7 +11,7 @@ import Navbar from './components/NavBar/Navbar'
 import PropTypes from 'prop-types'
 
 function PrivateRoute({ children }) {
-  const { user, isGuest, logout } = useAuth()
+  const { user, logout } = useAuth()
   const location = useLocation()
   const [checking, setChecking] = useState(false)
   const [expired, setExpired] = useState(false)
@@ -19,7 +19,8 @@ function PrivateRoute({ children }) {
   useEffect(() => {
     let ignore = false
     const verifyStatus = async () => {
-      if (user && !isGuest) {
+      // Solo verifica estado si NO es invitado
+      if (user && !user.isGuest) {
         setChecking(true)
         const status = await checkUserStatus(user.name)
         setChecking(false)
@@ -34,9 +35,16 @@ function PrivateRoute({ children }) {
       ignore = true
     }
     // eslint-disable-next-line
-  }, [location.pathname]) // Se ejecuta al cambiar de ruta
+  }, [location.pathname])
 
-  if (!user && !isGuest) return <Navigate to="/login" state={{ from: location }} replace />
+  // Si no hay usuario, redirige a login
+  if (!user) return <Navigate to="/login" state={{ from: location }} replace />
+
+  // Si es invitado, solo permite acceso a /write
+  if (user.isGuest && location.pathname !== '/write') {
+    return <Navigate to="/write" replace />
+  }
+
   if (checking) return <div>Cargando...</div>
   if (expired) {
     alert('Sesión caducada')

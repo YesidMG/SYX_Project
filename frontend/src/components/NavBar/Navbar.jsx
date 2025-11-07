@@ -20,7 +20,8 @@ Navbar.propTypes = {
 
 export default function Navbar({ onFilterChange }) {
   const location = useLocation()
-  const { user, isGuest, logout } = useAuth()
+  const { user, logout } = useAuth()
+  const isGuest = user?.isGuest
   const navigate = useNavigate()
   const isHomeRoute = useMemo(() => location.pathname === '/', [location.pathname])
 
@@ -44,6 +45,10 @@ export default function Navbar({ onFilterChange }) {
     } else {
       alert('Error al cerrar sesión')
     }
+  }
+
+  const handleLogin = () => {
+    navigate('/login')
   }
 
   return (
@@ -77,49 +82,79 @@ export default function Navbar({ onFilterChange }) {
               />
               <span>Escribir</span>
             </NavLink>
-            {/* Solo muestra "Quejas" si NO es invitado */}
+            {/* Solo muestra los demás botones si NO es invitado */}
             {!isGuest && (
-              <NavLink
-                to="/"
-                className={({ isActive }) => (isActive ? 'menu__link is-active' : 'menu__link')}
-              >
-                <ComplaintLogo
-                  className="menu__icon"
-                  width={iconSize}
-                  height={iconSize}
-                  strokeWidth={1.2}
-                  color="black"
-                />
-                <span>Quejas</span>
-              </NavLink>
+              <>
+                <NavLink
+                  to="/"
+                  className={({ isActive }) => (isActive ? 'menu__link is-active' : 'menu__link')}
+                >
+                  <ComplaintLogo
+                    className="menu__icon"
+                    width={iconSize}
+                    height={iconSize}
+                    strokeWidth={1.2}
+                    color="black"
+                  />
+                  <span>Quejas</span>
+                </NavLink>
+                {isHomeRoute && (
+                  <div className="filter-bar visible">
+                    <label htmlFor="entity-filter">Filtrar por entidad:</label>
+                    <EntityFilter onChange={handleFilterChange} />
+                  </div>
+                )}
+                <NavLink
+                  to="/reports"
+                  className={({ isActive }) => (isActive ? 'menu__link is-active' : 'menu__link')}
+                >
+                  <ReportLogo
+                    className="menu__icon"
+                    width={iconSize}
+                    height={iconSize}
+                    strokeWidth={1.2}
+                    color="black"
+                  />
+                  <span>Reportes</span>
+                </NavLink>
+              </>
             )}
-            {isHomeRoute && (
-              <div className="filter-bar visible">
-                <label htmlFor="entity-filter">Filtrar por entidad:</label>
-                <EntityFilter onChange={handleFilterChange} />
-              </div>
-            )}
-            <NavLink
-              to="/reports"
-              className={({ isActive }) => (isActive ? 'menu__link is-active' : 'menu__link')}
-            >
-              <ReportLogo
-                className="menu__icon"
-                width={iconSize}
-                height={iconSize}
-                strokeWidth={1.2}
-                color="black"
-              />
-              <span>Reportes</span>
-            </NavLink>
           </nav>
         </div>
         {/* Footer en la parte inferior del navbar */}
         <div className="nav__footer">
-          {isGuest && (
+          {user ? (
+            user.isGuest ? (
+              <button
+                className="auth__button"
+                onClick={handleLogin}
+                aria-label="Iniciar sesión"
+              >
+                <UserLogo
+                  className="write__icon"
+                  width={iconSize}
+                  height={iconSize}
+                  strokeWidth={2}
+                  color="white"
+                />
+                <span>iniciar sesión</span>
+              </button>
+            ) : (
+              <button className="auth__button" onClick={handleLogout} aria-label="Cerrar sesión">
+                <UserLogo
+                  className="write__icon"
+                  width={iconSize}
+                  height={iconSize}
+                  strokeWidth={2}
+                  color="white"
+                />
+                <span>Cerrar sesión</span>
+              </button>
+            )
+          ) : (
             <button
               className="auth__button"
-              onClick={() => navigate('/login')}
+              onClick={handleLogin}
               aria-label="Iniciar sesión"
             >
               <UserLogo
@@ -130,18 +165,6 @@ export default function Navbar({ onFilterChange }) {
                 color="white"
               />
               <span>iniciar sesión</span>
-            </button>
-          )}
-          {user && (
-            <button className="auth__button" onClick={handleLogout} aria-label="Cerrar sesión">
-              <UserLogo
-                className="write__icon"
-                width={iconSize}
-                height={iconSize}
-                strokeWidth={2}
-                color="white"
-              />
-              <span>Cerrar sesión</span>
             </button>
           )}
         </div>

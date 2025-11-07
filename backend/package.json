@@ -28,6 +28,7 @@
   "homepage": "https://github.com/YesidMG/SYX_Project#readme",
   "dependencies": {
     "@prisma/client": "^6.16.2",
+    "axios": "^1.13.2",
     "body-parser": "^2.2.0",
     "cors": "^2.8.5",
     "dotenv": "^17.2.1",

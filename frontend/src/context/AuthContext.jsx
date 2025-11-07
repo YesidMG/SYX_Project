@@ -1,23 +1,21 @@
 import { useState } from 'react'
-import PropTypes from 'prop-types'
 import { AuthContext } from './AuthContextInstance'
+import PropTypes from 'prop-types'
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null)
-  const [isGuest, setIsGuest] = useState(false)
 
-  const login = userData => {
-    setUser(userData)
-    setIsGuest(false)
-  }
+  // Función para iniciar sesión
+  const loginUser = userData => setUser(userData)
+
+  // Función para cerrar sesión
   const logout = () => setUser(null)
-  const guest = () => {
-    setUser(null)
-    setIsGuest(true)
-  }
+
+  // Función para continuar como invitado
+  const guest = () => setUser({ name: 'Invitado', isGuest: true })
 
   return (
-    <AuthContext.Provider value={{ user, isGuest, login, logout, guest }}>
+    <AuthContext.Provider value={{ user, loginUser, logout, guest }}>
       {children}
     </AuthContext.Provider>
   )
