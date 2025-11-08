@@ -9,9 +9,10 @@ import ComplaintLogo from '../../assets/email.svg?react'
 import ReportLogo from '../../assets/file.svg?react'
 import WriteLogo from '../../assets/pencil.svg?react'
 import UserLogo from '../../assets/user.svg?react'
+import { logout } from '../../services/authApi'
 import './Navbar.css'
 
-const AUTH_API = import.meta.env.VITE_AUTH_API
+const API_URL = import.meta.env.VITE_API_URL
 const iconSize = 30
 
 Navbar.propTypes = {
@@ -20,7 +21,7 @@ Navbar.propTypes = {
 
 export default function Navbar({ onFilterChange }) {
   const location = useLocation()
-  const { user, logout } = useAuth()
+  const { user, logout: logoutContext } = useAuth()
   const isGuest = user?.isGuest
   const navigate = useNavigate()
   const isHomeRoute = useMemo(() => location.pathname === '/', [location.pathname])
@@ -33,14 +34,9 @@ export default function Navbar({ onFilterChange }) {
   )
 
   const handleLogout = async () => {
-    const res = await fetch(`${AUTH_API}/logout`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name: user?.name }),
-    })
-    const data = await res.json()
+    const data = await logout(user?.name)
     if (data.message === 'conexion finalizada') {
-      logout()
+      logoutContext()
       navigate('/login')
     } else {
       alert('Error al cerrar sesión')
@@ -82,43 +78,43 @@ export default function Navbar({ onFilterChange }) {
               />
               <span>Escribir</span>
             </NavLink>
-            {/* Solo muestra los demás botones si NO es invitado */}
+            {/* Solo muestra "Quejas" si inicia sesion */}
             {!isGuest && (
-              <>
-                <NavLink
-                  to="/"
-                  className={({ isActive }) => (isActive ? 'menu__link is-active' : 'menu__link')}
-                >
-                  <ComplaintLogo
-                    className="menu__icon"
-                    width={iconSize}
-                    height={iconSize}
-                    strokeWidth={1.2}
-                    color="black"
-                  />
-                  <span>Quejas</span>
-                </NavLink>
-                {isHomeRoute && (
-                  <div className="filter-bar visible">
-                    <label htmlFor="entity-filter">Filtrar por entidad:</label>
-                    <EntityFilter onChange={handleFilterChange} />
-                  </div>
-                )}
-                <NavLink
-                  to="/reports"
-                  className={({ isActive }) => (isActive ? 'menu__link is-active' : 'menu__link')}
-                >
-                  <ReportLogo
-                    className="menu__icon"
-                    width={iconSize}
-                    height={iconSize}
-                    strokeWidth={1.2}
-                    color="black"
-                  />
-                  <span>Reportes</span>
-                </NavLink>
-              </>
+              <NavLink
+                to="/"
+                className={({ isActive }) => (isActive ? 'menu__link is-active' : 'menu__link')}
+              >
+                <ComplaintLogo
+                  className="menu__icon"
+                  width={iconSize}
+                  height={iconSize}
+                  strokeWidth={1.2}
+                  color="black"
+                />
+                <span>Quejas</span>
+              </NavLink>
             )}
+            {/* Solo muestra el filtro si inicio sesion y está en home */}
+            {!isGuest && isHomeRoute && (
+              <div className="filter-bar visible">
+                <label htmlFor="entity-filter">Filtrar por entidad:</label>
+                <EntityFilter onChange={handleFilterChange} />
+              </div>
+            )}
+            {/* "Reportes" visible para todos */}
+            <NavLink
+              to="/reports"
+              className={({ isActive }) => (isActive ? 'menu__link is-active' : 'menu__link')}
+            >
+              <ReportLogo
+                className="menu__icon"
+                width={iconSize}
+                height={iconSize}
+                strokeWidth={1.2}
+                color="black"
+              />
+              <span>Reportes</span>
+            </NavLink>
           </nav>
         </div>
         {/* Footer en la parte inferior del navbar */}
