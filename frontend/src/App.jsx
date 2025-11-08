@@ -40,8 +40,8 @@ function PrivateRoute({ children }) {
   // Si no hay usuario, redirige a login
   if (!user) return <Navigate to="/login" state={{ from: location }} replace />
 
-  // Si es invitado, solo permite acceso a /write
-  if (user.isGuest && location.pathname !== '/write') {
+  // Si es invitado, solo permite acceso a /write y /reports
+  if (user.isGuest && location.pathname !== '/write' && location.pathname !== '/reports') {
     return <Navigate to="/write" replace />
   }
 
