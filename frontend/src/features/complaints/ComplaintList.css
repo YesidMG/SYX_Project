@@ -1,10 +1,15 @@
+:root {
+  --primary-color: #1e56a0;
+  --primary-dark: #133d6f;
+}
+
 .list-container {
   width: 100%;
   box-sizing: border-box;
   padding: 20px;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 10px;
 }
 
 .message {
@@ -38,8 +43,8 @@
 }
 .pagination button {
   background: #fff;
-  border: 1px solid #0f62fe;
-  color: #0f62fe;
+  border: 1px solid var(--primary-color);
+  color: var(--primary-color);
   padding: 6px 12px;
   border-radius: 4px;
   cursor: pointer;
@@ -48,7 +53,7 @@
 }
 .pagination button.active,
 .pagination button:hover {
-  background: #0f62fe;
+  background: var(--primary-color);
   color: #fff;
 }
 .pagination button:disabled {

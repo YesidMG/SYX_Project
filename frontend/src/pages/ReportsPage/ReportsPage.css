@@ -1,6 +1,10 @@
+:root {
+  --nav-width: 270px;
+}
+
 .reports-page {
   min-height: 100vh;
-  margin-left: 272px;
+  margin-left: var(--nav-width, 270px);
   display: flex;
   padding: 50px;
   flex-direction: column;
@@ -87,4 +91,11 @@ header {
   background: #f3f7ff;
   color: #1a4fa0;
   border: 1px solid #b3d1ff;
+}
+
+@media (max-width: 900px) {
+  .reports-page {
+    padding: 1rem;
+    margin-left: var(--nav-width, 80px);
+  }
 }

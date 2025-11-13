@@ -1,17 +1,284 @@
-.home-page {
-  min-height: 100vh;
-  margin-left: 272px;
-  background-color: #ffffff;
+:root {
+  --primary-color: #1e56a0;
+  --primary-dark: #133d6f;
+  --danger-color: #f05454;
+  --danger-dark: #cf3333;
+  --bg-hover: #eff3f4;
+  --border-color: #eff3f4;
+  --text-dark: #0f1419;
+  --text-gray: #536471;
+  --nav-width: 270px;
+  --content-padding: 2rem;
+  --card-gap: 1.5rem;
+  --transition-duration: 0.3s;
+  --transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.main-content {
+/* Contenedor principal de la página */
+.home-page-container {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  height: 100vh;
+  margin-left: var(--nav-width, 270px);
+  padding: var(--content-padding);
+  box-sizing: border-box;
+  background: linear-gradient(135deg, #ffffff 0%, #f0f4f8 100%);
+  overflow: hidden;
+  transition: margin-left var(--transition-duration) var(--transition-timing);
+}
+
+/* Tarjeta principal que divide el contenido */
+.home-page-card {
   display: flex;
   flex-direction: column;
-  padding-left: 30px;
-  padding-right: 30px;
-  border-right: 1px solid #eff3f4;
+  width: 100%;
+  max-width: 1100px;
+  height: calc(100vh - (var(--content-padding) * 2));
+  max-height: calc(100vh - (var(--content-padding) * 2));
+  background: #fff;
+  backdrop-filter: blur(10px);
+  border-radius: 1.5rem;
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+  box-sizing: border-box;
 }
 
-.complaints-container {
-  background-color: #ffffff;
+/* Contenido Superior: Contenido de texto */
+.home-content-column {
+  flex: 0 0 auto;
+  padding: 2.5rem 4rem;
+  box-sizing: border-box;
+  overflow: auto;
+}
+
+.home-logo {
+  width: 300px;
+  height: auto;
+  margin: 0.5rem;
+}
+
+.home-title {
+  font-size: 3rem; /* 48px */
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+}
+
+.home-description {
+  font-size: 1.125rem; /* 18px */
+  color: var(--text-gray);
+  line-height: 1.6;
+  margin-bottom: 2.5rem;
+  max-width: 500px;
+}
+
+.home-cta-button {
+  background-color: var(--primary-color);
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 0.85rem 2.5rem;
+  border-radius: 9999px; /* Botón redondeado */
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px -3px rgba(30, 86, 160, 0.4);
+  align-self: flex-start; /* Alinea el botón a la izquierda */
+  text-decoration: none;
+  text-align: center;
+}
+
+.home-cta-button:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px -3px rgba(30, 86, 160, 0.5);
+}
+
+/* Contenido superior: Gráfico animado con mensajes */
+.home-graphic-column {
+  flex: 1 1 auto;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 220px;
+  background: linear-gradient(45deg, var(--primary-color) 0%, #2a7fec 100%);
+  border-left: 1px solid var(--border-color);
+  overflow: hidden;
+  padding: 1.5rem;
+  box-sizing: border-box;
+}
+
+.home-title,
+.home-description,
+.home-cta-button {
+  max-width: 100%;
+  word-break: break-word;
+}
+
+/* Animación de "flotación" */
+@keyframes float {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.9;
+  }
+  25% {
+    transform: translate(10px, -15px) scale(1.02);
+    opacity: 1;
+  }
+  50% {
+    transform: translate(-5px, 0px) scale(1);
+    opacity: 0.9;
+  }
+  75% {
+    transform: translate(15px, 20px) scale(1.03);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.9;
+  }
+}
+
+/* Estilo para los elementos que simulan "quejas" */
+.complaint-message {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(5px);
+  border-radius: 1rem; /* Más cuadrado, como un mensaje */
+  padding: 0.8rem 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: white;
+  font-size: 0.8rem;
+  font-weight: 500;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  animation: float 8s ease-in-out infinite;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  opacity: 0.9; /* Opacidad base */
+}
+
+/* Iconos básicos para los mensajes (ej. un sobre o un signo de exclamación) */
+.complaint-message::before {
+  content: ''; /* Contenido vacío, será un punto */
+  display: inline-block;
+  width: 10px; /* Ancho del punto */
+  height: 10px; /* Alto del punto */
+  flex-shrink: 0; /* Evita que el punto se encoja */
+  border-radius: 50%; /* Lo hace redondo */
+  margin-right: 0.6rem; /* Espacio entre punto y texto */
+  background-color: var(--text-gray); /* Color por defecto */
+}
+
+/* Colores de estado */
+.complaint-message.status-open::before {
+  background-color: #10b981; /* Verde */
+}
+.complaint-message.status-review::before {
+  background-color: #f59e0b; /* Amarillo */
+}
+.complaint-message.status-closed::before {
+  background-color: #9ca3af; /* Gris */
+}
+
+/* Estilo para comentarios */
+.complaint-message.complaint-comment {
+  background: rgba(255, 255, 255, 0.15); /* Más sutil */
+  font-style: italic;
+  font-size: 0.75rem;
+  padding: 0.6rem 1rem;
+}
+
+.complaint-message.complaint-comment::before {
+  content: '💬'; /* Icono de burbuja de chat */
+  background-color: transparent; /* Sin fondo de punto */
+  width: auto;
+  height: auto;
+  font-size: 1rem;
+}
+
+.message-1 {
+  width: 180px;
+  top: 15%;
+  left: 20%;
+  animation-delay: 0s;
+  background: rgba(255, 255, 255, 0.25); /* ligeramente más visible */
+}
+
+.message-2 {
+  width: 150px;
+  bottom: 25%;
+  right: 15%;
+  animation-delay: 3s;
+  background: rgba(255, 255, 255, 0.3); /* Color neutral */
+}
+
+.message-3 {
+  width: 160px;
+  top: 30%;
+  right: 20%;
+  animation-delay: 6s;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.message-4 {
+  width: 150px;
+  bottom: 40%;
+  left: 10%;
+  animation-delay: 1.5s;
+  animation-duration: 6.5s; /* Animación ligeramente más rápida */
+}
+
+.message-5 {
+  width: 150px;
+  bottom: 15%;
+  left: 35%;
+  animation-delay: 1.5s;
+  animation-duration: 6.5s;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .home-page-container {
+    padding: 1rem;
+    margin-left: var(--nav-width, 80px);
+  }
+
+  .home-page-card {
+    height: calc(100vh - 2rem);
+    max-height: calc(100vh - 2rem);
+    border-radius: 1rem;
+  }
+
+  .home-content-column {
+    padding: 2.5rem 3rem;
+    text-align: center;
+  }
+
+  .home-graphic-column {
+    min-height: 160px;
+    border-left: none;
+    border-top: 1px solid var(--border-color);
+  }
+
+  .home-title {
+    font-size: 2rem;
+  }
+
+  .home-logo {
+    width: 250px;
+    height: auto;
+    margin: 0 auto 1rem;
+  }
+}
+
+/* Mantener sin scroll de página cuando navbar cambia (transición suave) */
+@media (max-width: 1280px) {
+  .home-page-container {
+    margin-left: var(--nav-width, 80px);
+  }
 }

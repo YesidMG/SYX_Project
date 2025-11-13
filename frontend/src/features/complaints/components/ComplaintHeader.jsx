@@ -39,7 +39,7 @@ export function ComplaintHeader({ entity_name, logo, creation_date, state, optio
   const displayState = translateStateToSpanish(state)
 
   return (
-    <div className="header">
+    <div className="complaint-header">
       <div className="title">
         <figure className="entity-icon">
           <img
