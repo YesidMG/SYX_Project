@@ -81,7 +81,7 @@ export default function Navbar({ onFilterChange }) {
             {/* Solo muestra "Quejas" si inicia sesion */}
             {!isGuest && (
               <NavLink
-                to="/"
+                to="/complaints"
                 className={({ isActive }) => (isActive ? 'menu__link is-active' : 'menu__link')}
               >
                 <ComplaintLogo
@@ -132,16 +132,24 @@ export default function Navbar({ onFilterChange }) {
                 <span>iniciar sesión</span>
               </button>
             ) : (
-              <button className="auth__button" onClick={handleLogout} aria-label="Cerrar sesión">
-                <UserLogo
-                  className="write__icon"
-                  width={iconSize}
-                  height={iconSize}
-                  strokeWidth={2}
-                  color="white"
-                />
-                <span>Cerrar sesión</span>
-              </button>
+              <div className="user-section">
+                <div className="user-info">
+                  <div className="avatar" aria-hidden>
+                    {user.name?.charAt(0)?.toUpperCase() ?? 'U'}
+                  </div>
+                  <span>{user.name}</span>
+                </div>
+                <button className="auth__button" onClick={handleLogout} aria-label="Cerrar sesión">
+                  <UserLogo
+                    className="write__icon"
+                    width={iconSize}
+                    height={iconSize}
+                    strokeWidth={2}
+                    color="white"
+                  />
+                  <span>Cerrar sesión</span>
+                </button>
+              </div>
             )
           ) : (
             <button className="auth__button" onClick={handleLogin} aria-label="Iniciar sesión">

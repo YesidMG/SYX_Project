@@ -1,0 +1,25 @@
+:root {
+  --nav-width: 270px;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin-left: var(--nav-width, 270px);
+  background-color: #ffffff;
+  padding-left: 30px;
+  padding-right: 30px;
+  border-right: 1px solid #eff3f4;
+}
+
+.complaints-container {
+  background-color: #ffffff;
+}
+
+@media (max-width: 900px) {
+  .main-content {
+    padding: 1rem;
+    margin-left: var(--nav-width, 80px);
+  }
+}

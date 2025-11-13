@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import { useState, useEffect } from 'react'
 import { getCommentsByComplaint, createComment } from '../../services/api'
-import './ComplaintComponent.css'
+import './CommentSection.css'
 
 function formatDate(dateStr) {
   const date = new Date(dateStr)
@@ -75,24 +75,32 @@ export default function CommentSection({ complaintId }) {
   }
 
   return (
-    <>
-      <div className="complaint-actions">
+    <div className="comment-section">
+      <div className="comment-actions">
         {!showComments && !showCommentForm && (
           <>
-            <button className="view-comments" onClick={handleToggleComments} disabled={loading}>
+            <button
+              className="btn btn-muted view-comments"
+              onClick={handleToggleComments}
+              disabled={loading}
+            >
               Ver comentarios
             </button>
-            <button className="add-comment" onClick={handleToggleCommentForm} disabled={loading}>
+            <button
+              className="btn btn-primary add-comment"
+              onClick={handleToggleCommentForm}
+              disabled={loading}
+            >
               Comentar
             </button>
           </>
         )}
         {showComments && (
           <>
-            <button className="close-comments" onClick={handleToggleComments}>
+            <button className="btn btn-muted close-comments" onClick={handleToggleComments}>
               Cerrar comentarios
             </button>
-            <button className="add-comment" onClick={handleToggleCommentForm}>
+            <button className="btn btn-primary add-comment" onClick={handleToggleCommentForm}>
               Comentar
             </button>
           </>
@@ -107,10 +115,14 @@ export default function CommentSection({ complaintId }) {
               maxLength={500}
             />
             <div className="comment-form-buttons">
-              <button className="cancel" onClick={handleCancelComment}>
+              <button className="btn btn-outline cancel" onClick={handleCancelComment}>
                 Cancelar
               </button>
-              <button className="submit" onClick={handleAddComment}>
+              <button
+                className="btn btn-primary submit"
+                onClick={handleAddComment}
+                disabled={loading}
+              >
                 Comentar
               </button>
             </div>
@@ -126,13 +138,21 @@ export default function CommentSection({ complaintId }) {
           {!loading &&
             comments.map(comment => (
               <div key={comment.id} className="comment-item">
-                <span className="comment-date">{formatDate(comment.creation_date)}</span>
-                <span className="comment-content">{comment.content}</span>
+                <div className="comment-meta">
+                  <div className="avatar" aria-hidden>
+                    {comment.author?.charAt(0)?.toUpperCase() ?? 'U'}
+                  </div>
+                  <div className="meta-text">
+                    <div className="comment-author">{comment.author ?? 'Usuario'}</div>
+                    <div className="comment-date">{formatDate(comment.creation_date)}</div>
+                  </div>
+                </div>
+                <div className="comment-text">{comment.content}</div>
               </div>
             ))}
         </div>
       )}
-    </>
+    </div>
   )
 }
 

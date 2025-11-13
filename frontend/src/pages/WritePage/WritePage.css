@@ -1,15 +1,18 @@
+:root {
+  --nav-width: 270px;
+  --primary-color: #1e56a0;
+  --primary-dark: #133d6f;
+}
+
 .write-page {
-  min-height: 100vh;
-  margin-left: 272px;
   display: flex;
   flex-direction: column;
   justify-content: start;
+  min-height: 100vh;
+  margin-left: var(--nav-width, 270px);
   align-items: center;
+  padding: 50px;
   background: #f2f4f8;
-}
-
-.write-page header {
-  margin-top: 100px;
 }
 
 .form-section {
@@ -76,8 +79,8 @@ textarea {
   gap: 16px;
 }
 
-button.accept {
-  background: #0f62fe;
+.btn-accept {
+  background: var(--primary-color);
   color: #fff;
   border: none;
   border-radius: 6px;
@@ -88,14 +91,14 @@ button.accept {
   transition: background 0.2s;
 }
 
-button.accept:hover {
+.btn-accept:hover {
   background: #14418a;
 }
 
-button.cancel {
+.btn-cancel {
   background: #fff;
-  color: #0f62fe;
-  border: 1.5px solid #0f62fe;
+  color: var(--primary-color);
+  border: 1.5px solid var(--primary-color);
   border-radius: 6px;
   padding: 12px 0;
   font-size: 1rem;
@@ -106,10 +109,10 @@ button.cancel {
     color 0.2s;
 }
 
-button.cancel:hover {
+.btn-cancel:hover {
   background: #f2f4f8;
-  color: #14418a;
-  border-color: #14418a;
+  color: var(--primary-dark);
+  border-color: var(--primary-dark);
 }
 
 .form-section button {
@@ -120,4 +123,35 @@ button.cancel:hover {
 .form-section > div,
 .form-section > button {
   width: 100%;
+}
+
+@media (max-width: 900px) {
+  .write-page {
+    padding: 1rem;
+    margin-left: var(--nav-width, 80px);
+  }
+
+  .form-section {
+    max-width: 550px;
+    padding: 28px;
+    gap: 18px;
+    border-radius: 16px;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+    margin: 32px 12px;
+  }
+
+  .form-section > div,
+  .form-section > button {
+    width: 100%;
+  }
+
+  .buttons {
+    flex-direction: column;
+    gap: 12px;
+    align-items: stretch;
+  }
+
+  .form-section button {
+    width: 100%;
+  }
 }

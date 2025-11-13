@@ -1,0 +1,228 @@
+:root {
+  --primary-color: #1e56a0;
+  --primary-dark: #133d6f;
+  --muted: #6b7785;
+  --bg: #f7f9fb;
+  --card-bg: #ffffff;
+  --comment-bg: #e9ebef;
+  --accent: #e53e3e;
+  --border-radius: 17px;
+  --shadow: 0 8px 24px rgba(16, 24, 40, 0.06);
+  --transition: 180ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Container del section */
+.comment-section {
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 5px;
+  background: transparent;
+}
+
+/* Acción / botones */
+.comment-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 0 15px;
+}
+
+/* Botones reutilizables */
+.btn {
+  border: none;
+  padding: 8px 14px;
+  border-radius: var(--border-radius);
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition:
+    transform var(--transition),
+    box-shadow var(--transition),
+    background-color var(--transition);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Primary */
+.btn-primary {
+  background: var(--primary-color);
+  color: #fff;
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+}
+
+/* Muted / ghost */
+.btn-muted {
+  background: transparent;
+  color: var(--muted);
+  border: 1px solid rgba(16, 24, 40, 0.15);
+  padding: 8px 12px;
+}
+.btn-muted:hover {
+  color: var(--primary-dark);
+  background: rgba(30, 86, 160, 0.15);
+}
+
+/* Outline buttons */
+.btn-outline {
+  background: transparent;
+  color: var(--primary-dark);
+  border: 1px solid rgba(19, 61, 111, 0.3);
+}
+.btn-outline:hover {
+  background: rgba(19, 61, 111, 0.04);
+  transform: translateY(-2px);
+}
+
+/* Form */
+.comment-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-width: 400px;
+  margin: 5px 40px;
+  gap: 8px;
+  padding: 12px;
+  background: var(--comment-bg);
+  border: 1px solid rgba(19, 61, 111, 0.3);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+}
+
+.comment-form textarea {
+  width: 100%;
+  min-height: 80px;
+  max-height: 220px;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(16, 24, 40, 0.15);
+  resize: vertical;
+  font-size: 14px;
+  color: #12263b;
+  box-sizing: border-box;
+  transition:
+    box-shadow var(--transition),
+    border-color var(--transition);
+}
+.comment-form textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 8px 20px rgba(30, 86, 160, 0.06);
+}
+
+/* Buttons in form */
+.comment-form-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+/* Error message */
+.comment-section .error-message {
+  margin-top: 8px;
+  color: var(--accent);
+  background: rgba(229, 62, 62, 0.06);
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  border: 1px solid rgba(229, 62, 62, 0.12);
+}
+
+/* Comments list */
+.comments-list {
+  margin-top: 10px;
+  background: rgb(225, 235, 255);
+  border-radius: 12px;
+  padding: 10px 10px 5px 10px;
+  border: 1px solid rgba(16, 24, 40, 0.1);
+  max-height: 220px;
+  overflow-y: auto;
+  box-shadow: 0 8px 20px rgba(16, 24, 40, 0.03);
+}
+
+.comments-list p {
+  margin: 5px 0 10px 15px;
+  font-size: 14px;
+}
+
+/* individual comment */
+.comment-item {
+  padding: 10px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.9);
+  margin-bottom: 8px;
+  border: 1px solid rgba(16, 24, 40, 0.15);
+}
+
+/* metadata row */
+.comment-meta {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--primary-color);
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.95rem;
+  box-shadow: 0 6px 12px rgba(30, 86, 160, 0.12);
+}
+
+.meta-text {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
+.comment-author {
+  font-weight: 700;
+  color: #102040;
+  font-size: 0.95rem;
+}
+
+.comment-date {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+/* comment content */
+.comment-text,
+.comment-content {
+  padding-left: 5px;
+  font-size: 14px;
+  color: #1b2937;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* Responsive */
+@media (max-width: 720px) {
+  .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .comment-form {
+    min-width: auto;
+    margin: 5px 0;
+  }
+
+  .comment-form textarea {
+    min-height: 100px;
+  }
+
+  .comments-list {
+    max-height: 260px;
+  }
+}

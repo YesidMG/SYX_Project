@@ -15,6 +15,32 @@ body {
   background-color: #fff;
 }
 
+.loading-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  height: 100vh;
+}
+
+.message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 250px;
+  height: 25px;
+  margin: 20px;
+  padding: 5px;
+  border-radius: 14px;
+  font-size: 15px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+}
+
+.message.loading {
+  background: #f3f7ff;
+  color: #1a4fa0;
+  border: 1px solid #b3d1ff;
+}
+
 @media (min-width: 1400px) {
   .nav {
     left: calc((100% - 1400px) / 2) !important;

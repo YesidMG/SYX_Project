@@ -8,10 +8,10 @@ FormButtons.propTypes = {
 export function FormButtons({ onCancel, submitting }) {
   return (
     <div className="buttons">
-      <button className="cancel" type="button" onClick={onCancel}>
+      <button className="btn-cancel" type="button" onClick={onCancel}>
         Volver al inicio
       </button>
-      <button className="accept" type="submit" disabled={submitting}>
+      <button className="btn-accept" type="submit" disabled={submitting}>
         {submitting ? 'Enviando...' : 'Enviar'}
       </button>
     </div>

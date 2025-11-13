@@ -11,12 +11,13 @@
   --border-radius: 17px;
   --transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
   --transition-duration: 0.3s;
+  --nav-width: 270px;
 }
 
 .nav {
   position: fixed;
   inset: 0 auto 0 0;
-  width: 270px;
+  width: var(--nav-width);
   height: 100vh;
   z-index: 40;
   border-inline: 2px solid var(--border-color);
@@ -221,9 +222,32 @@
   transform: translateY(0);
 }
 
+.user-info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+  gap: 10px;
+  font-size: 18px;
+}
+
+.avatar {
+  height: 40px;
+  width: 40px;
+}
+
+.user-info span {
+  opacity: 1;
+}
+
 @media (max-width: 1280px) {
+  :root {
+    --nav-width: 80px;
+  }
+
   .nav {
-    width: 80px;
+    width: var(--nav-width);
   }
 
   .nav__inner {
@@ -280,6 +304,11 @@
   .write__icon {
     padding: 0;
     margin: 0;
+  }
+
+  .user-info span {
+    display: none;
+    opacity: 0;
   }
 }
 

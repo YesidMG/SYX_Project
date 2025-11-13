@@ -1,14 +1,14 @@
 .title-container {
   width: auto;
   text-align: center;
-  padding: 12px 20px;
-  border-bottom: 1px solid #878d96;
+  padding: 20px 20px;
+  border-bottom: 2px solid #b5bbc2;
 }
 
 .title-sub {
-  font-size: 1rem;
+  font-size: 1.2rem;
   font-weight: 600;
-  color: #001d6c;
+  color: #133d6f;
   margin: 3px 0 0 0;
   letter-spacing: 0.5px;
 }

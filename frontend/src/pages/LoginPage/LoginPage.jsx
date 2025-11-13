@@ -43,7 +43,7 @@ export default function LoginPage() {
       <div className="login-container">
         <div className="login-logo">
           <img src={logo} alt="SYX Complaints" />
-          <h2>Iniciar Sesión</h2>
+          <h2>INICIAR SESIÓN</h2>
         </div>
         <form className="login-form" onSubmit={handleSubmit}>
           <div className="form-group">
