@@ -94,3 +94,10 @@ export async function deleteComment(id) {
   if (!res.ok) throw new Error('Error al eliminar el comentario')
   return res.status === 204 ? null : res.json()
 }
+
+// Obtener el historial de estados
+export async function getStateHistory() {
+  const res = await fetch(`${API_URL}/history/state-history`)
+  if (!res.ok) throw new Error('Error al obtener el historial de estados')
+  return res.json()
+}
