@@ -9,6 +9,9 @@
     "changelog": "auto-changelog -p",
     "version": "auto-changelog -p && git add CHANGELOG.md"
   },
+  "jest": {
+    "setupFiles": ["<rootDir>/jest.setup.js"]
+  },
   "devDependencies": {
     "standard-version": "^9.5.0"
   }

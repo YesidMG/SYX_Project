@@ -41,7 +41,19 @@ class ComplaintService {
   }
 
   async getComplaintsPaginated({ page, limit, entityId }) {
-    return await complaintRepo.findPaginated({ page, limit, entityId })
+    const where = entityId ? { entityId: Number(entityId) } : {}
+    const complaints = await prisma.complaint.findMany({
+      where,
+      orderBy: { creation_date: 'desc' },
+      skip: (page - 1) * limit,
+      take: limit,
+      include: {
+        entity: true,
+        comments: true,
+      },
+    })
+    const total = await prisma.complaint.count({ where })
+    return { complaints, total }
   }
 
   async updateComplaintState(complaintId, newState) {
