@@ -79,6 +79,7 @@ exports.updateState = async (req, res, next) => {
 
     res.json(updatedComplaint)
   } catch (err) {
+    console.error('[PATCH /complaints/:id/state] Error:', err)
     next(err)
   }
 }
