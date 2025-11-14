@@ -1,4 +1,5 @@
 const complaintService = require('../services/complaint.service')
+const sendComplaintEvent = require('../rabbitmq/sendComplaintEvent')
 
 exports.getAll = async (req, res, next) => {
   try {
@@ -60,7 +61,22 @@ exports.updateState = async (req, res, next) => {
   try {
     const complaintId = Number(req.params.id)
     const newState = req.body.state
+
+    // Obtener la queja y el estado anterior
+    const complaint = await complaintService.getComplaintById(complaintId)
+    const prevState = complaint.state
+
+    // Actualizar el estado usando el servicio
     const updatedComplaint = await complaintService.updateComplaintState(complaintId, newState)
+
+    // Enviar el evento a RabbitMQ
+    console.log('Actualizando estado de queja:', complaintId, prevState, newState)
+    await sendComplaintEvent({
+      complaintId,
+      prevState,
+      newState,
+    })
+
     res.json(updatedComplaint)
   } catch (err) {
     next(err)

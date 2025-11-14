@@ -34,8 +34,12 @@ export default function LoginPage() {
   }
 
   const handleGuest = () => {
-    guest()
-    navigate('/write')
+    if (typeof guest === 'function') {
+      guest()
+    } else {
+      loginUser({ name: 'Invitado', isGuest: true })
+    }
+    navigate('/')
   }
 
   return (
