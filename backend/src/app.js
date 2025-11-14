@@ -8,6 +8,7 @@ const entitiesRouter = require('./routers/entity.router')
 const complaintsRouter = require('./routers/complaint.router')
 const commentsRouter = require('./routers/comment.router')
 const authRoutes = require('./routers/auth.routes')
+const historyRouter = require('./routers/history.router')
 
 const app = express()
 
@@ -21,6 +22,7 @@ app.use('/entities', entitiesRouter)
 app.use('/complaints', complaintsRouter)
 app.use('/comments', commentsRouter)
 app.use('/api/auth', authRoutes)
+app.use('/history', historyRouter)
 
 // Serve static files
 app.use(express.static(path.join(__dirname, '../../frontend/dist')))

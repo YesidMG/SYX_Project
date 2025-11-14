@@ -11,6 +11,7 @@ import WritePage from './pages/WritePage/WritePage'
 import LoginPage from './pages/LoginPage/LoginPage'
 import Navbar from './components/NavBar/Navbar'
 import { Message } from './components/Message'
+import StateHistoryPage from './pages/StateHistoryPage/StateHistoryPage'
 import './App.css'
 
 function PrivateRoute({ children }) {
@@ -128,6 +129,14 @@ function AppRoutes() {
           element={
             <PrivateRoute>
               <WritePage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/state-history"
+          element={
+            <PrivateRoute>
+              <StateHistoryPage />
             </PrivateRoute>
           }
         />

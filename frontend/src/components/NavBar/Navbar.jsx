@@ -9,6 +9,7 @@ import ComplaintLogo from '../../assets/email.svg?react'
 import ReportLogo from '../../assets/file.svg?react'
 import WriteLogo from '../../assets/pencil.svg?react'
 import UserLogo from '../../assets/user.svg?react'
+import HistoryLogo from '../../assets/history.svg?react'
 import { logout as logoutApi } from '../../services/authApi'
 import './Navbar.css'
 
@@ -121,6 +122,22 @@ export default function Navbar({ onFilterChange }) {
               />
               <span>Reportes</span>
             </NavLink>
+            {!isGuest && (
+              <NavLink
+                to="/state-history"
+                className={({ isActive }) => (isActive ? 'menu__link is-active' : 'menu__link')}
+                style={{ marginTop: '8px' }}
+              >
+                <HistoryLogo
+                  className="menu__icon"
+                  width={iconSize}
+                  height={iconSize}
+                  strokeWidth={1.2}
+                  color="black"
+                />
+                <span>Historial estados</span>
+              </NavLink>
+            )}
           </nav>
         </div>
         {/* Footer en la parte inferior del navbar */}
