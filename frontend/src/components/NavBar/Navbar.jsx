@@ -9,7 +9,7 @@ import ComplaintLogo from '../../assets/email.svg?react'
 import ReportLogo from '../../assets/file.svg?react'
 import WriteLogo from '../../assets/pencil.svg?react'
 import UserLogo from '../../assets/user.svg?react'
-import { logout } from '../../services/authApi'
+import { logout as logoutApi } from '../../services/authApi'
 import './Navbar.css'
 
 const API_URL = import.meta.env.VITE_API_URL
@@ -24,7 +24,7 @@ export default function Navbar({ onFilterChange }) {
   const { user, logout: logoutContext } = useAuth()
   const isGuest = user?.isGuest
   const navigate = useNavigate()
-  const isHomeRoute = useMemo(() => location.pathname === '/', [location.pathname])
+  const isHomeRoute = useMemo(() => location.pathname === '/complaints', [location.pathname])
 
   const handleFilterChange = useMemo(
     () => value => {
@@ -34,16 +34,22 @@ export default function Navbar({ onFilterChange }) {
   )
 
   const handleLogout = async () => {
-    const data = await logout(user?.name)
-    if (data.message === 'conexion finalizada') {
-      logoutContext()
+    try {
+      const data = await logoutApi(user?.name)
+      if (data && data.message === 'conexion finalizada') {
+        await logoutContext()
+        navigate('/login')
+        return
+      }
+    } catch (error) {
+      console.error('Error llamando al Api logout', error)
+      await logoutContext()
       navigate('/login')
-    } else {
-      alert('Error al cerrar sesión')
     }
   }
 
   const handleLogin = () => {
+    logoutContext()
     navigate('/login')
   }
 
@@ -129,7 +135,7 @@ export default function Navbar({ onFilterChange }) {
                   strokeWidth={2}
                   color="white"
                 />
-                <span>iniciar sesión</span>
+                <span>Iniciar sesión</span>
               </button>
             ) : (
               <div className="user-section">

@@ -14,7 +14,7 @@ import { Message } from './components/Message'
 import './App.css'
 
 function PrivateRoute({ children }) {
-  const { user, logout } = useAuth()
+  const { user, logout, initializing } = useAuth()
   const location = useLocation()
   const [checking, setChecking] = useState(false)
   const [expired, setExpired] = useState(false)
@@ -25,11 +25,16 @@ function PrivateRoute({ children }) {
       // Solo verifica estado si NO es invitado
       if (user && !user.isGuest) {
         setChecking(true)
-        const status = await checkUserStatus(user.name)
-        setChecking(false)
-        if (!ignore && status !== 'activo') {
-          setExpired(true)
-          logout()
+        try {
+          const status = await checkUserStatus(user.name)
+          if (!ignore && status !== 'activo') {
+            setExpired(true)
+            logout()
+          }
+        } catch (error) {
+          console.error('Error verificando user status', error)
+        } finally {
+          if (!ignore) setChecking(false)
         }
       }
     }
@@ -38,7 +43,16 @@ function PrivateRoute({ children }) {
       ignore = true
     }
     // eslint-disable-next-line
-  }, [location.pathname])
+  }, [location.pathname, user])
+
+  // Esperar la inicialización del AuthProvider (evita redirección inmediata al recargar)
+  if (initializing) {
+    return (
+      <div className="loading-container">
+        <Message type="loading">Verificando sesión...</Message>
+      </div>
+    )
+  }
 
   // Si no hay usuario, redirige a login
   if (!user) return <Navigate to="/login" state={{ from: location }} replace />
