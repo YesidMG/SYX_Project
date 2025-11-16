@@ -12,7 +12,7 @@ SYX Project es una aplicación web que permite a los ciudadanos redactar y consu
 - Validación con Google reCAPTCHA.
 - Realizar comentarios a una queja
 - Eliminar quejas(administrador)
-- Ves estado de las quejas 
+- Ves estado de las quejas
 - API RESTful documentada y testeada.
 
 ## Tecnologías
@@ -125,14 +125,14 @@ SYX_Project/
 │   │   ├── repositories/
 │   │   ├── routes/
 │   │   ├── services/
-│   │   └── utils/  
+│   │   └── utils/
 │   ├── public/
 │   ├── dist/
 │   ├── tests/
 │   ├── prettierrc.json
 │   ├── package-lock.json
 │   ├── package.json
-│   ├── app.js 
+│   ├── app.js
 │   └── server.js
 │
 ├── frontend/
@@ -160,6 +160,7 @@ Para ejecutar los tests del backend:
 cd backend
 npm test
 ```
+
 ##Versionado y Changelog
 
 Este proyecto usa [Conventional Commits](https://www.conventionalcommits.org/es/v1.0.0/) y [standard-version](https://github.com/conventional-changelog/standard-version) para el versionado automático y la generación del changelog.
@@ -171,9 +172,8 @@ Este proyecto usa [Conventional Commits](https://www.conventionalcommits.org/es/
 2. Ejecuta el comando de release:
    ```bash
    npm run release
-
+   ```
 
 ## Sistema desplegado
+
 https://syx-project.onrender.com
-
-
