@@ -11,6 +11,7 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+  schemas  = ["public", "history"]
 }
 
 model Entity {
@@ -20,6 +21,7 @@ model Entity {
   complaints Complaint[]
 
   @@map("entities")
+  @@schema("public")
 }
 
 model Complaint {
@@ -32,6 +34,16 @@ model Complaint {
   comments Comment[]
 
   @@map("complaints")
+  @@schema("public")
+}
+
+enum ComplaintState {
+  OPEN
+  UNDER_REVIEW
+  CLOSED
+  DELETED
+  
+  @@schema("public")
 }
 
 model Comment {
@@ -42,11 +54,17 @@ model Comment {
   complaint   Complaint @relation(fields: [complaint_id], references: [id])
 
   @@map("comments")
+  @@schema("public")
 }
 
-enum ComplaintState {
-  OPEN
-  UNDER_REVIEW
-  CLOSED
-  DELETED
+model ComplaintHistory {
+  id           Int      @id @default(autoincrement())
+  complaint_id Int
+  description  String
+  prev_state   ComplaintState
+  new_state    ComplaintState
+  change_date  DateTime @default(now())
+
+  @@map("complaint_history")
+  @@schema("history")
 }

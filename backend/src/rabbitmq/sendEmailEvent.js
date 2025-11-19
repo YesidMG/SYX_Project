@@ -1,4 +1,3 @@
-require('dotenv').config()
 const amqp = require('amqplib')
 
 async function sendEmailEvent({ to, userName, reportName, generatedAt }) {

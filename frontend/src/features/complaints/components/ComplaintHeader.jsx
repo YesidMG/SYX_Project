@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import { translateStateToSpanish } from '../../../utils/translateState'
 
 function formatDate(dateStr) {
   const date = new Date(dateStr)
@@ -6,25 +7,6 @@ function formatDate(dateStr) {
   const month = (date.getMonth() + 1).toString().padStart(2, '0')
   const year = date.getFullYear()
   return `${day}/${month}/${year}`
-}
-
-function translateStateToSpanish(state) {
-  if (!state) return ''
-  switch (state.toUpperCase()) {
-    case 'OPEN':
-      return 'Abierta'
-    case 'UNDER_REVIEW':
-      return 'En revisión'
-    case 'CLOSED':
-      return 'Cerrada'
-    case 'DELETED':
-      return 'Eliminada'
-    default:
-      return state
-        .toLowerCase()
-        .replace(/_/g, ' ')
-        .replace(/(^|\s)\S/g, s => s.toUpperCase())
-  }
 }
 
 ComplaintHeader.propTypes = {
