@@ -10,8 +10,9 @@ async function sendEmailEvent({ to, userName, reportName, generatedAt }) {
 
   const exchange = 'email_events'
 
+  // Exchange durable para que la cola vinculada permanezca aunque no haya consumidores.
   await channel.assertExchange(exchange, 'fanout', {
-    durable: false, // Exchange efímero
+    durable: true,
   })
 
   const message = JSON.stringify({
@@ -21,7 +22,9 @@ async function sendEmailEvent({ to, userName, reportName, generatedAt }) {
     generatedAt: new Date(generatedAt || Date.now()).toISOString(),
   })
 
-  channel.publish(exchange, '', Buffer.from(message))
+  // Publicar mensaje marcado como persistente; la cola durable conservará su existencia
+  // y el mensaje será almacenado hasta que un consumidor lo consuma (y confirme).
+  channel.publish(exchange, '', Buffer.from(message), { persistent: true })
 
   console.log('Evento EMAIL publicado en RabbitMQ:', message)
 
