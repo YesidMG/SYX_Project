@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { getStateHistory } from '../../services/api'
+import { translateStateToSpanish } from '../../utils/translateState'
 import './StateHistoryPage.css'
 
 export default function StateHistoryPage() {
@@ -33,9 +34,9 @@ export default function StateHistoryPage() {
             {history.map(ev => (
               <tr key={ev.id}>
                 <td>{ev.complaint_id}</td>
-                <td>{ev.prev_state}</td>
-                <td>{ev.new_state}</td>
-                <td>{new Date(ev.timestamp).toLocaleString()}</td>
+                <td>{translateStateToSpanish(ev.prev_state)}</td>
+                <td>{translateStateToSpanish(ev.new_state)}</td>
+                <td>{new Date(ev.change_date).toLocaleString()}</td>
               </tr>
             ))}
           </tbody>
