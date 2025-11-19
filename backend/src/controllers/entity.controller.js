@@ -30,20 +30,17 @@ exports.create = async (req, res, next) => {
 
 exports.getReport = async (req, res, next) => {
   try {
-    const report = await entityService.getEntitiesWithComplaintCount()
+    const report = await entityService.getEntitiesWithComplaintCount();
 
-    // Si viene el query ?notify=true entonces mandamos evento a RabbitMQ
-    if (String(req.query.notify).toLowerCase() === 'true') {
-      await sendEmailEvent({
-        to: req.query.to,
-        userName: req.body.userName,
-        reportName: 'Reporte de Entidades con Conteo de Quejas',
-        generatedAt: new Date(),
-      })
-    }
+    await sendEmailEvent({
+      to: process.env.REPORT_EMAIL_TO,
+      userName: req.body.userName ,
+      reportName: "Reporte de Entidades",
+      generatedAt: new Date()
+    });
 
-    res.json(report)
+    res.json(report);
   } catch (err) {
-    next(err)
+    next(err);
   }
-}
+};

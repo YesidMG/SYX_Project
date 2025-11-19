@@ -23,6 +23,7 @@ export default function LoginPage() {
       const data = await login(username, password)
       if (data.message === 'conexion aceptada') {
         loginUser({ name: username })
+        localStorage.setItem({name: username})
         navigate('/')
       } else {
         setError(data.message || 'Error de autenticación')

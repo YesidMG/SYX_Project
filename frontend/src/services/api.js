@@ -20,20 +20,18 @@ export async function getEntities(signal) {
 
 // Obtener reportes de entidades
 export async function getEntityReport(signal) {
-  const res = await fetch(`${API_URL}/entities/report`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({}),
+  const userName = localStorage.getItem("userName");
+
+  const res = await fetch(`${API_URL}/entities/report?notify=true`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
     signal,
-  })
+    body: JSON.stringify({ userName })
+  });
 
-  if (!res.ok) {
-    const errorData = await res.json()
-    throw new Error(errorData.error || 'Error al obtener el reporte de entidades')
-  }
-
-  return res.json()
+  return await res.json();
 }
+
 
 // Enviar una nueva queja
 export async function postComplaint({ entity_id, description }) {

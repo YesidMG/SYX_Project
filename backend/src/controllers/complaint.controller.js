@@ -1,8 +1,16 @@
 const complaintService = require('../services/complaint.service')
 const sendComplaintEvent = require('../rabbitmq/sendComplaintEvent')
+const sendEmailEvent = require("../rabbitmq/sendEmailEvent");
 
 exports.getAll = async (req, res, next) => {
   try {
+    const { userName } = req.query;
+     await sendEmailEvent({
+      to: process.env.REPORT_EMAIL_TO,
+      userName: userName,
+      reportName: "Historial de Estados",
+      generatedAt: new Date()
+    });
     const { page = 1, limit = 10, entity_id } = req.query
     const paginated = await complaintService.getComplaintsPaginated({
       page: Number(page),
