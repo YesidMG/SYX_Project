@@ -17,10 +17,12 @@ module.exports = {
             creation_date: true,
             complaint_id: true,
           },
-          orderBy: [{ creation_date: 'desc' }, { id: 'desc' }],
+          orderBy: {
+            creation_date: 'desc',
+          },
         },
       },
-      orderBy: [{ creation_date: 'desc' }, { id: 'desc' }],
+      orderBy: { creation_date: 'desc' },
     })
   },
 
@@ -30,7 +32,9 @@ module.exports = {
       include: {
         entity: true,
         comments: {
-          orderBy: [{ creation_date: 'desc' }, { id: 'desc' }],
+          orderBy: {
+            creation_date: 'desc',
+          },
         },
       },
     })
@@ -45,10 +49,12 @@ module.exports = {
       include: {
         entity: true,
         comments: {
-          orderBy: [{ creation_date: 'desc' }, { id: 'desc' }],
+          orderBy: {
+            creation_date: 'desc',
+          },
         },
       },
-      orderBy: [{ creation_date: 'desc' }, { id: 'desc' }],
+      orderBy: { creation_date: 'desc' },
     })
   },
 
@@ -63,6 +69,9 @@ module.exports = {
             content: true,
             creation_date: true,
             complaint_id: true,
+          },
+          orderBy: {
+            creation_date: 'desc',
           },
         },
       },
@@ -82,10 +91,10 @@ module.exports = {
         include: {
           entity: true,
           comments: {
-            orderBy: [{ creation_date: 'desc' }, { id: 'desc' }],
+            orderBy: { creation_date: 'desc' },
           },
         },
-        orderBy: [{ creation_date: 'desc' }, { id: 'desc' }],
+        orderBy: { creation_date: 'desc' },
         skip,
         take: limit,
       }),
@@ -102,7 +111,9 @@ module.exports = {
       include: {
         entity: true,
         comments: {
-          orderBy: [{ creation_date: 'desc' }, { id: 'desc' }],
+          orderBy: {
+            creation_date: 'desc',
+          },
         },
       },
     })
