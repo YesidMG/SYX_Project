@@ -25,8 +25,8 @@ export default function LoginPage() {
         // Guardar usuario en localStorage con la clave `syx_user` (AuthProvider lo espera)
         try {
           localStorage.setItem('syx_user', JSON.stringify({ name: username }))
-        } catch (e) {
-          // ignore storage errors
+        } catch (storageErr) {
+          console.warn('Could not write syx_user to localStorage', storageErr)
         }
         loginUser({ name: username })
         navigate('/')
@@ -34,6 +34,7 @@ export default function LoginPage() {
         setError(data.message || 'Error de autenticación')
       }
     } catch (err) {
+      console.error('Login error:', err)
       setError('No se pudo conectar al backend')
     }
   }
