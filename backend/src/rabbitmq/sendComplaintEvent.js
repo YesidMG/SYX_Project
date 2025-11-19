@@ -13,7 +13,11 @@ async function sendComplaintEvent({ complaintId, description, prevState, newStat
     changeDate: new Date().toISOString(),
   })
   channel.sendToQueue(queue, Buffer.from(message))
-  console.log('[',new Date().toLocaleString(),']: Evento de cambio de estado de queja enviado a RabbitMQ')
+  console.log(
+    '[',
+    new Date().toLocaleString(),
+    ']: Evento de cambio de estado de queja enviado a RabbitMQ'
+  )
   console.log('Mensaje del evento:', message)
   await channel.close()
   await conn.close()
