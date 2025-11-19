@@ -22,7 +22,7 @@ export default function LoginPage() {
     try {
       const data = await login(username, password)
       if (data.message === 'conexion aceptada') {
-        localStorage.setItem({name: username})
+        localStorage.setItem({ name: username })
         loginUser({ name: username })
         navigate('/')
       } else {
