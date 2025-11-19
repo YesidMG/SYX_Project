@@ -70,9 +70,10 @@ exports.updateState = async (req, res, next) => {
     const updatedComplaint = await complaintService.updateComplaintState(complaintId, newState)
 
     // Enviar el evento a RabbitMQ
-    console.log('Actualizando estado de queja:', complaintId, prevState, newState)
+    console.log('Actualizando estado de queja (', complaintId, ' ) : ', prevState, ' -> ', newState)
     await sendComplaintEvent({
       complaintId,
+      description: complaint.description,
       prevState,
       newState,
     })
