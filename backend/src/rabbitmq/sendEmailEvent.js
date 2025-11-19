@@ -16,8 +16,12 @@ async function sendEmailEvent({ to, userName, reportName, generatedAt }) {
 
   channel.sendToQueue(queue, Buffer.from(message), { persistent: true })
 
-  console.log('Evento EMAIL publicado en RabbitMQ:', message)
-
+  console.log(
+    '[',
+    new Date().toLocaleString(),
+    ']: Evento de notificación EMAIL enviado a RabbitMQ'
+  )
+  console.log('Mensaje del evento:', message)
   await channel.close()
   await conn.close()
 }

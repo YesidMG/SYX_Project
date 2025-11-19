@@ -20,6 +20,7 @@ export async function getEntities(signal) {
 
 // Obtener reportes de entidades
 export async function getEntityReport(signal) {
+  console.log('[', new Date().toLocaleString(), ']: Obteniendo reporte de entidades')
   const res = await fetch(`${API_URL}/entities/report`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
