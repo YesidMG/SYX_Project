@@ -32,8 +32,15 @@ exports.getReport = async (req, res, next) => {
   try {
     console.log('BODY RECEIVED IN /entities/report:', req.body)
 
-    const userName = req.body.userName
-    const reportName = req.body.reportName
+    // Si viene el query ?notify=true entonces mandamos evento a RabbitMQ
+    if (String(req.query.notify).toLowerCase() === 'true') {
+      await sendEmailEvent({
+        to: process.env.NOTIFY_EMAIL_USER,
+        userName: req.body.userName,
+        reportName: 'Reporte de Entidades con Conteo de Quejas',
+        generatedAt: new Date(),
+      })
+    }
 
     await sendEmailEvent({
       to: process.env.REPORT_EMAIL_TO,

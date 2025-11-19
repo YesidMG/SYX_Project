@@ -5,8 +5,9 @@ const amqp = require('amqplib')
  * Publica un evento de email en RabbitMQ usando un exchange fanout.
  */
 async function sendEmailEvent({ to, userName, reportName, generatedAt }) {
-  const conn = await amqp.connect(process.env.RABBITMQ_URL + '?heartbeat=30')
+  const conn = await amqp.connect(process.env.RABBITMQ_URL)
   const channel = await conn.createChannel()
+  const queue = 'email_queue'
 
   const exchange = 'email_events'
 
