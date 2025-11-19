@@ -1,9 +1,9 @@
 const amqp = require('amqplib')
 
 async function sendEmailEvent({ to, userName, reportName, generatedAt }) {
-  const conn = await amqp.connect(process.env.RABBITMQ_URL + '?heartbeat=30')
+  const conn = await amqp.connect(process.env.RABBITMQ_URL)
   const channel = await conn.createChannel()
-  const queue = 'email-queue'
+  const queue = 'email_queue'
 
   await channel.assertQueue(queue, { durable: true })
 
