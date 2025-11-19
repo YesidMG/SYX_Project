@@ -18,19 +18,27 @@ export async function getEntities(signal) {
   return res.json()
 }
 export async function getEntityReport(signal) {
-  const userName = localStorage.getItem("userName");
+  // Obtener userName desde el objeto `syx_user` guardado por AuthProvider
+  let userName = null
+  try {
+    const raw = localStorage.getItem('syx_user')
+    if (raw) {
+      const parsed = JSON.parse(raw)
+      userName = parsed?.name || null
+    }
+  } catch (err) {
+    // fallback a key antigua por compatibilidad
+    userName = localStorage.getItem('userName') || null
+  }
 
   const res = await fetch(`${API_URL}/entities/report`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
     signal,
-    body: JSON.stringify({
-      userName,
-      reportName: "Reporte de Entidades"
-    }),
-  });
+    body: JSON.stringify({ userName, reportName: 'Reporte de Entidades' }),
+  })
 
-  return res.json();
+  return res.json()
 }
 
 // Enviar una nueva queja
@@ -104,13 +112,23 @@ export async function deleteComment(id) {
 }
 
 export async function getStateHistory() {
-  const userName = localStorage.getItem("userName");
+  // Obtener userName desde `syx_user` (AuthProvider)
+  let userName = null
+  try {
+    const raw = localStorage.getItem('syx_user')
+    if (raw) {
+      const parsed = JSON.parse(raw)
+      userName = parsed?.name || null
+    }
+  } catch (err) {
+    userName = localStorage.getItem('userName') || null
+  }
 
   const res = await fetch(
-    `${API_URL}/history/state-history?userName=${encodeURIComponent(userName)}&reportName=${encodeURIComponent("Historial de Estados")}`
-  );
+    `${API_URL}/history/state-history?userName=${encodeURIComponent(userName || '')}&reportName=${encodeURIComponent('Historial de Estados')}`
+  )
 
-  const data = await res.json();
-  return Array.isArray(data) ? data : [];
+  const data = await res.json()
+  return Array.isArray(data) ? data : []
 }
 
