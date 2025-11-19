@@ -22,14 +22,18 @@ export default function LoginPage() {
     try {
       const data = await login(username, password)
       if (data.message === 'conexion aceptada') {
-        localStorage.setItem({ name: username })
+        // Guardar usuario en localStorage con la clave `syx_user` (AuthProvider lo espera)
+        try {
+          localStorage.setItem('syx_user', JSON.stringify({ name: username }))
+        } catch (e) {
+          // ignore storage errors
+        }
         loginUser({ name: username })
         navigate('/')
       } else {
         setError(data.message || 'Error de autenticación')
       }
     } catch (err) {
-      console.error('Error en login:', err)
       setError('No se pudo conectar al backend')
     }
   }
