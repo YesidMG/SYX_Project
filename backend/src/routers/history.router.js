@@ -4,6 +4,7 @@ const historyController = require('../controllers/history.controller')
 
 // GET historial de estados
 router.get('/state-history', historyController.getStateHistory)
+router.post('/completed-complaints-report', historyController.getCompletedComplaintsReport)
 
 // Middleware de manejo de errores
 router.use((err, req, res, next) => {

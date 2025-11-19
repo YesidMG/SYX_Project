@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
-import { getEntityReport } from '../../../services/api'
 
-export function useEntityReport() {
+export function useReport(fetcher, deps = [], enabled = true) {
   const [data, setData] = useState([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
@@ -10,11 +9,11 @@ export function useEntityReport() {
     setLoading(true)
     setError(null)
     try {
-      const result = await getEntityReport(signal)
+      const result = await fetcher(signal)
       setData(result)
-    } catch (error) {
-      if (error.name !== 'AbortError') {
-        setError(error.message)
+    } catch (err) {
+      if (err.name !== 'AbortError') {
+        setError(err.message ?? String(err))
         setData([])
       }
     } finally {
@@ -23,10 +22,12 @@ export function useEntityReport() {
   }
 
   useEffect(() => {
+    if (!enabled) return
     const controller = new AbortController()
     fetchReport(controller.signal)
     return () => controller.abort()
-  }, [])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [...deps, enabled])
 
   return { data, loading, error }
 }

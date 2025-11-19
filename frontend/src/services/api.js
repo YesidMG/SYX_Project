@@ -1,4 +1,5 @@
 const API_URL = import.meta.env.VITE_API_URL
+const SEND_NOTIFICATIONS = 'true'
 
 // Obtener todas las quejas
 export async function getComplaints(entityId, page = 1, limit = 10, signal) {
@@ -19,12 +20,15 @@ export async function getEntities(signal) {
 }
 
 // Obtener reportes de entidades
-export async function getEntityReport(signal) {
+export async function getEntityReport(signal, userName) {
   console.log('[', new Date().toLocaleString(), ']: Obteniendo reporte de entidades')
-  const res = await fetch(`${API_URL}/entities/report`, {
+  const url = new URL(`${API_URL}/entities/report`)
+  url.searchParams.set('notify', SEND_NOTIFICATIONS)
+
+  const res = await fetch(url.toString(), {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({}),
+    body: JSON.stringify({ userName }),
     signal,
   })
 
@@ -110,5 +114,21 @@ export async function deleteComment(id) {
 export async function getStateHistory() {
   const res = await fetch(`${API_URL}/history/state-history`)
   if (!res.ok) throw new Error('Error al obtener el historial de estados')
+  return res.json()
+}
+
+// Obtener el reporte de quejas completadas
+export async function getCompletedComplaintsReport(signal, userName) {
+  console.log('[', new Date().toLocaleString(), ']: Obteniendo reporte de quejas completadas')
+  const url = new URL(`${API_URL}/history/completed-complaints-report`)
+  url.searchParams.set('notify', SEND_NOTIFICATIONS)
+
+  const res = await fetch(url.toString(), {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ userName }),
+    signal,
+  })
+  if (!res.ok) throw new Error('Error al obtener el reporte de quejas completadas')
   return res.json()
 }
