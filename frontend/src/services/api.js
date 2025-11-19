@@ -17,21 +17,21 @@ export async function getEntities(signal) {
   if (!res.ok) throw new Error('Error al obtener entidades')
   return res.json()
 }
-
-// Obtener reportes de entidades
 export async function getEntityReport(signal) {
   const userName = localStorage.getItem("userName");
 
-  const res = await fetch(`${API_URL}/entities/report?notify=true`, {
+  const res = await fetch(`${API_URL}/entities/report`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     signal,
-    body: JSON.stringify({ userName })
+    body: JSON.stringify({
+      userName,
+      reportName: "Reporte de Entidades"
+    }),
   });
 
-  return await res.json();
+  return res.json();
 }
-
 
 // Enviar una nueva queja
 export async function postComplaint({ entity_id, description }) {
@@ -103,9 +103,14 @@ export async function deleteComment(id) {
   return res.status === 204 ? null : res.json()
 }
 
-// Obtener el historial de estados
 export async function getStateHistory() {
-  const res = await fetch(`${API_URL}/history/state-history`)
-  if (!res.ok) throw new Error('Error al obtener el historial de estados')
-  return res.json()
+  const userName = localStorage.getItem("userName");
+
+  const res = await fetch(
+    `${API_URL}/history/state-history?userName=${encodeURIComponent(userName)}&reportName=${encodeURIComponent("Historial de Estados")}`
+  );
+
+  const data = await res.json();
+  return Array.isArray(data) ? data : [];
 }
+

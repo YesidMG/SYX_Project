@@ -14,6 +14,7 @@ const app = express()
 
 // Middlewares
 app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 // CORS Configuration
 app.use(cors({ origin: FRONTEND_URL }))
 
