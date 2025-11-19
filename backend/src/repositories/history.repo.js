@@ -11,7 +11,6 @@ module.exports = {
         new_state: true,
         change_date: true,
       },
-    });
-  }
-
+    })
+  },
 }
