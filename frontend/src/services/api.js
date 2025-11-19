@@ -1,3 +1,4 @@
+/* global userName */
 const API_URL = import.meta.env.VITE_API_URL
 
 // Obtener todas las quejas
