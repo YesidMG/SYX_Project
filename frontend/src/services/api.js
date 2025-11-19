@@ -18,20 +18,7 @@ export async function getEntities(signal) {
   return res.json()
 }
 export async function getEntityReport(signal) {
-  // Obtener userName desde el objeto `syx_user` guardado por AuthProvider
-  let userName = null
-  try {
-    const raw = localStorage.getItem('syx_user')
-    if (raw) {
-      const parsed = JSON.parse(raw)
-      userName = parsed?.name || null
-    }
-  } catch (err) {
-    console.error(err)
-    // fallback a key antigua por compatibilidad
-    userName = localStorage.getItem('userName') || null
-  }
-
+  console.log('[', new Date().toLocaleString(), ']: Obteniendo reporte de entidades')
   const res = await fetch(`${API_URL}/entities/report`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
