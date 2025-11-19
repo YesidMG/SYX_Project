@@ -27,7 +27,7 @@ export async function getEntityReport(signal) {
       userName = parsed?.name || null
     }
   } catch (err) {
-    console.error(err);
+    console.error(err)
     // fallback a key antigua por compatibilidad
     userName = localStorage.getItem('userName') || null
   }
@@ -122,6 +122,7 @@ export async function getStateHistory() {
       userName = parsed?.name || null
     }
   } catch (err) {
+    console.error(err)
     userName = localStorage.getItem('userName') || null
   }
 
